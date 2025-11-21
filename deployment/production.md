@@ -8,7 +8,7 @@ Complete guide to deploying Alphavel in production environments.
 
 Before going to production:
 
-- [ ] Enable route caching (`./alphavel route:cache`)
+- [ ] Enable route caching (`alpha route:cache`)
 - [ ] Set `APP_ENV=production` in `.env`
 - [ ] Set `APP_DEBUG=false` in `.env`
 - [ ] Enable OPcache in `php.ini`
@@ -48,7 +48,7 @@ WORKDIR /app
 RUN composer install --no-dev --optimize-autoloader --classmap-authoritative
 
 # Cache routes
-RUN ./alphavel route:cache
+RUN alpha route:cache
 
 # Set permissions
 RUN chown -R www-data:www-data storage bootstrap/cache
@@ -61,7 +61,7 @@ HEALTHCHECK --interval=30s --timeout=3s \
 EXPOSE 9501
 
 # Start server
-CMD ["./alphavel", "serve", "--workers=auto"]
+CMD ["alpha", "serve", "--workers=auto"]
 ```
 
 ### docker-compose.yml (Production)
@@ -444,7 +444,7 @@ return [
 ### 3. Cache Routes
 
 ```bash
-./alphavel route:cache
+alpha route:cache
 ```
 
 ---
@@ -628,7 +628,7 @@ kubectl rollout undo deployment/alphavel-api
 docker stats
 
 # Reduce workers
-SWOOLE_WORKERS=8 ./alphavel serve
+SWOOLE_WORKERS=8 alpha serve
 
 # Enable worker recycling
 # config/swoole.php: max_request = 5000

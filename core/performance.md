@@ -108,10 +108,10 @@ Route caching compiles all routes into a single optimized file.
 
 ```bash
 # Cache routes
-./alphavel route:cache
+alpha route:cache
 
 # Clear cache
-./alphavel route:clear
+alpha route:clear
 ```
 
 ### Performance Impact
@@ -136,13 +136,13 @@ $routes = require __DIR__.'/../bootstrap/cache/routes.php';
 ✅ **Always cache in production**
 ```bash
 # In Dockerfile
-RUN ./alphavel route:cache
+RUN alpha route:cache
 ```
 
 ❌ **Don't cache in development**
 ```bash
 # Let routes load dynamically for hot-reload
-./alphavel serve  # No caching needed
+alpha serve  # No caching needed
 ```
 
 ---
@@ -572,7 +572,7 @@ Log::info("Operation took {$duration}s");
 - [ ] Use generators for large datasets
 
 ### Production
-- [ ] Enable route caching (`./alphavel route:cache`)
+- [ ] Enable route caching (`alpha route:cache`)
 - [ ] Enable OPcache + JIT
 - [ ] Configure connection pooling
 - [ ] Set `opcache.validate_timestamps=0`

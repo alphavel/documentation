@@ -1,13 +1,15 @@
 # CLI Commands (Alpha)
 
-The Alphavel CLI (`alphavel` or `./alphavel`) is your command center for managing applications, packages, and performance optimization.
+The **Alpha CLI** is your command center for managing Alphavel applications, packages, and performance optimization.
+
+**Command:** `alpha`
 
 ---
 
 ## Overview
 
 ```bash
-./alphavel [command] [options]
+alpha [command] [options]
 ```
 
 **Available Commands:**
@@ -28,7 +30,7 @@ Start the Swoole HTTP server for development or production.
 **Basic Usage:**
 
 ```bash
-./alphavel serve
+alpha serve
 ```
 
 **Output:**
@@ -48,24 +50,24 @@ Press Ctrl+C to stop
 **Custom Host/Port:**
 
 ```bash
-./alphavel serve --host=127.0.0.1 --port=8000
+alpha serve --host=127.0.0.1 --port=8000
 ```
 
 **Custom Workers:**
 
 ```bash
 # Use more workers for production
-./alphavel serve --workers=8
+alpha serve --workers=8
 
 # Auto-detect (2x CPU cores)
-./alphavel serve --workers=auto
+alpha serve --workers=auto
 ```
 
 **Production Mode:**
 
 ```bash
 # Disable debug, enable optimizations
-APP_ENV=production ./alphavel serve
+APP_ENV=production alpha serve
 ```
 
 **Options:**
@@ -81,13 +83,13 @@ APP_ENV=production ./alphavel serve
 
 ```bash
 # Development (single worker for debugging)
-./alphavel serve --workers=1
+alpha serve --workers=1
 
 # Production (high traffic)
-./alphavel serve --workers=16 --daemon
+alpha serve --workers=16 --daemon
 
 # Custom configuration
-./alphavel serve --host=0.0.0.0 --port=80 --workers=auto
+alpha serve --host=0.0.0.0 --port=80 --workers=auto
 ```
 
 ---
@@ -101,29 +103,29 @@ Install and auto-configure packages with one command.
 **Usage:**
 
 ```bash
-./alphavel package:add [package-name]
+alpha package:add [package-name]
 ```
 
 **Available Packages:**
 
 ```bash
 # Database (MySQL/PostgreSQL + connection pooling)
-./alphavel package:add database
+alpha package:add database
 
 # Cache (Redis/Memcached)
-./alphavel package:add cache
+alpha package:add cache
 
 # Logging (Monolog)
-./alphavel package:add logging
+alpha package:add logging
 
 # Events (Event dispatcher)
-./alphavel package:add events
+alpha package:add events
 
 # Validation (Request validation)
-./alphavel package:add validation
+alpha package:add validation
 
 # Support (Helper utilities)
-./alphavel package:add support
+alpha package:add support
 ```
 
 **What Happens:**
@@ -137,7 +139,7 @@ Install and auto-configure packages with one command.
 **Example Output:**
 
 ```bash
-$ ./alphavel package:add database
+$ alpha package:add database
 
 📦 Installing alphavel/database...
 
@@ -166,16 +168,16 @@ Next steps:
 Instead of full package names, use short aliases:
 
 ```bash
-./alphavel package:add db        # alias for database
-./alphavel package:add redis     # alias for cache
-./alphavel package:add log       # alias for logging
+alpha package:add db        # alias for database
+alpha package:add redis     # alias for cache
+alpha package:add log       # alias for logging
 ```
 
 **Bulk Installation:**
 
 ```bash
 # Install multiple packages
-./alphavel package:add database cache logging
+alpha package:add database cache logging
 ```
 
 ---
@@ -187,7 +189,7 @@ Scan vendor directory and rebuild package manifest.
 **Usage:**
 
 ```bash
-./alphavel package:discover
+alpha package:discover
 ```
 
 **When to Use:**
@@ -199,7 +201,7 @@ Scan vendor directory and rebuild package manifest.
 **Output:**
 
 ```bash
-$ ./alphavel package:discover
+$ alpha package:discover
 
 🔍 Discovering packages...
 
@@ -232,7 +234,7 @@ Pre-compile routes for zero-overhead routing in production.
 **Usage:**
 
 ```bash
-./alphavel route:cache
+alpha route:cache
 ```
 
 **What It Does:**
@@ -245,7 +247,7 @@ Pre-compile routes for zero-overhead routing in production.
 **Output:**
 
 ```bash
-$ ./alphavel route:cache
+$ alpha route:cache
 
 ⚡ Caching routes...
 
@@ -279,8 +281,8 @@ Performance impact:
 
 ```bash
 # 1. Test locally
-./alphavel route:cache
-./alphavel serve
+alpha route:cache
+alpha serve
 
 # 2. Deploy
 git add bootstrap/cache/routes.php
@@ -300,7 +302,7 @@ Remove cached routes and reload from source.
 **Usage:**
 
 ```bash
-./alphavel route:clear
+alpha route:clear
 ```
 
 **When to Use:**
@@ -312,7 +314,7 @@ Remove cached routes and reload from source.
 **Output:**
 
 ```bash
-$ ./alphavel route:clear
+$ alpha route:clear
 
 ✓ Route cache cleared: bootstrap/cache/routes.php
 
@@ -327,29 +329,29 @@ Routes will be loaded from source on next request.
 
 ```bash
 # Clear cache, re-cache, and start server
-./alphavel route:clear && ./alphavel route:cache && ./alphavel serve
+alpha route:clear && alpha route:cache && alpha serve
 ```
 
 ### Environment-Specific Commands
 
 ```bash
 # Development
-APP_ENV=local ./alphavel serve --workers=1
+APP_ENV=local alpha serve --workers=1
 
 # Staging
-APP_ENV=staging ./alphavel serve --workers=4
+APP_ENV=staging alpha serve --workers=4
 
 # Production
-APP_ENV=production ./alphavel serve --workers=16 --daemon
+APP_ENV=production alpha serve --workers=16 --daemon
 ```
 
 ### Docker Integration
 
 ```bash
 # Inside Docker container
-docker-compose exec app ./alphavel route:cache
-docker-compose exec app ./alphavel package:add database
-docker-compose exec app ./alphavel serve
+docker-compose exec app alpha route:cache
+docker-compose exec app alpha package:add database
+docker-compose exec app alpha serve
 ```
 
 ---
@@ -412,13 +414,13 @@ class SyncUsersCommand extends Command
 **3. Run Command:**
 
 ```bash
-./alphavel users:sync
+alpha users:sync
 ```
 
 **Output:**
 
 ```bash
-$ ./alphavel users:sync
+$ alpha users:sync
 
 ℹ Syncing users...
 ✓ Synced: John Doe
@@ -479,7 +481,7 @@ git pull origin main
 composer install --no-dev --optimize-autoloader
 
 # Cache routes
-./alphavel route:cache
+alpha route:cache
 
 # Restart server
 docker-compose restart app
@@ -493,10 +495,10 @@ echo "✅ Deployment complete!"
 
 ```bash
 # Run every hour
-0 * * * * cd /path/to/app && ./alphavel users:sync >> /var/log/sync.log 2>&1
+0 * * * * cd /path/to/app && alpha users:sync >> /var/log/sync.log 2>&1
 
 # Clear cache daily
-0 0 * * * cd /path/to/app && ./alphavel route:clear && ./alphavel route:cache
+0 0 * * * cd /path/to/app && alpha route:clear && alpha route:cache
 ```
 
 ---
@@ -506,21 +508,21 @@ echo "✅ Deployment complete!"
 ### Command Not Found
 
 ```bash
-$ ./alphavel serve
-bash: ./alphavel: Permission denied
+$ alpha serve
+bash: alpha: Permission denied
 ```
 
 **Solution:**
 
 ```bash
 chmod +x alphavel
-./alphavel serve
+alpha serve
 ```
 
 ### Swoole Not Installed
 
 ```bash
-$ ./alphavel serve
+$ alpha serve
 Error: Swoole extension not installed
 ```
 
@@ -537,7 +539,7 @@ pecl install swoole
 ### Port Already in Use
 
 ```bash
-$ ./alphavel serve
+$ alpha serve
 Error: Address already in use (port 9501)
 ```
 
@@ -545,7 +547,7 @@ Error: Address already in use (port 9501)
 
 ```bash
 # Use different port
-./alphavel serve --port=9502
+alpha serve --port=9502
 
 # Or kill existing process
 lsof -ti:9501 | xargs kill -9
@@ -564,7 +566,7 @@ The Alpha CLI is designed to **enforce best practices** and **guide developers**
 When you install a package, Alpha CLI doesn't just download it—it **configures your application** for optimal performance:
 
 ```bash
-./alphavel package:add database
+alpha package:add database
 ```
 
 **What Alpha CLI does:**
@@ -640,7 +642,7 @@ Every code generated by Alpha CLI is **automatically tested** before being added
 **When you add a package:**
 
 ```bash
-./alphavel package:add cache
+alpha package:add cache
 ```
 
 **Alpha CLI runs these tests:**
@@ -677,7 +679,7 @@ All tests passed! 🎉
 Alpha CLI shows **real-time performance impact** of every operation:
 
 ```bash
-./alphavel route:cache
+alpha route:cache
 ```
 
 **Output with Metrics:**
@@ -718,7 +720,7 @@ When Alpha CLI generates code, it follows **high-performance patterns** automati
 **Example: Creating a Controller**
 
 ```bash
-./alphavel make:controller UserController --resource
+alpha make:controller UserController --resource
 ```
 
 **Generated Code (app/Controllers/UserController.php):**
@@ -864,7 +866,7 @@ class UserController extends Controller
 Alpha CLI includes a **performance profiler** that analyzes your application:
 
 ```bash
-./alphavel analyze:performance
+alpha analyze:performance
 ```
 
 **Output:**
@@ -915,7 +917,7 @@ Alpha CLI includes a **performance profiler** that analyzes your application:
   4. Enable route caching → Gain: 15-20% overall
   5. Investigate memory leak in Worker #3 → Stability improvement
 
-Run: ./alphavel fix:performance --auto
+Run: alpha fix:performance --auto
 To apply automatic fixes for items 3 and 4.
 ```
 
@@ -924,7 +926,7 @@ To apply automatic fixes for items 3 and 4.
 #### 6. **Automatic Performance Fixes**
 
 ```bash
-./alphavel fix:performance --auto
+alpha fix:performance --auto
 ```
 
 **What it does:**
@@ -974,7 +976,7 @@ To apply automatic fixes for items 3 and 4.
 
 ```bash
 # 1. Cache routes
-./alphavel route:cache
+alpha route:cache
 
 # 2. Optimize Composer autoloader
 composer dump-autoload --optimize --classmap-authoritative
@@ -984,10 +986,10 @@ opcache.enable=1
 opcache.validate_timestamps=0
 
 # 4. Use more workers
-./alphavel serve --workers=16
+alpha serve --workers=16
 
 # 5. Run as daemon
-./alphavel serve --daemon
+alpha serve --daemon
 ```
 
 ### Monitoring
@@ -1014,7 +1016,7 @@ Every piece of code generated or configured by Alpha CLI goes through **automate
 #### Test Suite Overview
 
 ```bash
-./alphavel test:package database
+alpha test:package database
 ```
 
 **Test Categories:**
@@ -1195,7 +1197,7 @@ Running Compliance Tests...
 ### Full Test Report Example
 
 ```bash
-./alphavel package:add database --test-full
+alpha package:add database --test-full
 ```
 
 **Complete Output:**
@@ -1283,9 +1285,9 @@ Compliance: Full PSR compliance
 
 💡 Next Steps:
   1. Configure .env with your database credentials
-  2. Test connection: ./alphavel db:test
-  3. Run migrations: ./alphavel migrate
-  4. See performance guide: ./alphavel help:performance
+  2. Test connection: alpha db:test
+  3. Run migrations: alpha migrate
+  4. See performance guide: alpha help:performance
 ```
 
 ---
@@ -1296,13 +1298,13 @@ Alpha CLI can run tests automatically on every change:
 
 ```bash
 # Watch mode - tests on file change
-./alphavel test:watch
+alpha test:watch
 
 # Run tests before deployment
-./alphavel test:all --coverage
+alpha test:all --coverage
 
 # Benchmark against previous version
-./alphavel test:benchmark --compare
+alpha test:benchmark --compare
 ```
 
 ---

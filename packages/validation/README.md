@@ -7,7 +7,7 @@ Request validation with fluent API.
 ## Installation
 
 ```bash
-./alphavel package:add validation
+alpha package:add validation
 ```
 
 ---

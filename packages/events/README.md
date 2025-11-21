@@ -7,7 +7,7 @@ Event dispatcher for decoupled application logic.
 ## Installation
 
 ```bash
-./alphavel package:add events
+alpha package:add events
 ```
 
 ---

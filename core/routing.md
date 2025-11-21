@@ -153,7 +153,7 @@ $router->get('/admin', 'AdminController@index')
 For production, compile routes for maximum performance:
 
 ```bash
-./alphavel route:cache
+alpha route:cache
 ```
 
 This creates `bootstrap/cache/routes.php` with pre-compiled routes:
@@ -171,7 +171,7 @@ Routes cached successfully!
 Clear cache:
 
 ```bash
-./alphavel route:clear
+alpha route:clear
 ```
 
 ---

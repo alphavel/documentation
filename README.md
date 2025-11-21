@@ -68,7 +68,7 @@ cd my-app
 docker-compose -f docker-compose.dev.yml up
 
 # Or local Swoole
-./alphavel serve
+alpha serve
 ```
 
 ### Your First Route
@@ -86,9 +86,9 @@ $router->get('/users', 'App\Controllers\UserController@index');
 ### Add Packages
 
 ```bash
-./alphavel package:add database
-./alphavel package:add cache
-./alphavel package:add validation
+alpha package:add database
+alpha package:add cache
+alpha package:add validation
 ```
 
 ---

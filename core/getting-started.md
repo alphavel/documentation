@@ -43,7 +43,7 @@ composer create-project alphavel/skeleton my-app
 cd my-app
 
 # Start server
-./alphavel serve
+alpha serve
 ```
 
 Access your app at: http://localhost:9501
@@ -179,19 +179,19 @@ Alphavel uses a modular package system. Add only what you need:
 
 ```bash
 # Database (MySQL/PostgreSQL with connection pooling)
-./alphavel package:add database
+alpha package:add database
 
 # Cache (Redis/Memcached)
-./alphavel package:add cache
+alpha package:add cache
 
 # Logging (Monolog)
-./alphavel package:add logging
+alpha package:add logging
 
 # Events
-./alphavel package:add events
+alpha package:add events
 
 # Validation
-./alphavel package:add validation
+alpha package:add validation
 ```
 
 After adding, packages are auto-discovered and ready to use!
@@ -200,7 +200,7 @@ After adding, packages are auto-discovered and ready to use!
 
 ## Using Database
 
-After `./alphavel package:add database`:
+After `alpha package:add database`:
 
 ```php
 <?php
@@ -290,18 +290,18 @@ return [
 
 ```bash
 # Start server
-./alphavel serve
+alpha serve
 
 # Start with custom host/port
-./alphavel serve --host=0.0.0.0 --port=8000
+alpha serve --host=0.0.0.0 --port=8000
 
 # Package management
-./alphavel package:add database
-./alphavel package:discover
+alpha package:add database
+alpha package:discover
 
 # Performance (production)
-./alphavel route:cache
-./alphavel route:clear
+alpha route:cache
+alpha route:clear
 ```
 
 ---

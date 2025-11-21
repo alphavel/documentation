@@ -7,7 +7,7 @@ High-performance caching layer with Redis and Memcached support.
 ## Installation
 
 ```bash
-./alphavel package:add cache
+alpha package:add cache
 ```
 
 ---

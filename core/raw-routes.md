@@ -245,7 +245,7 @@ Raw Routes **não suportam**:
 Raw routes são **automaticamente cached** pelo comando `route:cache`:
 
 ```bash
-./alphavel route:cache
+alpha route:cache
 ```
 
 **Output:**

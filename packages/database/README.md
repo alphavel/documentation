@@ -18,7 +18,7 @@ High-performance database layer with connection pooling for MySQL and PostgreSQL
 ## Installation
 
 ```bash
-./alphavel package:add database
+alpha package:add database
 ```
 
 This automatically:

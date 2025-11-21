@@ -7,7 +7,7 @@ Flexible logging with Monolog integration.
 ## Installation
 
 ```bash
-./alphavel package:add logging
+alpha package:add logging
 ```
 
 ---
