@@ -3,6 +3,7 @@
 ## Introduction
 * [Overview](README.md)
 * [Why Alphavel?](introduction/why-alphavel.md)
+* [Benchmarks](introduction/benchmarks.md)
 * [Comparison](introduction/comparison.md)
 
 ## Getting Started
