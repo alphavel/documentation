@@ -74,9 +74,11 @@ Production microservices commonly run with 0.5-1 CPU cores and 512MB-1GB RAM. Te
 
 ---
 
-## Plaintext Benchmark
+## Plaintext Benchmark (High-Performance Hardware)
 
 **Test:** Return "Hello, World!" as fast as possible
+
+> **⚠️ Note:** These benchmarks were conducted on high-performance hardware (4 cores, 8GB RAM) to measure **maximum theoretical throughput**. For real-world production scenarios with resource constraints, see [Production-Constrained Tests](#production-constrained-tests-05-cpu-512mb-ram) below.
 
 ### Results
 

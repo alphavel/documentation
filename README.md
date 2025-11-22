@@ -86,22 +86,37 @@ $router->get('/users', 'App\Controllers\UserController@index');
 ### Add Packages
 
 ```bash
-alpha package:add database
-alpha package:add cache
-alpha package:add validation
+# Using Alpha CLI (intelligent package management)
+php alpha add database
+php alpha add cache
+php alpha add validation
+
+# Or using Composer directly
+composer require alphavel/database
+composer require alphavel/cache
 ```
+
+> **Note:** `alpha add` command requires [alphavel/alpha](https://github.com/alphavel/alpha) CLI tool (recommended for development). Install with `composer require alphavel/alpha --dev`.
 
 ---
 
 ## 📊 Performance
 
-| Benchmark | Requests/sec | Latency |
-|-----------|--------------|---------|
-| Raw Routes | 520,000+ | 0.19ms |
-| JSON API | 45,000+ | 2.2ms |
-| Database Query | 20,000+ | 5ms |
+### High-Performance Hardware (Theoretical Max)
+| Benchmark | Requests/sec | Latency | Hardware |
+|-----------|--------------|---------|----------|
+| Raw Routes | 520,000+ | 0.19ms | 4 cores, 8GB |
+| JSON API | 45,000+ | 2.2ms | 4 cores, 8GB |
+| Database Query | 20,000+ | 5ms | 4 cores, 8GB |
 
-**Hardware**: 4 CPU cores, 8GB RAM
+### Production Constraints (Real-World)
+| Framework | Requests/sec | Hardware |
+|-----------|--------------|----------|
+| Alphavel | 5,042 | 0.5 CPU, 512MB |
+| Hyperf | 1,050 | 0.5 CPU, 512MB |
+| **Advantage** | **4.8x faster** | Same resources |
+
+> **See [Benchmarks](introduction/benchmarks.md) for detailed performance analysis.**
 
 ---
 
