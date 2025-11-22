@@ -101,15 +101,63 @@ alpha serve --host=0.0.0.0 --port=80 --workers=auto
 
 Alpha CLI can generate complete, production-ready code following best practices.
 
+**Two Usage Modes:**
+1. **Parameters Mode** - Pass arguments directly (fast)
+2. **Wizard Mode** - Interactive prompts (guided)
+
+---
+
 ### `make:controller` - Generate Controller
 
 Generate a controller with optional CRUD operations.
 
-**Basic Usage:**
+#### Mode 1: Parameters (Direct)
 
 ```bash
+# Basic controller
 alpha make:controller UserController
+
+# CRUD controller
+alpha make:controller UserController --resource
+
+# API controller
+alpha make:controller UserController --api
 ```
+
+#### Mode 2: Wizard (Interactive)
+
+```bash
+alpha make:controller
+```
+
+**Wizard Prompts:**
+
+```
+🎯 Alpha Controller Generator
+
+? Controller name: UserController
+? Type: 
+  ❯ Basic (single method)
+    Resource (full CRUD - 5 methods)
+    API (JSON responses)
+
+? Add authentication middleware? (y/N): y
+? Generate tests? (Y/n): y
+
+✓ Controller created: app/Controllers/UserController.php
+✓ Tests created: tests/Controllers/UserControllerTest.php
+```
+
+**Comparison:**
+
+| Mode | Speed | Best For |
+|------|-------|----------|
+| **Parameters** | ⚡ Instant | Experienced developers, scripts |
+| **Wizard** | 🧙 Interactive | Beginners, exploring options |
+
+**Both modes generate identical code** - choose based on your preference!
+
+---
 
 **Generated File (`app/Controllers/UserController.php`):**
 
@@ -137,11 +185,76 @@ class UserController extends Controller
 
 Generate a **complete REST CRUD controller** with all operations automatically.
 
-**Usage:**
+#### Mode 1: Parameters (Direct)
 
 ```bash
 alpha make:controller ArticleController --resource
 ```
+
+#### Mode 2: Wizard (Interactive)
+
+```bash
+alpha make:controller ArticleController
+```
+
+**Wizard Prompts:**
+
+```
+🎯 Alpha CRUD Generator
+
+✓ Controller name: ArticleController
+
+? Type: 
+  Basic (single method)
+  ❯ Resource (full CRUD - 5 methods)
+  API (JSON responses)
+
+? Resource name (singular): Article
+? Database table: articles
+
+? Fields to include:
+  [✓] title (string, required)
+  [✓] slug (string, required, unique)
+  [✓] content (text, required)
+  [✓] excerpt (string, nullable)
+  [✓] author_id (integer, foreign key)
+  [✓] timestamps (created_at, updated_at)
+
+? Enable caching? (Y/n): y
+? Cache TTL (seconds): 3600
+? Enable pagination? (Y/n): y
+? Default limit: 20
+
+? Validation rules:
+  ✓ Auto-generate from fields
+
+? Generate routes? (Y/n): y
+? Route prefix: /api/articles
+
+? Generate migration? (Y/n): y
+? Generate model? (Y/n): y
+? Generate tests? (Y/n): y
+
+⏳ Generating files...
+
+✓ Controller: app/Controllers/ArticleController.php (218 lines)
+✓ Model: app/Models/Article.php (32 lines)
+✓ Migration: database/migrations/2025_11_21_create_articles_table.php
+✓ Routes: routes/api.php (5 routes added)
+✓ Tests: tests/Controllers/ArticleControllerTest.php (156 lines)
+
+🎉 CRUD generated successfully!
+```
+
+**Wizard Benefits:**
+
+✅ **Smart defaults** - Suggests optimal values
+✅ **Field validation** - Prevents mistakes
+✅ **Auto-generation** - Creates model, migration, tests
+✅ **Route suggestions** - Adds routes automatically
+✅ **Learning tool** - Shows all available options
+
+---
 
 **What Gets Generated:**
 
@@ -365,6 +478,237 @@ class AuthMiddleware
 - Manual CRUD implementation: **~2 hours**
 - Alpha CLI generation: **< 5 seconds**
 - **Productivity gain: 1440x faster** ⚡
+
+---
+
+### Wizard Mode vs Parameters Mode
+
+Alpha CLI supports **two interaction modes** for maximum flexibility.
+
+#### 🎯 Wizard Mode (Interactive)
+
+**Usage:** Run command without arguments
+
+```bash
+alpha make:controller
+```
+
+**Features:**
+
+✅ **Interactive prompts** - Step-by-step guidance
+✅ **Smart validation** - Prevents invalid inputs
+✅ **Contextual help** - Explains each option
+✅ **Auto-suggestions** - Proposes defaults
+✅ **Error prevention** - Catches mistakes early
+✅ **Learning tool** - Explores available options
+
+**Perfect for:**
+- 🆕 Beginners learning Alphavel
+- 🔍 Exploring new features
+- 📚 Understanding available options
+- ✅ Ensuring correct configuration
+
+**Example Wizard Flow:**
+
+```
+$ alpha make:controller
+
+🎯 Alpha Controller Generator
+
+? Controller name: ProductController
+? Type: 
+  Basic
+  ❯ Resource (CRUD)
+  API
+
+? Enable authentication? (y/N): y
+  ℹ Adds AuthMiddleware to all routes
+
+? Authentication method:
+  ❯ JWT
+  Session
+  API Key
+
+? Generate tests? (Y/n): y
+  ℹ Creates PHPUnit test with 15 test cases
+
+? Generate API documentation? (Y/n): y
+  ℹ Creates OpenAPI/Swagger spec
+
+⏳ Generating ProductController...
+
+✓ Controller created: app/Controllers/ProductController.php
+✓ Tests created: tests/Controllers/ProductControllerTest.php
+✓ API docs created: docs/api/products.yaml
+
+🎉 Done! Next steps:
+  1. Add routes to routes/api.php
+  2. Run: alpha serve
+  3. Test: curl http://localhost:9501/api/products
+```
+
+---
+
+#### ⚡ Parameters Mode (Direct)
+
+**Usage:** Pass all arguments in command
+
+```bash
+alpha make:controller ProductController --resource --auth=jwt --tests --api-docs
+```
+
+**Features:**
+
+✅ **Instant execution** - No prompts
+✅ **Scriptable** - Use in automation
+✅ **Fast workflow** - For experienced users
+✅ **CI/CD friendly** - Non-interactive
+✅ **Reproducible** - Same command = same result
+
+**Perfect for:**
+- 🚀 Experienced developers
+- 🤖 Automation scripts
+- 🔄 CI/CD pipelines
+- ⚡ Quick generation
+
+**Example Direct Flow:**
+
+```bash
+$ alpha make:controller ProductController --resource --auth=jwt --tests --api-docs
+
+✓ Controller created: app/Controllers/ProductController.php (218 lines)
+✓ Tests created: tests/Controllers/ProductControllerTest.php (156 lines)
+✓ API docs created: docs/api/products.yaml (94 lines)
+
+🎉 Done in 0.8s!
+```
+
+---
+
+#### Mode Comparison
+
+| Feature | Wizard Mode | Parameters Mode |
+|---------|-------------|-----------------|
+| **Speed** | Slower (interactive) | **Instant** |
+| **Learning** | **Excellent** | None |
+| **Automation** | ❌ Not suitable | **✅ Perfect** |
+| **Error prevention** | **✅ High** | Manual |
+| **Flexibility** | **✅ Full exploration** | Fixed options |
+| **Best for** | Beginners, learning | Experts, automation |
+
+---
+
+#### Switching Modes
+
+**Start with Wizard, learn the parameters:**
+
+```bash
+# 1. Use wizard to learn
+$ alpha make:controller
+? ... (interactive prompts)
+
+# 2. See equivalent command
+✓ Done! Equivalent command:
+  alpha make:controller UserController --resource --cache --pagination
+
+# 3. Use parameters next time
+$ alpha make:controller ProductController --resource --cache --pagination
+```
+
+**Show help with examples:**
+
+```bash
+alpha make:controller --help
+```
+
+**Output:**
+
+```
+Usage:
+  alpha make:controller [name] [options]
+
+Arguments:
+  name                  Controller name (e.g., UserController)
+
+Options:
+  --resource           Generate full CRUD (5 methods)
+  --api                Generate API controller
+  --auth=TYPE          Add authentication (jwt|session|api-key)
+  --tests              Generate tests
+  --api-docs           Generate API documentation
+  --cache              Enable caching
+  --pagination         Enable pagination
+  --validation         Generate validation rules
+
+Examples:
+  alpha make:controller UserController
+  alpha make:controller ProductController --resource
+  alpha make:controller ApiController --api --auth=jwt --tests
+
+Wizard Mode:
+  alpha make:controller
+  (Interactive prompts guide you through options)
+```
+
+---
+
+#### Wizard Mode for Package Installation
+
+Even package installation supports wizard mode!
+
+**Parameters Mode:**
+
+```bash
+alpha package:add database
+```
+
+**Wizard Mode:**
+
+```bash
+alpha package:add
+```
+
+**Wizard Prompts:**
+
+```
+📦 Alpha Package Installer
+
+? Select packages to install: (space to select, enter to confirm)
+  ❯ [✓] database (MySQL/PostgreSQL with connection pooling)
+    [✓] cache (Redis/Memcached support)
+    [ ] logging (Monolog integration)
+    [✓] events (Event dispatcher)
+    [ ] validation (Request validation)
+    [ ] support (Helper utilities)
+
+? Database driver:
+  ❯ MySQL
+    PostgreSQL
+    SQLite
+
+? Connection pool settings:
+  Min connections: 2
+  Max connections: 20
+  Timeout (seconds): 5.0
+
+? Cache driver:
+  ❯ Redis
+    Memcached
+    File
+
+? Redis configuration:
+  Host: localhost
+  Port: 6379
+  Database: 0
+
+⏳ Installing packages...
+
+✓ database installed and configured
+✓ cache installed and configured  
+✓ events installed and configured
+
+🎉 3 packages installed successfully!
+```
 
 ---
 
