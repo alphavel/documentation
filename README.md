@@ -42,11 +42,24 @@ Alphavel is a **high-performance microservice framework** built on Swoole, desig
 - [Performance](core/performance.md)
 
 ### Packages
+
+#### Core Packages
 - [Database](packages/database/README.md) - MySQL/PostgreSQL with connection pooling
 - [Cache](packages/cache/README.md) - Redis/Memcached support
 - [Logging](packages/logging/README.md) - Monolog integration
 - [Events](packages/events/README.md) - Event dispatcher
 - [Validation](packages/validation/README.md) - Request validation
+- [Rate Limit](packages/rate-limit/README.md) - Swoole Table rate limiting
+
+#### Optional Packages (v1.0+)
+- [Auth](packages/auth/README.md) - JWT authentication with Guards
+- [Queue](packages/queue/README.md) - Async job queue with Swoole coroutines
+- [Mail](packages/mail/README.md) - Email sending with Symfony Mailer
+- [Session](packages/session/README.md) - Session management (File/Redis/Memory)
+- [View](packages/view/README.md) - Blade template engine
+- [i18n](packages/i18n/README.md) - Internationalization/translations
+- [Testing](packages/testing/README.md) - Testing utilities and helpers
+- [ORM](packages/orm/README.md) - Advanced ORM with relationships
 
 ### Deployment
 - [Docker](deployment/docker.md)
@@ -86,17 +99,23 @@ $router->get('/users', 'App\Controllers\UserController@index');
 ### Add Packages
 
 ```bash
-# Using Alpha CLI (intelligent package management)
-php alpha add database
-php alpha add cache
-php alpha add validation
+# Using Alpha CLI Wizards (recommended - interactive setup)
+php alpha make:auth          # JWT authentication
+php alpha make:queue         # Async job queue
+php alpha make:mail          # Email configuration
+php alpha make:session       # Session setup
+php alpha make:view          # Template creation
+php alpha make:translation   # i18n setup
+php alpha make:test          # Testing utilities
+php alpha make:relationship  # ORM relationships
 
-# Or using Composer directly
-composer require alphavel/database
-composer require alphavel/cache
+# Or install packages directly
+composer require alphavel/auth
+composer require alphavel/queue
+composer require alphavel/mail
 ```
 
-> **Note:** `alpha add` command requires [alphavel/alpha](https://github.com/alphavel/alpha) CLI tool (recommended for development). Install with `composer require alphavel/alpha --dev`.
+> **Note:** CLI wizards detect if packages are installed and offer installation + configuration. Install Alpha CLI with `composer require alphavel/alpha --dev`.
 
 ---
 
@@ -173,6 +192,7 @@ composer require alphavel/cache
 
 ## 📦 Ecosystem
 
+### Core Packages
 | Package | Description | Version |
 |---------|-------------|---------|
 | [alphavel/alphavel](https://github.com/alphavel/alphavel) | Core framework | ^1.0 |
@@ -182,7 +202,22 @@ composer require alphavel/cache
 | [alphavel/logging](https://github.com/alphavel/logging) | Logging | ^1.0 |
 | [alphavel/events](https://github.com/alphavel/events) | Events | ^1.0 |
 | [alphavel/validation](https://github.com/alphavel/validation) | Validation | ^1.0 |
+| [alphavel/rate-limit](https://github.com/alphavel/rate-limit) | Rate limiting | ^1.0 |
 | [alphavel/skeleton](https://github.com/alphavel/skeleton) | App skeleton | ^1.0 |
+
+### Optional Packages (New in v1.0)
+| Package | Description | Version | Status |
+|---------|-------------|---------|--------|
+| [alphavel/auth](https://github.com/alphavel/auth) | JWT authentication | ^1.0 | ✅ Ready |
+| [alphavel/queue](https://github.com/alphavel/queue) | Async job queue | ^1.0 | 🔄 TIER 1 |
+| [alphavel/mail](https://github.com/alphavel/mail) | Email sending | ^1.0 | 🔄 TIER 1 |
+| [alphavel/session](https://github.com/alphavel/session) | Session management | ^1.0 | 🔄 TIER 1 |
+| [alphavel/view](https://github.com/alphavel/view) | Blade templates | ^1.0 | 🔄 TIER 1 |
+| [alphavel/i18n](https://github.com/alphavel/i18n) | Internationalization | ^1.0 | 🔄 TIER 1 |
+| [alphavel/testing](https://github.com/alphavel/testing) | Testing utilities | ^1.0 | 🔄 TIER 1 |
+| [alphavel/orm](https://github.com/alphavel/orm) | Advanced ORM | ^1.0 | 🔄 TIER 1 |
+
+> **Note:** TIER 1 packages have structure + documentation. Full implementation coming soon.
 
 ---
 

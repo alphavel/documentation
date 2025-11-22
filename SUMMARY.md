@@ -63,6 +63,46 @@
 ## Rate Limiting
 * [Getting Started](packages/rate-limit/README.md)
 
+## Auth & Security
+* [Authentication (JWT)](packages/auth/README.md)
+* [Guards & Middleware](packages/auth/guards.md)
+* [User Authentication](packages/auth/usage.md)
+
+## Queue System
+* [Getting Started](packages/queue/README.md)
+* [Creating Jobs](packages/queue/jobs.md)
+* [Queue Drivers](packages/queue/drivers.md)
+
+## Mail
+* [Getting Started](packages/mail/README.md)
+* [Sending Emails](packages/mail/sending.md)
+* [Mailables](packages/mail/mailables.md)
+
+## Session
+* [Getting Started](packages/session/README.md)
+* [Session Drivers](packages/session/drivers.md)
+* [Usage](packages/session/usage.md)
+
+## Views & Templates
+* [Getting Started](packages/view/README.md)
+* [Blade Templates](packages/view/blade.md)
+* [Rendering Views](packages/view/rendering.md)
+
+## Internationalization
+* [Getting Started](packages/i18n/README.md)
+* [Translations](packages/i18n/translations.md)
+* [Localization](packages/i18n/localization.md)
+
+## Testing
+* [Getting Started](packages/testing/README.md)
+* [Writing Tests](packages/testing/writing-tests.md)
+* [Test Utilities](packages/testing/utilities.md)
+
+## ORM
+* [Getting Started](packages/orm/README.md)
+* [Relationships](packages/orm/relationships.md)
+* [Eager Loading](packages/orm/eager-loading.md)
+
 ## CLI
 * [Artisan Console](core/cli-commands.md)
 * [Package Commands](core/package-commands.md)

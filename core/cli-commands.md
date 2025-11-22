@@ -13,12 +13,28 @@ alpha [command] [options]
 ```
 
 **Available Commands:**
+
+**Server & Generation:**
 - `serve` - Start Swoole HTTP server
 - `make:controller` - Generate controller with optional CRUD
 - `make:model` - Generate model class
 - `make:middleware` - Generate middleware
+
+**Package Management:**
 - `package:add` - Install and configure packages
 - `package:discover` - Discover installed packages
+
+**Optional Package Wizards (New in v1.0):**
+- `make:auth` - JWT authentication setup (alphavel/auth)
+- `make:queue` - Async job queue configuration (alphavel/queue)
+- `make:mail` - Email/SMTP configuration (alphavel/mail)
+- `make:session` - Session driver setup (alphavel/session)
+- `make:view` - Template creation (alphavel/view)
+- `make:translation` - i18n configuration (alphavel/i18n)
+- `make:test` - Testing utilities (alphavel/testing)
+- `make:relationship` - ORM relationships (alphavel/orm)
+
+**Performance:**
 - `route:cache` - Compile routes for production
 - `route:clear` - Clear route cache
 
@@ -1942,9 +1958,252 @@ alpha test:benchmark --compare
 
 ---
 
+---
+
+## Optional Package Wizards (New in v1.0)
+
+Alpha CLI now includes **interactive wizards** for optional packages. Each wizard:
+
+✅ Detects if package is installed
+✅ Offers installation via `composer require`
+✅ Provides interactive configuration
+✅ Generates code with best practices
+✅ Shows usage examples
+
+---
+
+### `make:auth` - JWT Authentication
+
+Setup JWT authentication with guards and middleware.
+
+**Usage:**
+
+```bash
+php alpha make:auth
+```
+
+**Features:**
+
+- ✅ JWT secret generation
+- ✅ Configuration wizard (TTL, algorithm)
+- ✅ User model creation with `Authenticatable` interface
+- ✅ AuthController scaffolding (register/login/logout/me)
+- ✅ Route examples
+- ✅ Middleware setup
+
+**Performance:** 0.08% overhead (< 0.1ms per request)
+
+**Documentation:** [Auth Package →](../packages/auth/README.md)
+
+---
+
+### `make:queue` - Async Job Queue
+
+Configure async job queue with Swoole coroutines.
+
+**Usage:**
+
+```bash
+php alpha make:queue
+```
+
+**Features:**
+
+- ✅ Job class creation
+- ✅ Queue driver configuration (memory/redis)
+- ✅ Dispatch examples
+- ✅ Delayed job support
+
+**Performance Target:** < 0.5ms dispatch overhead
+
+---
+
+### `make:mail` - Email Configuration
+
+Setup email sending with SMTP configuration.
+
+**Usage:**
+
+```bash
+php alpha make:mail WelcomeEmail
+```
+
+**Features:**
+
+- ✅ Mailable class creation
+- ✅ SMTP configuration wizard
+- ✅ Email templates
+- ✅ Queue integration
+
+---
+
+### `make:session` - Session Management
+
+Configure session drivers.
+
+**Usage:**
+
+```bash
+php alpha make:session
+```
+
+**Drivers:**
+
+- **File** - Default filesystem storage
+- **Redis** - Fast distributed sessions
+- **Memory** - Swoole Table (fastest)
+
+**Performance:** < 0.01ms read with Memory driver
+
+---
+
+### `make:view` - Template Creation
+
+Create Blade templates.
+
+**Usage:**
+
+```bash
+php alpha make:view home
+```
+
+**Features:**
+
+- ✅ Blade template creation
+- ✅ Layout scaffolding
+- ✅ Component generation
+- ✅ View rendering examples
+
+---
+
+### `make:translation` - i18n Setup
+
+Configure internationalization.
+
+**Usage:**
+
+```bash
+php alpha make:translation pt_BR
+```
+
+**Features:**
+
+- ✅ Locale file creation
+- ✅ Default locale configuration
+- ✅ Translation helper examples
+- ✅ Pluralization support
+
+**Performance:** < 0.1ms translate
+
+---
+
+### `make:test` - Testing Utilities
+
+Create test classes.
+
+**Usage:**
+
+```bash
+php alpha make:test UserTest
+```
+
+**Types:**
+
+- **Unit** - Unit tests
+- **Feature** - Feature/Integration tests
+
+**Features:**
+
+- ✅ TestCase scaffolding
+- ✅ Database assertions
+- ✅ HTTP test helpers
+
+---
+
+### `make:relationship` - ORM Relationships
+
+Add relationships to models.
+
+**Usage:**
+
+```bash
+php alpha make:relationship
+```
+
+**Relationships:**
+
+- **hasMany** - One-to-many
+- **hasOne** - One-to-one
+- **belongsTo** - Inverse relationship
+- **belongsToMany** - Many-to-many
+
+**Features:**
+
+- ✅ Relationship code generation
+- ✅ Eager loading examples
+- ✅ N+1 prevention tips
+
+**Performance:** < 1ms query with eager loading
+
+---
+
+## Optional Package Installation Pattern
+
+All optional package commands follow the same pattern:
+
+### 1. Detection
+
+```bash
+$ php alpha make:auth
+
+⚠️  Auth package is not installed.
+
+The alphavel/auth package is optional.
+```
+
+### 2. Installation Offer
+
+```bash
+Install alphavel/auth now? (yes/no) [yes]:
+> yes
+
+Installing alphavel/auth...
+✓ Installed!
+```
+
+### 3. Interactive Wizard
+
+```bash
+What would you like to do?
+  [setup     ] Configure authentication
+  [user      ] Create User model
+  [routes    ] Add auth routes
+  [controller] Create AuthController
+  [example   ] Show usage examples
+  [exit      ] Exit
+```
+
+### 4. Code Generation
+
+```bash
+> setup
+
+✓ Configuration file created: config/auth.php
+✓ JWT secret generated
+✓ .env updated
+
+Next steps:
+  1. Run: php alpha make:auth (choose "user" option)
+  2. Create auth routes
+  3. Test: curl -X POST http://localhost:9501/auth/login
+```
+
+---
+
 ## Next Steps
 
 - [Performance Guide →](performance.md)
 - [Deployment →](../deployment/production.md)
 - [Custom Commands →](custom-commands.md)
 - [Testing Guide →](testing.md)
+- [Auth Package →](../packages/auth/README.md)

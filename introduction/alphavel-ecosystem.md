@@ -368,6 +368,7 @@ $router->get('/users', 'UserController@index');
 
 Both projects support the same modular packages:
 
+### Core Packages (Always Available)
 | Package | Purpose | Size | Boot Impact |
 |---------|---------|------|-------------|
 | `alphavel/database` | MySQL/PostgreSQL + pooling | 45 KB | +2ms |
@@ -375,16 +376,33 @@ Both projects support the same modular packages:
 | `alphavel/logging` | Monolog integration | 8 KB | +0.5ms |
 | `alphavel/events` | Event dispatcher | 6 KB | +0.3ms |
 | `alphavel/validation` | Request validation | 18 KB | +1ms |
+| `alphavel/rate-limit` | Swoole Table limiting | 15 KB | +0.8ms |
 | `alphavel/support` | Collections & helpers | 10 KB | +0.5ms |
+
+### Optional Packages (v1.0+)
+| Package | Purpose | Size | Boot Impact | Status |
+|---------|---------|------|-------------|--------|
+| `alphavel/auth` | JWT authentication | 25 KB | +0.08% | ✅ Ready |
+| `alphavel/queue` | Async job queue | ~30 KB | +0.5ms | 🔄 TIER 1 |
+| `alphavel/mail` | Email sending | ~20 KB | +1ms | 🔄 TIER 1 |
+| `alphavel/session` | Session management | ~18 KB | +0.01ms | 🔄 TIER 1 |
+| `alphavel/view` | Blade templates | ~35 KB | +5ms | 🔄 TIER 1 |
+| `alphavel/i18n` | Translations | ~12 KB | +0.1ms | 🔄 TIER 1 |
+| `alphavel/testing` | Test utilities | ~25 KB | N/A (dev) | 🔄 TIER 1 |
+| `alphavel/orm` | Advanced ORM | ~40 KB | +1ms | 🔄 TIER 1 |
 
 **Installation:**
 
 ```bash
-# Using Alpha CLI (recommended - with recipes)
-php alpha add database
+# Using Alpha CLI Wizards (recommended - interactive)
+php alpha make:auth          # Install + configure JWT auth
+php alpha make:queue         # Install + configure queue
+php alpha make:mail          # Install + configure email
 
 # Using Composer directly
-composer require alphavel/database
+composer require alphavel/auth
+composer require alphavel/queue
+composer require alphavel/mail
 ```
 
 ---
