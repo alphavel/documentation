@@ -1,5 +1,9 @@
 # Summary
 
+## 📚 Essential Guides
+* [**TIER 2 Packages Guide**](guides/TIER2_PACKAGES_GUIDE.md) - Complete guide to all optional packages
+* [**Laravel Migration Guide**](guides/LARAVEL_MIGRATION_GUIDE.md) - Migrate from Laravel (100x performance)
+
 ## Introduction
 * [Overview](README.md)
 * [Why Alphavel?](introduction/why-alphavel.md)
