@@ -29,6 +29,7 @@
 * [Requests](core/requests.md)
 * [Responses](core/responses.md)
 * [Middleware](core/middleware.md)
+* [Helpers & Facades](core/helpers-and-facades.md)
 
 ## Database
 * [Getting Started](packages/database/getting-started.md)
