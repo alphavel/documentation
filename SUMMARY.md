@@ -4,6 +4,12 @@
 * [**TIER 2 Packages Guide**](guides/TIER2_PACKAGES_GUIDE.md) - Complete guide to all optional packages
 * [**Laravel Migration Guide**](guides/LARAVEL_MIGRATION_GUIDE.md) - Migrate from Laravel (100x performance)
 
+## 🚀 New Packages (TIER 2)
+* [**WebSocket Guide**](guides/websocket-guide.md) - Real-time WebSocket (500k+ msgs/s)
+* [**Circuit Breaker Guide**](guides/circuit-breaker-guide.md) - Resilient microservices (<0.1ms overhead)
+* [Investment Analysis](guides/INVESTMENT_ANALYSIS.md) - ROI and implementation strategy
+* [Advanced Packages Status](guides/ADVANCED_PACKAGES_STATUS.md) - Roadmap and priorities
+
 ## Introduction
 * [Overview](README.md)
 * [Why Alphavel?](introduction/why-alphavel.md)
