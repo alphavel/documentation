@@ -3,6 +3,7 @@
 ## Introduction
 * [Overview](README.md)
 * [Why Alphavel?](introduction/why-alphavel.md)
+* [Modular Architecture](introduction/modular-architecture.md)
 * [Benchmarks](introduction/benchmarks.md)
 * [Comparison](introduction/comparison.md)
 
