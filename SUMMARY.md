@@ -60,6 +60,9 @@
 * [Available Rules](packages/validation/rules.md)
 * [Custom Rules](packages/validation/custom-rules.md)
 
+## Rate Limiting
+* [Getting Started](packages/rate-limit/README.md)
+
 ## CLI
 * [Artisan Console](core/cli-commands.md)
 * [Package Commands](core/package-commands.md)
