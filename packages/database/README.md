@@ -82,12 +82,12 @@ $worlds = DB::findMany('World', $ids);
 ### 3. 💾 Statement Cache (+15-30%)
 Automatic prepared statement caching - **no configuration needed**!
 
-### 3.1 🚀 Query Builder Statement Cache (v1.3.0 - NEW!)
-**Revolutionary feature**: Query Builder now caches prepared statements automatically!
+### 3.1 🚀 Query Builder Statement Cache (v1.3.1 - FIXED!)
+**Revolutionary feature**: Query Builder now caches compiled SQL automatically!
 
 ```php
 // v1.2.0: 274 req/s
-// v1.3.0: 1,800 req/s (+557%) 🔥
+// v1.3.1: 1,109-1,434 req/s (+305-423%) 🔥
 // Zero code changes required!
 
 $results = DB::table('users')
@@ -97,10 +97,13 @@ $results = DB::table('users')
 ```
 
 **Performance Impact**:
-- Query Builder: 274 → 1,800 req/s (**+557%** 🔥)
-- Gap vs findOne(): Reduced from 23x to 3.6x (**84% reduction** ✅)
+- Low concurrency (10 conn): 274 → 1,434 req/s (**+423%** 🔥)
+- High concurrency (100 conn): 274 → 1,109 req/s (**+305%** 🔥)
+- Gap vs findOne(): Reduced from 23x to 4.5x (**80% reduction** ✅)
 
-**How it works**: Queries with the same structure but different values reuse the same prepared statement.
+> **v1.3.1 Fix**: Caches SQL strings (not PDOStatements) to avoid race conditions in Swoole.
+
+**How it works**: Queries with the same structure but different values reuse the same compiled SQL string. PDO prepare() is fast; SQL compilation is the expensive part.
 
 **Optional management**:
 ```php
