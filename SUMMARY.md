@@ -46,6 +46,7 @@
 ## Database
 * [**Laravel-Style Guide** 💚](packages/database/LARAVEL_STYLE_GUIDE.md) - 100% Laravel-compatible API
 * [**Performance Optimizations** ⚡](packages/database/PERFORMANCE_OPTIMIZATIONS.md) - +2,674% performance
+* [**Aggressive Caching Guide** 🔥](packages/database/AGGRESSIVE_CACHING_GUIDE.md) - Hyperf-style statement cache
 * [Configuration Template](.env.performance) - Optimized settings
 * [Getting Started](packages/database/getting-started.md)
 * [Query Builder](packages/database/query-builder.md)
