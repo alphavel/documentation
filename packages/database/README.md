@@ -13,6 +13,7 @@ High-performance database layer with **Laravel-style API** and Swoole coroutine 
 - ✅ **📦 Batch Queries** - New `findMany()` helper (+627% performance)
 - ✅ **🔄 Connection Pooling** - Reuse connections across requests (zero overhead)
 - ✅ **💾 Statement Cache** - Automatic prepared statement caching (+15-30%)
+- ✅ **🚀 Query Builder Statement Cache (v1.3.0 - NEW!)** - Automatic QB caching (+557% performance)
 - ✅ **🏗️ Query Builder** - Fluent interface identical to Laravel
 - ✅ **🔐 Transactions** - ACID compliant with single-connection guarantee
 - ✅ **🔒 Coroutine-Safe** - Context isolation per coroutine
@@ -80,6 +81,38 @@ $worlds = DB::findMany('World', $ids);
 
 ### 3. 💾 Statement Cache (+15-30%)
 Automatic prepared statement caching - **no configuration needed**!
+
+### 3.1 🚀 Query Builder Statement Cache (v1.3.0 - NEW!)
+**Revolutionary feature**: Query Builder now caches prepared statements automatically!
+
+```php
+// v1.2.0: 274 req/s
+// v1.3.0: 1,800 req/s (+557%) 🔥
+// Zero code changes required!
+
+$results = DB::table('users')
+    ->where('age', '>=', $minAge)
+    ->where('city', $city)
+    ->get();
+```
+
+**Performance Impact**:
+- Query Builder: 274 → 1,800 req/s (**+557%** 🔥)
+- Gap vs findOne(): Reduced from 23x to 3.6x (**84% reduction** ✅)
+
+**How it works**: Queries with the same structure but different values reuse the same prepared statement.
+
+**Optional management**:
+```php
+// View cache statistics
+$stats = DB::getQueryBuilderCacheStats();
+
+// Clear cache (useful for testing)
+DB::clearQueryBuilderCache();
+
+// Adjust max size (default: 500)
+DB::setMaxQueryBuilderStatements(1000);
+```
 
 ### 4. 🔄 Connection Pooling (+200-400%)
 Swoole connection pool - **automatic** with configuration:
