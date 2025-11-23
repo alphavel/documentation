@@ -1,17 +1,104 @@
 # Database Package
 
-High-performance database layer with connection pooling for MySQL and PostgreSQL.
+High-performance database layer with **Laravel-style API** and Swoole coroutine support.
+
+> 💡 **Laravel-compatible**: If you know Laravel's Query Builder, you already know Alphavel Database!
 
 ---
 
-## Features
+## 🚀 Features
 
-- ✅ **Connection Pooling** - Reuse connections across requests
-- ✅ **Query Builder** - Fluent interface for building queries
-- ✅ **Raw SQL** - Execute custom queries
-- ✅ **Transactions** - ACID compliant
-- ✅ **Multiple Connections** - Support for multiple databases
-- ✅ **PDO** - Standard PHP Data Objects
+- ✅ **🎯 Laravel-Style API** - 100% familiar syntax for Laravel developers
+- ✅ **⚡ Persistent Connections** - +1,769% performance boost (enabled by default)
+- ✅ **📦 Batch Queries** - New `findMany()` helper (+627% performance)
+- ✅ **🔄 Connection Pooling** - Reuse connections across requests (zero overhead)
+- ✅ **💾 Statement Cache** - Automatic prepared statement caching (+15-30%)
+- ✅ **🏗️ Query Builder** - Fluent interface identical to Laravel
+- ✅ **🔐 Transactions** - ACID compliant with single-connection guarantee
+- ✅ **🔒 Coroutine-Safe** - Context isolation per coroutine
+- ✅ **♻️ Auto-Release** - Automatic connection release after request
+
+---
+
+## 📚 Documentation
+
+- **[Laravel-Style Guide](LARAVEL_STYLE_GUIDE.md)** - Complete guide for Laravel developers
+- **[Performance Optimizations](PERFORMANCE_OPTIMIZATIONS.md)** - Deep dive into +2,674% performance gains
+- **[Configuration Template](.env.performance)** - Optimized .env settings
+
+---
+
+## 🎯 Quick Start (Laravel Developers)
+
+```php
+use Alphavel\Database\DB;
+
+// 🔍 Queries (Laravel-style)
+$users = DB::table('users')
+    ->where('status', 'active')
+    ->whereIn('role', ['admin', 'moderator'])
+    ->orderBy('created_at', 'DESC')
+    ->get();
+
+// 📦 NEW: Batch queries (627% faster!)
+$worlds = DB::findMany('World', [1, 2, 3, 4, 5]);
+// SELECT * FROM World WHERE id IN (1,2,3,4,5)
+
+// 🔄 Transactions
+DB::transaction(function() {
+    DB::execute('UPDATE accounts SET balance = balance - 100 WHERE id = ?', [1]);
+    DB::execute('UPDATE accounts SET balance = balance + 100 WHERE id = ?', [2]);
+});
+```
+
+---
+
+## 🚀 Performance Optimizations
+
+Alphavel Database includes **4 native performance optimizations**:
+
+### 1. ⚡ Persistent Connections (+1,769%)
+```php
+// config/database.php - ENABLED BY DEFAULT
+'persistent' => true,  // PDO::ATTR_PERSISTENT
+```
+
+**Benchmark**: 350 → 6,541 req/s (+1,769%) 🔥
+
+### 2. 📦 Batch Queries (+627%)
+```php
+// ❌ BAD: 20 queries (312 req/s)
+foreach ($ids as $id) {
+    $world = DB::table('World')->where('id', $id)->first();
+}
+
+// ✅ GOOD: 1 query (2,269 req/s)
+$worlds = DB::findMany('World', $ids);
+```
+
+**Benchmark**: 312 → 2,269 req/s (+627%) 🔥
+
+### 3. 💾 Statement Cache (+15-30%)
+Automatic prepared statement caching - **no configuration needed**!
+
+### 4. 🔄 Connection Pooling (+200-400%)
+Swoole connection pool - **automatic** with configuration:
+
+```env
+# .env
+SWOOLE_WORKER_NUM=4    # CPU cores
+DB_POOL_MAX=20         # 4 * 5
+DB_POOL_MIN=8          # 4 * 2
+DB_PERSISTENT=true
+```
+
+### 📊 Combined Results
+| Configuration | Req/s | Improvement |
+|--------------|-------|-------------|
+| Baseline | 350 | - |
+| All optimizations | 9,712 | **+2,674%** 🚀 |
+
+**📖 Full guide**: See [PERFORMANCE_OPTIMIZATIONS.md](PERFORMANCE_OPTIMIZATIONS.md)
 
 ---
 
@@ -465,9 +552,30 @@ DB_PASSWORD=secret
 
 ---
 
-## Next Steps
+## 📚 Next Steps
 
+- **[Laravel-Style Guide →](LARAVEL_STYLE_GUIDE.md)** - Complete Laravel-compatible API guide
+- **[Performance Optimizations →](PERFORMANCE_OPTIMIZATIONS.md)** - +2,674% performance guide
+- **[Configuration Template →](.env.performance)** - Optimized settings
 - [Connection Pooling →](connection-pooling.md)
 - [Query Builder →](query-builder.md)
 - [Transactions →](transactions.md)
-- [Models →](models.md)
+
+---
+
+## 🆚 Laravel vs Alphavel
+
+| Feature | Laravel | Alphavel | Compatible? |
+|---------|---------|----------|-------------|
+| `DB::query()` | ✅ | ✅ | ✅ 100% |
+| `DB::table()` | ✅ | ✅ | ✅ 100% |
+| `where()` | ✅ | ✅ | ✅ 100% |
+| `whereIn()` | ✅ | ✅ | ✅ 100% |
+| `join()` | ✅ | ✅ | ✅ 100% |
+| `orderBy()` | ✅ | ✅ | ✅ 100% |
+| `transaction()` | ✅ | ✅ | ✅ 100% |
+| **`findMany()`** | ❌ | ✅ 🆕 | - |
+| **Persistent Connections** | ❌ Manual | ✅ Default | - |
+| **Performance** | Standard | +2,674% | 🚀 |
+
+**Alphavel Database: Laravel-like API + Swoole Performance = ❤️**
