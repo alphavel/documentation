@@ -44,6 +44,9 @@
 * [Helpers & Facades](core/helpers-and-facades.md)
 
 ## Database
+* [**Laravel-Style Guide** 💚](packages/database/LARAVEL_STYLE_GUIDE.md) - 100% Laravel-compatible API
+* [**Performance Optimizations** ⚡](packages/database/PERFORMANCE_OPTIMIZATIONS.md) - +2,674% performance
+* [Configuration Template](.env.performance) - Optimized settings
 * [Getting Started](packages/database/getting-started.md)
 * [Query Builder](packages/database/query-builder.md)
 * [Connection Pooling](packages/database/connection-pooling.md)
