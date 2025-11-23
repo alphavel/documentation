@@ -43,23 +43,31 @@ Alphavel is a **high-performance microservice framework** built on Swoole, desig
 
 ### Packages
 
-#### Core Packages
-- [Database](packages/database/README.md) - MySQL/PostgreSQL with connection pooling
-- [Cache](packages/cache/README.md) - Redis/Memcached support
-- [Logging](packages/logging/README.md) - Monolog integration
-- [Events](packages/events/README.md) - Event dispatcher
-- [Validation](packages/validation/README.md) - Request validation
-- [Rate Limit](packages/rate-limit/README.md) - Swoole Table rate limiting
+#### Core Packages (TIER 1)
+- **[Database](packages/database/README.md)** - MySQL/PostgreSQL (+2,674% performance)
+  - [Laravel-Style Guide](packages/database/LARAVEL_STYLE_GUIDE.md) 💚
+  - [Performance Optimizations](packages/database/PERFORMANCE_OPTIMIZATIONS.md) ⚡
+  - [Aggressive Caching](packages/database/AGGRESSIVE_CACHING_GUIDE.md) 🔥
+- **[Support](packages/support/README.md)** - Collections and helper utilities
+- **[Cache](packages/cache/README.md)** - Redis/Memcached support
+- **[Logging](packages/logging/README.md)** - Monolog integration
+- **[Events](packages/events/README.md)** - Event dispatcher
+- **[Validation](packages/validation/README.md)** - Request validation
 
-#### Optional Packages (v1.0+)
-- [Auth](packages/auth/README.md) - JWT authentication with Guards
-- [Queue](packages/queue/README.md) - Async job queue with Swoole coroutines
-- [Mail](packages/mail/README.md) - Email sending with Symfony Mailer
-- [Session](packages/session/README.md) - Session management (File/Redis/Memory)
-- [View](packages/view/README.md) - Blade template engine
-- [i18n](packages/i18n/README.md) - Internationalization/translations
-- [Testing](packages/testing/README.md) - Testing utilities and helpers
-- [ORM](packages/orm/README.md) - Advanced ORM with relationships
+#### High-Performance Packages (TIER 2)
+- **[WebSocket](packages/websocket/README.md)** 📡 - Real-time server (500k+ msgs/s, <1ms)
+- **[Circuit Breaker](packages/circuit-breaker/README.md)** 🛡️ - Resilience pattern (<0.1ms overhead)
+- **[Rate Limit](packages/rate-limit/README.md)** - Swoole Table rate limiting
+
+#### Optional Packages (TIER 2)
+- **[Auth](packages/auth/README.md)** - JWT authentication with Guards
+- **[Queue](packages/queue/README.md)** - Async job queue with Swoole coroutines
+- **[Mail](packages/mail/README.md)** - Email sending with Symfony Mailer
+- **[Session](packages/session/README.md)** - Session management (File/Redis/Memory)
+- **[View](packages/view/README.md)** - Blade template engine
+- **[i18n](packages/i18n/README.md)** - Internationalization/translations
+- **[Testing](packages/testing/README.md)** - Testing utilities and helpers
+- **[ORM](packages/orm/README.md)** - Advanced ORM with relationships
 
 ### Deployment
 - [Docker](deployment/docker.md)

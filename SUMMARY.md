@@ -54,6 +54,9 @@
 * [Transactions](packages/database/transactions.md)
 * [Models](packages/database/models.md)
 
+## Support (Helpers)
+* [Collections & Utilities](packages/support/README.md)
+
 ## Cache
 * [Getting Started](packages/cache/getting-started.md)
 * [Usage](packages/cache/usage.md)
@@ -81,6 +84,12 @@
 * [Authentication (JWT)](packages/auth/README.md)
 * [Guards & Middleware](packages/auth/guards.md)
 * [User Authentication](packages/auth/usage.md)
+
+## WebSocket (Real-time)
+* [**WebSocket Server** 📡](packages/websocket/README.md) - 500k+ msgs/s, <1ms latency
+
+## Circuit Breaker (Resilience)
+* [**Circuit Breaker Pattern** 🛡️](packages/circuit-breaker/README.md) - <0.1ms overhead
 
 ## Queue System
 * [Getting Started](packages/queue/README.md)
