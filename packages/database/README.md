@@ -25,6 +25,7 @@
 
 ## 📚 Documentation
 
+- **[Zero-Config Performance](ZERO_CONFIG_PERFORMANCE.md)** ⚡ **NEW v2.0.1** - Performance by default with helpers
 - **[Laravel-Style Guide](LARAVEL_STYLE_GUIDE.md)** - Complete guide for Laravel developers
 - **[Performance Optimizations](PERFORMANCE_OPTIMIZATIONS.md)** - Deep dive into +2,674% performance gains
 - **[Configuration Template](.env.performance)** - Optimized .env settings
@@ -57,6 +58,8 @@ DB::transaction(function() {
 ---
 
 ## 🚀 Performance Optimizations
+
+> ⚡ **NEW v2.0.1**: [Zero-Config Performance Guide](ZERO_CONFIG_PERFORMANCE.md) - Performance by default with auto-validation!
 
 Alphavel Database includes **4 native performance optimizations**:
 
