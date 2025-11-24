@@ -89,7 +89,7 @@ cd my-app
 docker-compose -f docker-compose.dev.yml up
 
 # Or local Swoole
-alpha serve
+php alpha serve
 ```
 
 ### Your First Route

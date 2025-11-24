@@ -43,7 +43,7 @@ composer create-project alphavel/skeleton my-app
 cd my-app
 
 # Start server
-alpha serve
+php alpha serve
 ```
 
 Access your app at: http://localhost:9501
@@ -290,18 +290,18 @@ return [
 
 ```bash
 # Start server
-alpha serve
+php alpha serve
 
 # Start with custom host/port
-alpha serve --host=0.0.0.0 --port=8000
+php alpha serve --host=0.0.0.0 --port=8000
 
 # Package management
-alpha package:add database
-alpha package:discover
+php alpha package:add database
+php alpha package:discover
 
 # Performance (production)
-alpha route:cache
-alpha route:clear
+php alpha route:cache
+php alpha route:clear
 ```
 
 ---
@@ -513,26 +513,26 @@ $controller = app(UserController::class); // ⚡ Instant
 
 ```bash
 # Code generation
-alpha make:controller UserController --resource
-alpha make:model User
-alpha make:middleware AuthMiddleware
-alpha make:migration create_users_table
-alpha make:seeder UserSeeder
-alpha make:test UserTest
-alpha make:request StoreUserRequest
-alpha make:command SendEmails
+php alpha make:controller UserController --resource
+php alpha make:model User
+php alpha make:middleware AuthMiddleware
+php alpha make:migration create_users_table
+php alpha make:seeder UserSeeder
+php alpha make:test UserTest
+php alpha make:request StoreUserRequest
+php alpha make:command SendEmails
 
 # Optimization
-alpha optimize              # Cache config + routes
-alpha optimize:clear        # Clear all caches
-alpha config:cache          # Cache configuration
-alpha config:clear          # Clear config cache
-alpha route:list            # List all routes
-alpha ide-helper            # Generate IDE helper files
+php alpha optimize              # Cache config + routes
+php alpha optimize:clear        # Clear all caches
+php alpha config:cache          # Cache configuration
+php alpha config:clear          # Clear config cache
+php alpha route:list            # List all routes
+php alpha ide-helper            # Generate IDE helper files
 
 # Views
-alpha cache:clear           # Clear application cache
-alpha facade:clear          # Clear facade cache
+php alpha cache:clear           # Clear application cache
+php alpha facade:clear          # Clear facade cache
 ```
 
 ---
