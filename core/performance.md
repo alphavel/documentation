@@ -142,7 +142,7 @@ RUN alpha route:cache
 ❌ **Don't cache in development**
 ```bash
 # Let routes load dynamically for hot-reload
-alpha serve  # No caching needed
+php alpha serve  # No caching needed
 ```
 
 ---

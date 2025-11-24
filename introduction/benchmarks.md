@@ -647,7 +647,7 @@ composer create-project alphavel/skeleton benchmark-app
 cd benchmark-app
 
 # Start server
-alpha serve --workers=4
+php alpha serve --workers=4
 ```
 
 ### Run Tests

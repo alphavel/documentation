@@ -628,7 +628,7 @@ kubectl rollout undo deployment/alphavel-api
 docker stats
 
 # Reduce workers
-SWOOLE_WORKERS=8 alpha serve
+SWOOLE_WORKERS=8 php alpha serve
 
 # Enable worker recycling
 # config/swoole.php: max_request = 5000

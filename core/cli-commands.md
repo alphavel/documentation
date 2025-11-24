@@ -49,7 +49,7 @@ Start the Swoole HTTP server for development or production.
 **Basic Usage:**
 
 ```bash
-alpha serve
+php php alpha serve
 ```
 
 **Output:**
@@ -69,24 +69,24 @@ Press Ctrl+C to stop
 **Custom Host/Port:**
 
 ```bash
-alpha serve --host=127.0.0.1 --port=8000
+php php alpha serve --host=127.0.0.1 --port=8000
 ```
 
 **Custom Workers:**
 
 ```bash
 # Use more workers for production
-alpha serve --workers=8
+php php alpha serve --workers=8
 
 # Auto-detect (2x CPU cores)
-alpha serve --workers=auto
+php php alpha serve --workers=auto
 ```
 
 **Production Mode:**
 
 ```bash
 # Disable debug, enable optimizations
-APP_ENV=production alpha serve
+APP_ENV=production php alpha serve
 ```
 
 **Options:**
@@ -102,13 +102,13 @@ APP_ENV=production alpha serve
 
 ```bash
 # Development (single worker for debugging)
-alpha serve --workers=1
+php php alpha serve --workers=1
 
 # Production (high traffic)
-alpha serve --workers=16 --daemon
+php php alpha serve --workers=16 --daemon
 
 # Custom configuration
-alpha serve --host=0.0.0.0 --port=80 --workers=auto
+php php alpha serve --host=0.0.0.0 --port=80 --workers=auto
 ```
 
 ---
@@ -131,19 +131,19 @@ Generate a controller with optional CRUD operations.
 
 ```bash
 # Basic controller
-alpha make:controller UserController
+php php alpha make:controller UserController
 
 # CRUD controller
-alpha make:controller UserController --resource
+php php alpha make:controller UserController --resource
 
 # API controller
-alpha make:controller UserController --api
+php php alpha make:controller UserController --api
 ```
 
 #### Mode 2: Wizard (Interactive)
 
 ```bash
-alpha make:controller
+php php alpha make:controller
 ```
 
 **Wizard Prompts:**
@@ -204,13 +204,13 @@ Generate a **complete REST CRUD controller** with all operations automatically.
 #### Mode 1: Parameters (Direct)
 
 ```bash
-alpha make:controller ArticleController --resource
+php php alpha make:controller ArticleController --resource
 ```
 
 #### Mode 2: Wizard (Interactive)
 
 ```bash
-alpha make:controller ArticleController
+php php alpha make:controller ArticleController
 ```
 
 **Wizard Prompts:**
@@ -292,7 +292,7 @@ alpha make:controller ArticleController
 **CLI Output:**
 
 ```bash
-$ alpha make:controller ArticleController --resource
+$ php alpha make:controller ArticleController --resource
 
 ✓ Controller created: app/Controllers/ArticleController.php
 
@@ -415,7 +415,7 @@ Generate an Eloquent-style model class.
 **Usage:**
 
 ```bash
-alpha make:model Article
+php php alpha make:model Article
 ```
 
 **Generated Code (`app/Models/Article.php`):**
@@ -452,7 +452,7 @@ Generate a middleware class.
 **Usage:**
 
 ```bash
-alpha make:middleware AuthMiddleware
+php php alpha make:middleware AuthMiddleware
 ```
 
 **Generated Code (`app/Middleware/AuthMiddleware.php`):**
@@ -506,7 +506,7 @@ Alpha CLI supports **two interaction modes** for maximum flexibility.
 **Usage:** Run command without arguments
 
 ```bash
-alpha make:controller
+php php alpha make:controller
 ```
 
 **Features:**
@@ -527,7 +527,7 @@ alpha make:controller
 **Example Wizard Flow:**
 
 ```
-$ alpha make:controller
+$ php alpha make:controller
 
 🎯 Alpha Controller Generator
 
@@ -559,7 +559,7 @@ $ alpha make:controller
 
 🎉 Done! Next steps:
   1. Add routes to routes/api.php
-  2. Run: alpha serve
+  2. Run: php alpha serve
   3. Test: curl http://localhost:9501/api/products
 ```
 
@@ -570,7 +570,7 @@ $ alpha make:controller
 **Usage:** Pass all arguments in command
 
 ```bash
-alpha make:controller ProductController --resource --auth=jwt --tests --api-docs
+php php alpha make:controller ProductController --resource --auth=jwt --tests --api-docs
 ```
 
 **Features:**
@@ -590,7 +590,7 @@ alpha make:controller ProductController --resource --auth=jwt --tests --api-docs
 **Example Direct Flow:**
 
 ```bash
-$ alpha make:controller ProductController --resource --auth=jwt --tests --api-docs
+$ php alpha make:controller ProductController --resource --auth=jwt --tests --api-docs
 
 ✓ Controller created: app/Controllers/ProductController.php (218 lines)
 ✓ Tests created: tests/Controllers/ProductControllerTest.php (156 lines)
@@ -620,28 +620,28 @@ $ alpha make:controller ProductController --resource --auth=jwt --tests --api-do
 
 ```bash
 # 1. Use wizard to learn
-$ alpha make:controller
+$ php alpha make:controller
 ? ... (interactive prompts)
 
 # 2. See equivalent command
 ✓ Done! Equivalent command:
-  alpha make:controller UserController --resource --cache --pagination
+  php alpha make:controller UserController --resource --cache --pagination
 
 # 3. Use parameters next time
-$ alpha make:controller ProductController --resource --cache --pagination
+$ php alpha make:controller ProductController --resource --cache --pagination
 ```
 
 **Show help with examples:**
 
 ```bash
-alpha make:controller --help
+php php alpha make:controller --help
 ```
 
 **Output:**
 
 ```
 Usage:
-  alpha make:controller [name] [options]
+  php alpha make:controller [name] [options]
 
 Arguments:
   name                  Controller name (e.g., UserController)
@@ -657,12 +657,12 @@ Options:
   --validation         Generate validation rules
 
 Examples:
-  alpha make:controller UserController
-  alpha make:controller ProductController --resource
-  alpha make:controller ApiController --api --auth=jwt --tests
+  php alpha make:controller UserController
+  php alpha make:controller ProductController --resource
+  php alpha make:controller ApiController --api --auth=jwt --tests
 
 Wizard Mode:
-  alpha make:controller
+  php alpha make:controller
   (Interactive prompts guide you through options)
 ```
 
@@ -675,13 +675,13 @@ Even package installation supports wizard mode!
 **Parameters Mode:**
 
 ```bash
-alpha package:add database
+php alpha package:add database
 ```
 
 **Wizard Mode:**
 
 ```bash
-alpha package:add
+php alpha package:add
 ```
 
 **Wizard Prompts:**
@@ -737,29 +737,29 @@ Install and auto-configure packages with one command.
 **Usage:**
 
 ```bash
-alpha package:add [package-name]
+php alpha package:add [package-name]
 ```
 
 **Available Packages:**
 
 ```bash
 # Database (MySQL/PostgreSQL + connection pooling)
-alpha package:add database
+php alpha package:add database
 
 # Cache (Redis/Memcached)
-alpha package:add cache
+php alpha package:add cache
 
 # Logging (Monolog)
-alpha package:add logging
+php alpha package:add logging
 
 # Events (Event dispatcher)
-alpha package:add events
+php alpha package:add events
 
 # Validation (Request validation)
-alpha package:add validation
+php alpha package:add validation
 
 # Support (Helper utilities)
-alpha package:add support
+php alpha package:add support
 ```
 
 **What Happens:**
@@ -802,16 +802,16 @@ Next steps:
 Instead of full package names, use short aliases:
 
 ```bash
-alpha package:add db        # alias for database
-alpha package:add redis     # alias for cache
-alpha package:add log       # alias for logging
+php alpha package:add db        # alias for database
+php alpha package:add redis     # alias for cache
+php alpha package:add log       # alias for logging
 ```
 
 **Bulk Installation:**
 
 ```bash
 # Install multiple packages
-alpha package:add database cache logging
+php alpha package:add database cache logging
 ```
 
 ---
@@ -823,7 +823,7 @@ Scan vendor directory and rebuild package manifest.
 **Usage:**
 
 ```bash
-alpha package:discover
+php alpha package:discover
 ```
 
 **When to Use:**
@@ -868,7 +868,7 @@ Pre-compile routes for zero-overhead routing in production.
 **Usage:**
 
 ```bash
-alpha route:cache
+php alpha route:cache
 ```
 
 **What It Does:**
@@ -915,8 +915,8 @@ Performance impact:
 
 ```bash
 # 1. Test locally
-alpha route:cache
-alpha serve
+php alpha route:cache
+php php alpha serve
 
 # 2. Deploy
 git add bootstrap/cache/routes.php
@@ -936,7 +936,7 @@ Remove cached routes and reload from source.
 **Usage:**
 
 ```bash
-alpha route:clear
+php alpha route:clear
 ```
 
 **When to Use:**
@@ -963,20 +963,20 @@ Routes will be loaded from source on next request.
 
 ```bash
 # Clear cache, re-cache, and start server
-alpha route:clear && alpha route:cache && alpha serve
+php alpha route:clear && alpha route:cache && php alpha serve
 ```
 
 ### Environment-Specific Commands
 
 ```bash
 # Development
-APP_ENV=local alpha serve --workers=1
+APP_ENV=local php alpha serve --workers=1
 
 # Staging
-APP_ENV=staging alpha serve --workers=4
+APP_ENV=staging php alpha serve --workers=4
 
 # Production
-APP_ENV=production alpha serve --workers=16 --daemon
+APP_ENV=production php alpha serve --workers=16 --daemon
 ```
 
 ### Docker Integration
@@ -985,7 +985,7 @@ APP_ENV=production alpha serve --workers=16 --daemon
 # Inside Docker container
 docker-compose exec app alpha route:cache
 docker-compose exec app alpha package:add database
-docker-compose exec app alpha serve
+docker-compose exec app php alpha serve
 ```
 
 ---
@@ -1115,7 +1115,7 @@ git pull origin main
 composer install --no-dev --optimize-autoloader
 
 # Cache routes
-alpha route:cache
+php alpha route:cache
 
 # Restart server
 docker-compose restart app
@@ -1142,7 +1142,7 @@ echo "✅ Deployment complete!"
 ### Command Not Found
 
 ```bash
-$ alpha serve
+$ php alpha serve
 bash: alpha: Permission denied
 ```
 
@@ -1150,13 +1150,13 @@ bash: alpha: Permission denied
 
 ```bash
 chmod +x alphavel
-alpha serve
+php php alpha serve
 ```
 
 ### Swoole Not Installed
 
 ```bash
-$ alpha serve
+$ php alpha serve
 Error: Swoole extension not installed
 ```
 
@@ -1173,7 +1173,7 @@ pecl install swoole
 ### Port Already in Use
 
 ```bash
-$ alpha serve
+$ php alpha serve
 Error: Address already in use (port 9501)
 ```
 
@@ -1181,7 +1181,7 @@ Error: Address already in use (port 9501)
 
 ```bash
 # Use different port
-alpha serve --port=9502
+php php alpha serve --port=9502
 
 # Or kill existing process
 lsof -ti:9501 | xargs kill -9
@@ -1200,7 +1200,7 @@ The Alpha CLI is designed to **enforce best practices** and **guide developers**
 When you install a package, Alpha CLI doesn't just download it—it **configures your application** for optimal performance:
 
 ```bash
-alpha package:add database
+php alpha package:add database
 ```
 
 **What Alpha CLI does:**
@@ -1276,7 +1276,7 @@ Every code generated by Alpha CLI is **automatically tested** before being added
 **When you add a package:**
 
 ```bash
-alpha package:add cache
+php alpha package:add cache
 ```
 
 **Alpha CLI runs these tests:**
@@ -1313,7 +1313,7 @@ All tests passed! 🎉
 Alpha CLI shows **real-time performance impact** of every operation:
 
 ```bash
-alpha route:cache
+php alpha route:cache
 ```
 
 **Output with Metrics:**
@@ -1354,7 +1354,7 @@ When Alpha CLI generates code, it follows **high-performance patterns** automati
 **Example: Creating a Controller**
 
 ```bash
-alpha make:controller UserController --resource
+php php alpha make:controller UserController --resource
 ```
 
 **Generated Code (app/Controllers/UserController.php):**
@@ -1610,7 +1610,7 @@ alpha fix:performance --auto
 
 ```bash
 # 1. Cache routes
-alpha route:cache
+php alpha route:cache
 
 # 2. Optimize Composer autoloader
 composer dump-autoload --optimize --classmap-authoritative
@@ -1620,10 +1620,10 @@ opcache.enable=1
 opcache.validate_timestamps=0
 
 # 4. Use more workers
-alpha serve --workers=16
+php php alpha serve --workers=16
 
 # 5. Run as daemon
-alpha serve --daemon
+php php alpha serve --daemon
 ```
 
 ### Monitoring
@@ -1831,7 +1831,7 @@ Running Compliance Tests...
 ### Full Test Report Example
 
 ```bash
-alpha package:add database --test-full
+php alpha package:add database --test-full
 ```
 
 **Complete Output:**
@@ -1979,7 +1979,7 @@ Setup JWT authentication with guards and middleware.
 **Usage:**
 
 ```bash
-php alpha make:auth
+php php alpha make:auth
 ```
 
 **Features:**
@@ -2004,7 +2004,7 @@ Configure async job queue with Swoole coroutines.
 **Usage:**
 
 ```bash
-php alpha make:queue
+php php alpha make:queue
 ```
 
 **Features:**
@@ -2025,7 +2025,7 @@ Setup email sending with SMTP configuration.
 **Usage:**
 
 ```bash
-php alpha make:mail WelcomeEmail
+php php alpha make:mail WelcomeEmail
 ```
 
 **Features:**
@@ -2044,7 +2044,7 @@ Configure session drivers.
 **Usage:**
 
 ```bash
-php alpha make:session
+php php alpha make:session
 ```
 
 **Drivers:**
@@ -2064,7 +2064,7 @@ Create Blade templates.
 **Usage:**
 
 ```bash
-php alpha make:view home
+php php alpha make:view home
 ```
 
 **Features:**
@@ -2083,7 +2083,7 @@ Configure internationalization.
 **Usage:**
 
 ```bash
-php alpha make:translation pt_BR
+php php alpha make:translation pt_BR
 ```
 
 **Features:**
@@ -2104,7 +2104,7 @@ Create test classes.
 **Usage:**
 
 ```bash
-php alpha make:test UserTest
+php php alpha make:test UserTest
 ```
 
 **Types:**
@@ -2127,7 +2127,7 @@ Add relationships to models.
 **Usage:**
 
 ```bash
-php alpha make:relationship
+php php alpha make:relationship
 ```
 
 **Relationships:**
@@ -2154,7 +2154,7 @@ All optional package commands follow the same pattern:
 ### 1. Detection
 
 ```bash
-$ php alpha make:auth
+$ php php alpha make:auth
 
 ⚠️  Auth package is not installed.
 
@@ -2193,7 +2193,7 @@ What would you like to do?
 ✓ .env updated
 
 Next steps:
-  1. Run: php alpha make:auth (choose "user" option)
+  1. Run: php php alpha make:auth (choose "user" option)
   2. Create auth routes
   3. Test: curl -X POST http://localhost:9501/auth/login
 ```

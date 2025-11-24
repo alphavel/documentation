@@ -120,9 +120,9 @@ composer require alphavel/alphavel
 
 ```bash
 # Intelligent code generation
-alpha make:controller UserController --model=User    # Schema-aware controller
-alpha make:model User --table=users                  # Model from DB schema
-alpha make:resource User                             # Full resource (model + controller)
+php alpha make:controller UserController --model=User    # Schema-aware controller
+php alpha make:model User --table=users                  # Model from DB schema
+php alpha make:resource User                             # Full resource (model + controller)
 
 # Package management
 alpha add database                                    # Install package with alias
@@ -256,12 +256,12 @@ php alpha add cache
 php alpha add validation
 
 # 4. Generate code using Alpha
-php alpha make:resource User
+php php alpha make:resource User
 
 # 5. Run application using Core
-php alpha serve   # Uses core's ServeCommand
+php php alpha serve   # Uses core's ServeCommand
 # or
-alpha serve       # Uses Alpha CLI's serve command (if implemented)
+php alpha serve       # Uses Alpha CLI's serve command (if implemented)
 ```
 
 ### Command Resolution
@@ -275,10 +275,10 @@ Quando você executa `php alpha <command>`, o sistema:
 
 ```bash
 # Uses Alpha CLI (intelligent generation)
-php alpha make:controller UserController --model=User
+php php alpha make:controller UserController --model=User
 
 # Uses Core (basic generation if Alpha not installed)
-php alpha make:controller UserController
+php php alpha make:controller UserController
 ```
 
 ---
@@ -395,9 +395,9 @@ Both projects support the same modular packages:
 
 ```bash
 # Using Alpha CLI Wizards (recommended - interactive)
-php alpha make:auth          # Install + configure JWT auth
-php alpha make:queue         # Install + configure queue
-php alpha make:mail          # Install + configure email
+php php alpha make:auth          # Install + configure JWT auth
+php php alpha make:queue         # Install + configure queue
+php php alpha make:mail          # Install + configure email
 
 # Using Composer directly
 composer require alphavel/auth
@@ -421,8 +421,8 @@ composer require alphavel/database
 composer require alphavel/cache
 
 # 3. Create files manually
-php alpha make:controller UserController
-php alpha make:model User
+php php alpha make:controller UserController
+php php alpha make:model User
 
 # 4. Write code manually
 # - Add validation rules
@@ -447,7 +447,7 @@ php alpha add database
 php alpha add cache
 
 # 4. Generate complete resource
-php alpha make:resource User
+php php alpha make:resource User
 ```
 
 **Time:** ~5 minutes (6x faster!)  
@@ -461,9 +461,9 @@ php alpha make:resource User
 
 ```bash
 # Generation (basic)
-php alpha make:controller UserController
-php alpha make:model User
-php alpha make:middleware AuthMiddleware
+php php alpha make:controller UserController
+php php alpha make:model User
+php php alpha make:middleware AuthMiddleware
 
 # Optimization
 php alpha optimize
@@ -471,7 +471,7 @@ php alpha route:cache
 php alpha config:cache
 
 # Development
-php alpha serve
+php php alpha serve
 php alpha route:list
 ```
 
@@ -479,9 +479,9 @@ php alpha route:list
 
 ```bash
 # Generation (intelligent)
-php alpha make:controller UserController --model=User
-php alpha make:model User --table=users
-php alpha make:resource User
+php php alpha make:controller UserController --model=User
+php php alpha make:model User --table=users
+php php alpha make:resource User
 
 # Package Management
 php alpha add database
