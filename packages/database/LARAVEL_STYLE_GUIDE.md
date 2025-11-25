@@ -554,9 +554,9 @@ $users = DB::table('users')
 
 ## 🔗 Links Úteis
 
-- **Performance Guide**: [PERFORMANCE_OPTIMIZATIONS.md](PERFORMANCE_OPTIMIZATIONS.md)
+- **Performance Guide**: [PERFORMANCE_OPTIMIZATIONS.md](PERFORMANCE_OPTIMIZATIONS.html)
 - **Configuration**: [.env.performance](.env.performance)
-- **Changelog**: [CHANGELOG.md](CHANGELOG.md)
+- **Changelog**: [CHANGELOG.md](CHANGELOG.html)
 
 ---
 

@@ -415,9 +415,9 @@ class AuthTest extends TestCase
 
 ## 🔗 Related
 
-- [Guards & Middleware](guards.md)
-- [User Authentication](usage.md)
-- [API Reference](api.md)
+- [Guards & Middleware](guards.html)
+- [User Authentication](usage.html)
+- [API Reference](api.html)
 
 ---
 

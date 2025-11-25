@@ -1998,7 +1998,7 @@ php php alpha make:auth
 
 **Performance:** 0.08% overhead (< 0.1ms per request)
 
-**Documentation:** [Auth Package →](../packages/auth/README.md)
+**Documentation:** [Auth Package →](../packages/auth/)
 
 ---
 
@@ -2207,8 +2207,6 @@ Next steps:
 
 ## Next Steps
 
-- [Performance Guide →](performance.md)
-- [Deployment →](../deployment/production.md)
-- [Custom Commands →](custom-commands.md)
-- [Testing Guide →](testing.md)
-- [Auth Package →](../packages/auth/README.md)
+- [Performance Guide →](performance.html)
+- [Deployment →](../deployment/production.html)
+- [Auth Package →](../packages/auth/)

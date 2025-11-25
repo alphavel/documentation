@@ -315,5 +315,5 @@ A: Sim! Desde que tenha Docker Desktop instalado.
 
 ---
 
-**Dúvidas?** Veja a documentação completa no [README.md](README.md)  
+**Dúvidas?** Veja a documentação completa no [README.md](README.html)  
 **Problemas?** Abra uma issue no [GitHub](https://github.com/alphavel/skeleton/issues)

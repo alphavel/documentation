@@ -105,5 +105,5 @@ $validator = Validator::make($data, [
 
 ## Next Steps
 
-- [Available Rules →](rules.md)
-- [Custom Rules →](custom-rules.md)
+- [Available Rules →](rules.html)
+- [Custom Rules →](custom-rules.html)

@@ -112,5 +112,5 @@ public function store(Request $request)
 
 ## Next Steps
 
-- [Dispatching Events →](dispatching.md)
-- [Event Listeners →](listeners.md)
+- [Dispatching Events →](dispatching.html)
+- [Event Listeners →](listeners.html)

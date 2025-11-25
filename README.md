@@ -33,52 +33,52 @@ Alphavel is a **high-performance microservice framework** built on Swoole, desig
 ## 📖 Documentation Structure
 
 ### Core Framework
-- [Getting Started](core/getting-started.md)
-- [Installation](core/installation.md)
-- [Configuration](core/configuration.md)
-- [Routing](core/routing.md)
-- [Raw Routes](core/raw-routes.md)
-- [Controllers](core/controllers.md)
-- [Request & Response](core/request-response.md)
-- [Middleware](core/middleware.md)
-- [Dependency Injection](core/container.md)
-- [Service Providers](core/service-providers.md)
-- [CLI Commands](core/cli-commands.md)
-- [Performance](core/performance.md)
+- [Getting Started](core/getting-started.html)
+- [Installation](core/installation.html)
+- [Configuration](core/configuration.html)
+- [Routing](core/routing.html)
+- [Raw Routes](core/raw-routes.html)
+- [Controllers](core/controllers.html)
+- [Request & Response](core/request-response.html)
+- [Middleware](core/middleware.html)
+- [Dependency Injection](core/container.html)
+- [Service Providers](core/service-providers.html)
+- [CLI Commands](core/cli-commands.html)
+- [Performance](core/performance.html)
 
 ### Packages
 
 #### Core Packages (TIER 1)
-- **[Database](packages/database/README.md)** - MySQL/PostgreSQL (+2,674% performance)
-  - [Laravel-Style Guide](packages/database/LARAVEL_STYLE_GUIDE.md) 💚
-  - [Performance Optimizations](packages/database/PERFORMANCE_OPTIMIZATIONS.md) ⚡
-  - [Aggressive Caching](packages/database/AGGRESSIVE_CACHING_GUIDE.md) 🔥
-- **[Support](packages/support/README.md)** - Collections and helper utilities
-- **[Cache](packages/cache/README.md)** - Redis/Memcached support
-- **[Logging](packages/logging/README.md)** - Monolog integration
-- **[Events](packages/events/README.md)** - Event dispatcher
-- **[Validation](packages/validation/README.md)** - Request validation
+- **[Database](packages/database/)** - MySQL/PostgreSQL (+2,674% performance)
+  - [Laravel-Style Guide](packages/database/LARAVEL_STYLE_GUIDE.html) 💚
+  - [Performance Optimizations](packages/database/PERFORMANCE_OPTIMIZATIONS.html) ⚡
+  - [Aggressive Caching](packages/database/AGGRESSIVE_CACHING_GUIDE.html) 🔥
+- **[Support](packages/support/)** - Collections and helper utilities
+- **[Cache](packages/cache/)** - Redis/Memcached support
+- **[Logging](packages/logging/)** - Monolog integration
+- **[Events](packages/events/)** - Event dispatcher
+- **[Validation](packages/validation/)** - Request validation
 
 #### High-Performance Packages (TIER 2)
-- **[WebSocket](packages/websocket/README.md)** 📡 - Real-time server (500k+ msgs/s, <1ms)
-- **[Circuit Breaker](packages/circuit-breaker/README.md)** 🛡️ - Resilience pattern (<0.1ms overhead)
-- **[Rate Limit](packages/rate-limit/README.md)** - Swoole Table rate limiting
+- **[WebSocket](packages/websocket/)** 📡 - Real-time server (500k+ msgs/s, <1ms)
+- **[Circuit Breaker](packages/circuit-breaker/)** 🛡️ - Resilience pattern (<0.1ms overhead)
+- **[Rate Limit](packages/rate-limit/)** - Swoole Table rate limiting
 
 #### Optional Packages (TIER 2)
-- **[Auth](packages/auth/README.md)** - JWT authentication with Guards
-- **[Queue](packages/queue/README.md)** - Async job queue with Swoole coroutines
-- **[Mail](packages/mail/README.md)** - Email sending with Symfony Mailer
-- **[Session](packages/session/README.md)** - Session management (File/Redis/Memory)
-- **[View](packages/view/README.md)** - Blade template engine
-- **[i18n](packages/i18n/README.md)** - Internationalization/translations
-- **[Testing](packages/testing/README.md)** - Testing utilities and helpers
-- **[ORM](packages/orm/README.md)** - Advanced ORM with relationships
+- **[Auth](packages/auth/)** - JWT authentication with Guards
+- **[Queue](packages/queue/)** - Async job queue with Swoole coroutines
+- **[Mail](packages/mail/)** - Email sending with Symfony Mailer
+- **[Session](packages/session/)** - Session management (File/Redis/Memory)
+- **[View](packages/view/)** - Blade template engine
+- **[i18n](packages/i18n/)** - Internationalization/translations
+- **[Testing](packages/testing/)** - Testing utilities and helpers
+- **[ORM](packages/orm/)** - Advanced ORM with relationships
 
 ### Deployment
-- [Docker](deployment/docker.md)
-- [Production](deployment/production.md)
-- [Performance Tuning](deployment/performance-tuning.md)
-- [Troubleshooting](deployment/troubleshooting.md)
+- [Docker](deployment/docker.html)
+- [Production](deployment/production.html)
+- [Performance Tuning](deployment/performance-tuning.html)
+- [Troubleshooting](deployment/troubleshooting.html)
 
 ---
 
@@ -148,7 +148,7 @@ composer require alphavel/mail
 | Hyperf | 1,050 | 0.5 CPU, 512MB |
 | **Advantage** | **4.8x faster** | Same resources |
 
-> **See [Benchmarks](introduction/benchmarks.md) for detailed performance analysis.**
+> **See [Benchmarks](introduction/benchmarks.html) for detailed performance analysis.**
 
 ---
 
@@ -236,7 +236,7 @@ composer require alphavel/mail
 
 ## 🤝 Contributing
 
-We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details.
+We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.html) for details.
 
 ---
 

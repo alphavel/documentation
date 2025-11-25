@@ -826,7 +826,7 @@ Alphavel delivers **unprecedented performance** in the PHP ecosystem by combinin
 
 ## Next Steps
 
-- [Performance Optimization →](performance.md)
-- [Raw Routes →](raw-routes.md)
-- [Connection Pooling →](../packages/database/connection-pooling.md)
-- [Production Deployment →](../deployment/production.md)
+- [Performance Optimization →](performance.html)
+- [Raw Routes →](raw-routes.html)
+- [Connection Pooling →](../packages/database/connection-pooling.html)
+- [Production Deployment →](../deployment/production.html)

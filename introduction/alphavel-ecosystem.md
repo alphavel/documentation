@@ -500,10 +500,10 @@ php alpha inspect:schema users
 
 ## 🔗 Documentation References
 
-- **Core Framework:** [Getting Started →](../core/getting-started.md)
-- **Modular Architecture:** [Architecture →](modular-architecture.md)
-- **Performance:** [Benchmarks →](benchmarks.md)
-- **CLI Commands:** [CLI Guide →](../core/cli-commands.md)
+- **Core Framework:** [Getting Started →](../core/getting-started.html)
+- **Modular Architecture:** [Architecture →](modular-architecture.html)
+- **Performance:** [Benchmarks →](benchmarks.html)
+- **CLI Commands:** [CLI Guide →](../core/cli-commands.html)
 
 ---
 

@@ -518,7 +518,7 @@ A: Sim! Funciona perfeitamente com HTTP client, filas, cache, etc.
 ## 🔗 Links
 
 - [Repositório GitHub](https://github.com/alphavel/circuit-breaker)
-- [README Completo](https://github.com/alphavel/circuit-breaker/blob/master/README.md)
+- [README Completo](https://github.com/alphavel/circuit-breaker/blob/master/README.html)
 - [Circuit Breaker Pattern](https://martinfowler.com/bliki/CircuitBreaker.html)
 - [Documentação Alphavel](https://alphavel.com/docs)
 

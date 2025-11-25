@@ -30,9 +30,9 @@ title: README
 
 ## 📚 Documentation
 
-- **[Zero-Config Performance](ZERO_CONFIG_PERFORMANCE.md)** ⚡ **NEW v2.0.1** - Performance by default with helpers
-- **[Laravel-Style Guide](LARAVEL_STYLE_GUIDE.md)** - Complete guide for Laravel developers
-- **[Performance Optimizations](PERFORMANCE_OPTIMIZATIONS.md)** - Deep dive into +2,674% performance gains
+- **[Zero-Config Performance](ZERO_CONFIG_PERFORMANCE.html)** ⚡ **NEW v2.0.1** - Performance by default with helpers
+- **[Laravel-Style Guide](LARAVEL_STYLE_GUIDE.html)** - Complete guide for Laravel developers
+- **[Performance Optimizations](PERFORMANCE_OPTIMIZATIONS.html)** - Deep dive into +2,674% performance gains
 - **[Configuration Template](.env.performance)** - Optimized .env settings
 
 ---
@@ -64,7 +64,7 @@ DB::transaction(function() {
 
 ## 🚀 Performance Optimizations
 
-> ⚡ **NEW v2.0.1**: [Zero-Config Performance Guide](ZERO_CONFIG_PERFORMANCE.md) - Performance by default with auto-validation!
+> ⚡ **NEW v2.0.1**: [Zero-Config Performance Guide](ZERO_CONFIG_PERFORMANCE.html) - Performance by default with auto-validation!
 
 Alphavel Database includes **4 native performance optimizations**:
 
@@ -160,7 +160,7 @@ DB_PERSISTENT=true
 
 **🏆 Industry Position**: #1 Fastest PHP Framework - Beats FrankenPHP, RoadRunner, Hyperf!
 
-**📖 Full guide**: See [PERFORMANCE_OPTIMIZATIONS.md](PERFORMANCE_OPTIMIZATIONS.md)
+**📖 Full guide**: See [PERFORMANCE_OPTIMIZATIONS.md](PERFORMANCE_OPTIMIZATIONS.html)
 
 ---
 
@@ -616,12 +616,12 @@ DB_PASSWORD=secret
 
 ## 📚 Next Steps
 
-- **[Laravel-Style Guide →](LARAVEL_STYLE_GUIDE.md)** - Complete Laravel-compatible API guide
-- **[Performance Optimizations →](PERFORMANCE_OPTIMIZATIONS.md)** - +2,674% performance guide
+- **[Laravel-Style Guide →](LARAVEL_STYLE_GUIDE.html)** - Complete Laravel-compatible API guide
+- **[Performance Optimizations →](PERFORMANCE_OPTIMIZATIONS.html)** - +2,674% performance guide
 - **[Configuration Template →](.env.performance)** - Optimized settings
-- [Connection Pooling →](connection-pooling.md)
-- [Query Builder →](query-builder.md)
-- [Transactions →](transactions.md)
+- [Connection Pooling →](connection-pooling.html)
+- [Query Builder →](query-builder.html)
+- [Transactions →](transactions.html)
 
 ---
 

@@ -738,6 +738,6 @@ Compare with Laravel FPM (same traffic): **$3,200+/month** 🤯
 
 ## Next Steps
 
-- [Benchmarks →](../introduction/benchmarks.md)
-- [Performance Guide →](../core/performance.md)
-- [Monitoring →](monitoring.md)
+- [Benchmarks →](../introduction/benchmarks.html)
+- [Performance Guide →](../core/performance.html)
+- [Monitoring →](monitoring.html)

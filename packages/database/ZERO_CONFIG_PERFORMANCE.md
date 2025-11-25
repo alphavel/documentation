@@ -524,9 +524,9 @@ if (!empty($warnings)) {
 
 ## 🔗 Related Documentation
 
-- [Database Package Overview](README.md)
-- [Performance Optimizations](PERFORMANCE_OPTIMIZATIONS.md)
-- [Laravel-Style Guide](LARAVEL_STYLE_GUIDE.md)
+- [Database Package Overview](README.html)
+- [Performance Optimizations](PERFORMANCE_OPTIMIZATIONS.html)
+- [Laravel-Style Guide](LARAVEL_STYLE_GUIDE.html)
 
 ---
 

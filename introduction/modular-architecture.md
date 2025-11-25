@@ -596,10 +596,10 @@ composer require alphavel/logging
 
 ## 🔗 Next Steps
 
-- [Package System →](../core/packages.md)
-- [Service Providers →](../core/service-providers.md)
-- [Performance Optimization →](../core/performance.md)
-- [Production Deployment →](../deployment/production.md)
+- [Package System →](../core/packages.html)
+- [Service Providers →](../core/service-providers.html)
+- [Performance Optimization →](../core/performance.html)
+- [Production Deployment →](../deployment/production.html)
 
 ---
 

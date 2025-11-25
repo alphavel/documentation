@@ -428,7 +428,7 @@ A: Sim! API WebSocket padrão, funciona com qualquer framework.
 ## 🔗 Links
 
 - [Repositório GitHub](https://github.com/alphavel/websocket)
-- [README Completo](https://github.com/alphavel/websocket/blob/master/README.md)
+- [README Completo](https://github.com/alphavel/websocket/blob/master/README.html)
 - [Documentação Alphavel](https://alphavel.com/docs)
 
 ---

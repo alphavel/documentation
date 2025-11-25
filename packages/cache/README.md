@@ -81,5 +81,5 @@ $users = Cache::remember('users:all', 3600, function () {
 
 ## Next Steps
 
-- [Usage Guide →](usage.md)
-- [Drivers →](drivers.md)
+- [Usage Guide →](usage.html)
+- [Drivers →](drivers.html)

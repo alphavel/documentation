@@ -71,7 +71,7 @@ $router->raw('/metrics', function($request, $response) {
 
 **When to use**: Health checks, metrics, static responses
 
-[Learn more about Raw Routes →](raw-routes.md)
+[Learn more about Raw Routes →](raw-routes.html)
 
 ---
 
@@ -247,6 +247,6 @@ $router->raw(
 
 ## Next Steps
 
-- [Raw Routes →](raw-routes.md)
-- [Controllers →](controllers.md)
-- [Route Caching →](route-caching.md)
+- [Raw Routes →](raw-routes.html)
+- [Controllers →](controllers.html)
+- [Route Caching →](route-caching.html)

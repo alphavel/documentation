@@ -352,8 +352,8 @@ queue(): QueueManager
 
 ## 🔗 Related
 
-- [CLI Commands](../../documentation/core/cli-commands.md)
-- [Performance Guide](../../documentation/core/performance.md)
+- [CLI Commands](../../documentation/core/cli-commands.html)
+- [Performance Guide](../../documentation/core/performance.html)
 
 ---
 

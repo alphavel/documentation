@@ -74,5 +74,5 @@ Log::channel('single')->info('Message to single file');
 
 ## Next Steps
 
-- [Usage Guide →](usage.md)
-- [Channels →](channels.md)
+- [Usage Guide →](usage.html)
+- [Channels →](channels.html)

@@ -282,9 +282,9 @@ DB::configure([
 
 ## 📚 Related Documentation
 
-- [ANALISE_MELHORIAS_PERFORMANCE.md](../ANALISE_MELHORIAS_PERFORMANCE.md) - Full technical analysis
-- [COMPARATIVO_BEFORE_AFTER.md](../COMPARATIVO_BEFORE_AFTER.md) - Code comparison
-- [PLANO_IMPLEMENTACAO.md](../PLANO_IMPLEMENTACAO.md) - Implementation guide
+- [ANALISE_MELHORIAS_PERFORMANCE.md](../ANALISE_MELHORIAS_PERFORMANCE.html) - Full technical analysis
+- [COMPARATIVO_BEFORE_AFTER.md](../COMPARATIVO_BEFORE_AFTER.html) - Code comparison
+- [PLANO_IMPLEMENTACAO.md](../PLANO_IMPLEMENTACAO.html) - Implementation guide
 
 ## 🏆 Performance Targets
 

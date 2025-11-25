@@ -544,17 +544,16 @@ php alpha facade:clear          # Clear facade cache
 
 ## Next Steps
 
-- [Routing →](routing.md)
-- [Controllers →](controllers.md)
-- [CLI Commands →](cli-commands.md)
-- [Performance →](performance.md)
-- [Database →](../packages/database/getting-started.md)
-- [Performance →](performance.md)
+- [Routing →](routing.html)
+- [Controllers →](controllers.html)
+- [CLI Commands →](cli-commands.html)
+- [Performance →](performance.html)
+- [Database →](../packages/database/)
 
 ---
 
 ## Need Help?
 
-- 📖 [Full Documentation](../README.md)
+- 📖 [Full Documentation](../)
 - 💬 [Discord Community](https://discord.gg/alphavel)
 - 🐛 [Issue Tracker](https://github.com/alphavel/alphavel/issues)

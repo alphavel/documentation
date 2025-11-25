@@ -745,6 +745,6 @@ Log::info("Operation took {$duration}s");
 
 ## Next Steps
 
-- [Raw Routes Documentation →](raw-routes.md)
-- [Benchmarks →](../introduction/benchmarks.md)
-- [Deployment Guide →](../deployment/production.md)
+- [Raw Routes Documentation →](raw-routes.html)
+- [Benchmarks →](../introduction/benchmarks.html)
+- [Deployment Guide →](../deployment/production.html)

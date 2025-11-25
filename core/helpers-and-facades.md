@@ -547,7 +547,7 @@ class ArticleController extends Controller
 
 ## Next Steps
 
-- [Routing →](routing.md)
-- [Controllers →](controllers.md)
-- [Dependency Injection →](dependency-injection.md)
-- [Performance →](performance.md)
+- [Routing →](routing.html)
+- [Controllers →](controllers.html)
+- [Dependency Injection →](dependency-injection.html)
+- [Performance →](performance.html)

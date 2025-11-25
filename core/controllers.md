@@ -862,7 +862,6 @@ return ['users' => $users]; // ❌ Use Response object
 
 ## Next Steps
 
-- [Request & Response →](request-response.md)
-- [Dependency Injection →](container.md)
-- [Validation →](../packages/validation/README.md)
-- [Database →](../packages/database/README.md)
+- [Dependency Injection →](autowiring.html)
+- [Validation →](../packages/validation/)
+- [Database →](../packages/database/)

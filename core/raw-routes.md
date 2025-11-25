@@ -394,9 +394,9 @@ $router->raw('/json', ['message' => 'Hello, World!'], 'application/json');
 
 ## 📚 Recursos Adicionais
 
-- **Performance Guide**: [PERFORMANCE.md](PERFORMANCE.md)
-- **Benchmarks**: [BENCHMARKS.md](BENCHMARKS.md)
-- **API Reference**: [Router API docs](docs/router.md)
+- **Performance Guide**: [PERFORMANCE.md](PERFORMANCE.html)
+- **Benchmarks**: [BENCHMARKS.md](BENCHMARKS.html)
+- **API Reference**: [Router API docs](docs/router.html)
 
 ---
 

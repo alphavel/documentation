@@ -256,10 +256,10 @@ php alpha vendor:publish --provider="Alphavel\Database\DatabaseServiceProvider"
 
 ## 📚 Related Documentation
 
-- [Configuration Guide](../alphavel/CONFIG.md)
-- [Service Providers](../alphavel/SERVICE_PROVIDERS.md)
-- [Facades](../alphavel/FACADES.md)
-- [Best Practices](BEST_PRACTICES.md)
+- [Configuration Guide](../alphavel/CONFIG.html)
+- [Service Providers](../alphavel/SERVICE_PROVIDERS.html)
+- [Facades](../alphavel/FACADES.html)
+- [Best Practices](BEST_PRACTICES.html)
 
 ---
 
