@@ -1,3 +1,8 @@
+---
+layout: default
+title: NEW_PACKAGES_SUMMARY
+---
+
 # 🎉 Novos Packages Alphavel - TIER 2 Completo
 
 **Data:** 22 de Novembro de 2025

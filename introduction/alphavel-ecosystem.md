@@ -1,3 +1,8 @@
+---
+layout: default
+title: Alphavel Ecosystem
+---
+
 # Alphavel Ecosystem
 
 O ecossistema Alphavel consiste em **dois projetos complementares** que trabalham juntos para entregar uma experiência de desenvolvimento completa.

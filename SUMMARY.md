@@ -1,3 +1,8 @@
+---
+layout: default
+title: SUMMARY
+---
+
 # Summary
 
 ## 📚 Essential Guides

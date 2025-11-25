@@ -1,3 +1,8 @@
+---
+layout: default
+title: PERFORMANCE_OPTIMIZATIONS
+---
+
 # 🚀 Otimizações de Performance - Alphavel Database
 
 ## 📊 Ganhos de Performance

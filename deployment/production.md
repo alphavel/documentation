@@ -1,3 +1,8 @@
+---
+layout: default
+title: Production
+---
+
 # Production Deployment
 
 Complete guide to deploying Alphavel in production environments.

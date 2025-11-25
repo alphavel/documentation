@@ -1,3 +1,8 @@
+---
+layout: default
+title: NEW_PACKAGES_README
+---
+
 # 🎉 Alphavel - Novos Packages TIER 2
 
 **Status:** ✅ **COMPLETO E DOCUMENTADO**

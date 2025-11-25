@@ -1,3 +1,8 @@
+---
+layout: default
+title: README
+---
+
 # Alphavel Mail - Email System
 
 **TIER 2: Production Ready** ✅

@@ -1,3 +1,8 @@
+---
+layout: default
+title: README
+---
+
 # Authentication (JWT)
 
 > JWT authentication with Guards, Middleware, and Laravel-like API

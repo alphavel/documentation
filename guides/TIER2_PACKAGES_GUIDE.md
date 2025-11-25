@@ -1,3 +1,8 @@
+---
+layout: default
+title: TIER2_PACKAGES_GUIDE
+---
+
 # 📦 Alphavel Optional Packages - TIER 2 Production Ready
 
 > **4 packages production-ready**: Auth, Queue, ORM, Mail  

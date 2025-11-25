@@ -1,3 +1,8 @@
+---
+layout: default
+title: ADVANCED_PACKAGES_STATUS
+---
+
 # 🚀 Alphavel - Status de Packages Avançados
 
 > **Data**: 22 de novembro de 2025  

@@ -1,3 +1,8 @@
+---
+layout: default
+title: README
+---
+
 # Events Package
 
 Event dispatcher for decoupled application logic.

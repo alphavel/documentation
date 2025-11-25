@@ -1,3 +1,8 @@
+---
+layout: default
+title: LARAVEL_STYLE_GUIDE
+---
+
 # 🚀 Alphavel Database - Guia Laravel-Style
 
 Alphavel Database foi projetado para ser **extremamente familiar** para desenvolvedores Laravel, com a mesma API fluente e intuitiva que você já conhece.

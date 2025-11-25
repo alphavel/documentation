@@ -1,3 +1,8 @@
+---
+layout: default
+title: Performance Advanced
+---
+
 # Performance Optimization Guide
 
 ## 📊 Performance Analysis

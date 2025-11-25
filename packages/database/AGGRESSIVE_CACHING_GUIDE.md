@@ -1,3 +1,8 @@
+---
+layout: default
+title: AGGRESSIVE_CACHING_GUIDE
+---
+
 # 🚀 Aggressive Statement Caching - Alphavel vs Frameworks
 
 ## 📊 O Problema

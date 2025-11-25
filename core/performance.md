@@ -1,3 +1,8 @@
+---
+layout: default
+title: Performance
+---
+
 # Performance Optimization
 
 Complete guide to maximizing Alphavel performance.

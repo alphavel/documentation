@@ -1,3 +1,8 @@
+---
+layout: default
+title: Routing
+---
+
 # Routing
 
 Alphavel provides a powerful and fast routing system with two types of routes: **Raw Routes** (zero overhead) and **Standard Routes** (full framework stack).

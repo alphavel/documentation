@@ -1,3 +1,8 @@
+---
+layout: default
+title: README
+---
+
 # Alphavel i18n Package
 
 Internationalization with Swoole Table caching.

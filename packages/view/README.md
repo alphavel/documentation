@@ -1,3 +1,8 @@
+---
+layout: default
+title: README
+---
+
 # Alphavel View Package
 
 Blade-like template engine with compilation cache.

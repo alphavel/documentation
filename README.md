@@ -1,3 +1,8 @@
+---
+layout: default
+title: README
+---
+
 # Alphavel Framework Documentation
 
 > High-performance PHP framework powered by Swoole, achieving 520k+ req/s

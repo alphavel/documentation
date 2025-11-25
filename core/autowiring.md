@@ -1,3 +1,8 @@
+---
+layout: default
+title: Autowiring
+---
+
 # Autowiring e Dependency Injection - Guia de Uso
 
 ## 🎯 O que é Autowiring?

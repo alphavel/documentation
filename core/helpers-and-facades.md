@@ -1,3 +1,8 @@
+---
+layout: default
+title: Helpers And Facades
+---
+
 # Helper Functions & Facades
 
 Alphavel provides Laravel-style helper functions and facades for elegant, expressive code.

@@ -1,3 +1,8 @@
+---
+layout: default
+title: Cli Commands
+---
+
 # CLI Commands (Alpha)
 
 The **Alpha CLI** is your command center for managing Alphavel applications, packages, and performance optimization.

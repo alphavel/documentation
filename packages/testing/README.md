@@ -1,3 +1,8 @@
+---
+layout: default
+title: README
+---
+
 # Alphavel Testing Package
 
 PHPUnit helpers and testing utilities for Alphavel.

@@ -1,3 +1,8 @@
+---
+layout: default
+title: Troubleshooting
+---
+
 # 🔧 Troubleshooting - Alphavel Framework
 
 Guia de solução de problemas comuns ao trabalhar com Alphavel.

@@ -1,3 +1,8 @@
+---
+layout: default
+title: Compatibility
+---
+
 # Alphavel Ecosystem - Compatibility Matrix
 
 **Data da Análise:** 24 de novembro de 2025  

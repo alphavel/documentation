@@ -1,3 +1,8 @@
+---
+layout: default
+title: README
+---
+
 # Cache Package
 
 High-performance caching layer with Redis and Memcached support.

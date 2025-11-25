@@ -1,3 +1,8 @@
+---
+layout: default
+title: Facades Guide
+---
+
 # Facades no Alphavel Framework
 
 ## 📖 O que são Facades?

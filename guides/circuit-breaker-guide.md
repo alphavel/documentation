@@ -1,3 +1,8 @@
+---
+layout: default
+title: Circuit Breaker Guide
+---
+
 # 🛡️ Circuit Breaker Package - Guia Completo
 
 > Resiliência para microserviços com overhead de < 0.1ms

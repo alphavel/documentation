@@ -1,3 +1,8 @@
+---
+layout: default
+title: INVESTMENT_ANALYSIS
+---
+
 # 💡 Análise: Vale a Pena Investir em Packages Avançados?
 
 ## 🎯 Resposta Curta: **SIM, mas com estratégia**

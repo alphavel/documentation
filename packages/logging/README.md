@@ -1,3 +1,8 @@
+---
+layout: default
+title: README
+---
+
 # Logging Package
 
 Flexible logging with Monolog integration.

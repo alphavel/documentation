@@ -1,3 +1,8 @@
+---
+layout: default
+title: VERIFICATION_REPORT
+---
+
 # Documentation Verification Report
 
 **Date:** November 21, 2025  

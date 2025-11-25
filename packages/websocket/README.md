@@ -1,3 +1,8 @@
+---
+layout: default
+title: README
+---
+
 # 📡 Alphavel WebSocket
 
 High-performance WebSocket server with broadcasting for real-time applications.

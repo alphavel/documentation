@@ -1,3 +1,8 @@
+---
+layout: default
+title: Controllers
+---
+
 # Controllers
 
 Controllers handle HTTP requests and contain your application logic. Alphavel provides powerful features like automatic dependency injection, type hinting, and request/response helpers.

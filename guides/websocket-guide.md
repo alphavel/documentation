@@ -1,3 +1,8 @@
+---
+layout: default
+title: Websocket Guide
+---
+
 # 📡 WebSocket Package - Guia Completo
 
 > Real-time WebSocket com 500k+ mensagens/segundo e 100k+ conexões simultâneas

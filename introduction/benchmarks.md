@@ -1,3 +1,8 @@
+---
+layout: default
+title: Benchmarks
+---
+
 # Performance Benchmarks: Alphavel vs Leading PHP Frameworks
 
 ## Executive Summary

@@ -1,3 +1,8 @@
+---
+layout: default
+title: LARAVEL_MIGRATION_GUIDE
+---
+
 # 🔄 Laravel to Alphavel Migration Guide
 
 > **For Laravel developers**: Familiar API, 100x performance boost

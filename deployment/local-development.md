@@ -1,3 +1,8 @@
+---
+layout: default
+title: Local Development
+---
+
 # 🚀 Guia Rápido: Desenvolvimento Local com Alphavel
 
 ## Para Desenvolvedores Sem Swoole Instalado

@@ -1,3 +1,8 @@
+---
+layout: default
+title: Modular Architecture
+---
+
 # Modular Architecture
 
 Alphavel é **totalmente modular** por design, focando em performance máxima através da filosofia "instale apenas o que você precisa".

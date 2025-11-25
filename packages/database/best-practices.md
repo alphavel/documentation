@@ -1,3 +1,8 @@
+---
+layout: default
+title: Best Practices
+---
+
 # Database Best Practices for Performance
 
 ## 📊 Overview

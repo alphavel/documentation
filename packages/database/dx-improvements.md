@@ -1,3 +1,8 @@
+---
+layout: default
+title: Dx Improvements
+---
+
 # Database Service Provider - Developer Experience Improvements
 
 ## 🎯 Improvements Applied

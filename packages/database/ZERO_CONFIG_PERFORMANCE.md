@@ -1,3 +1,8 @@
+---
+layout: default
+title: ZERO_CONFIG_PERFORMANCE
+---
+
 # ⚡ Zero-Config Performance - Alphavel Database v2.1.0
 
 ## 🎯 Philosophy: Performance by Default

@@ -1,3 +1,8 @@
+---
+layout: default
+title: README
+---
+
 # 🛡️ Alphavel Circuit Breaker
 
 High-performance Circuit Breaker pattern for resilient microservices.
