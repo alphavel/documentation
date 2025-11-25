@@ -3,21 +3,21 @@ layout: default
 title: Local Development
 ---
 
-# 🚀 Guia Rápido: Desenvolvimento Local com Alphavel
+# 🚀 Quick Guide: Local Development with Alphavel
 
-## Para Desenvolvedores Sem Swoole Instalado
+## For Developers Without Swoole Installed
 
-### Início Rápido
+### Quick Start
 
 ```bash
-# 1. Criar ou clonar projeto
-composer create-project alphavel/skeleton meu-projeto
-cd meu-projeto
+# 1. Create or clone project
+composer create-project alphavel/skeleton my-project
+cd my-project
 
-# 2. Iniciar ambiente de desenvolvimento
+# 2. Start development environment
 make dev
 
-# Ou manualmente:
+# Or manually:
 docker-compose -f docker-compose.dev.yml up
 ```
 
@@ -50,78 +50,78 @@ When you run `make dev`, the container:
 ### Via Makefile (Recommended)
 
 ```bash
-# Iniciar ambiente de desenvolvimento
+# Start development environment
 make dev
 
-# Parar ambiente
+# Stop environment
 make dev-stop
 
-# Ver logs em tempo real
+# View real-time logs
 make dev-logs
 
-# Acessar shell do container
+# Access container shell
 make dev-shell
 
-# Reinstalar/reconstruir tudo
+# Reinstall/rebuild everything
 make dev-rebuild
 ```
 
 ### Via docker-compose
 
 ```bash
-# Iniciar (em foreground, ver logs)
+# Start (foreground, see logs)
 docker-compose -f docker-compose.dev.yml up
 
-# Iniciar (em background)
+# Start (background)
 docker-compose -f docker-compose.dev.yml up -d
 
-# Parar
+# Stop
 docker-compose -f docker-compose.dev.yml down
 
-# Ver logs
+# View logs
 docker-compose -f docker-compose.dev.yml logs -f app
 
-# Acessar shell
+# Access shell
 docker-compose -f docker-compose.dev.yml exec app bash
 
-# Executar comandos
+# Run commands
 docker-compose -f docker-compose.dev.yml exec app composer require alphavel/database
 docker-compose -f docker-compose.dev.yml exec app php -v
 ```
 
 ---
 
-## Estrutura de Portas
+## Port Structure
 
-| Serviço | Porta Host | Porta Container | Descrição |
-|---------|------------|-----------------|-----------|
-| Aplicação | 9999 | 9999 | Servidor Swoole |
-| MySQL | 3307 | 3306 | Banco de dados (dev) |
+| Service | Host Port | Container Port | Description |
+|---------|-----------|----------------|-------------|
+| Application | 9999 | 9999 | Swoole Server |
+| MySQL | 3307 | 3306 | Database (dev) |
 
-**Nota:** Porta 3307 no host para não conflitar com MySQL local
+**Note:** Port 3307 on host to avoid conflicts with local MySQL
 
 ---
 
-## Desenvolver no Container
+## Develop in Container
 
-### Instalar Pacotes
+### Install Packages
 
 ```bash
 # Via make
 make dev-shell
 composer require alphavel/database
 
-# Ou direto
+# Or directly
 docker-compose -f docker-compose.dev.yml exec app composer require alphavel/database
 ```
 
-### Rodar Testes
+### Run Tests
 
 ```bash
 docker-compose -f docker-compose.dev.yml exec app vendor/bin/phpunit
 ```
 
-### Executar Scripts
+### Execute Scripts
 
 ```bash
 docker-compose -f docker-compose.dev.yml exec app php artisan migrate
@@ -129,67 +129,67 @@ docker-compose -f docker-compose.dev.yml exec app php artisan migrate
 
 ---
 
-## Diferenças: Dev vs Production
+## Differences: Dev vs Production
 
-### docker-compose.dev.yml (Desenvolvimento)
-- ✅ Instala Swoole automaticamente
-- ✅ Instala dependências automaticamente
-- ✅ Usa imagem base `php:8.2-cli`
-- ✅ Não requer build
-- ✅ Volumes montados (código sincronizado)
-- ✅ Porta 3307 para MySQL (evita conflito)
-- ✅ Logs verbosos
-- ⚠️ Primeira inicialização mais lenta
+### docker-compose.dev.yml (Development)
+- ✅ Installs Swoole automatically
+- ✅ Installs dependencies automatically
+- ✅ Uses base image `php:8.2-cli`
+- ✅ No build required
+- ✅ Mounted volumes (synced code)
+- ✅ Port 3307 for MySQL (avoids conflict)
+- ✅ Verbose logs
+- ⚠️ First initialization slower
 
-### docker-compose.yml (Produção)
-- ✅ Build otimizado com Dockerfile
-- ✅ Dependências já no build
-- ✅ Imagem pronta para produção
-- ✅ Mais rápido em execução
-- ✅ Porta 3306 padrão para MySQL
-- ⚠️ Requer rebuild após mudanças no código
+### docker-compose.yml (Production)
+- ✅ Optimized build with Dockerfile
+- ✅ Dependencies already in build
+- ✅ Production-ready image
+- ✅ Faster execution
+- ✅ Standard port 3306 for MySQL
+- ⚠️ Requires rebuild after code changes
 
 ---
 
-## Solução de Problemas
+## Troubleshooting
 
-### Container não inicia / trava na instalação
+### Container doesn't start / stuck on installation
 
 ```bash
-# Ver logs detalhados
+# View detailed logs
 docker-compose -f docker-compose.dev.yml logs -f
 
-# Reconstruir do zero
+# Rebuild from scratch
 docker-compose -f docker-compose.dev.yml down -v
 docker-compose -f docker-compose.dev.yml up
 ```
 
-### Erro de permissões
+### Permission errors
 
 ```bash
-# Dentro do container
+# Inside container
 docker-compose -f docker-compose.dev.yml exec app bash
 chmod -R 777 storage bootstrap/cache
 ```
 
-### Swoole não foi instalado
+### Swoole not installed
 
 ```bash
-# Forçar reinstalação
+# Force reinstall
 docker-compose -f docker-compose.dev.yml exec app pecl install swoole
 docker-compose -f docker-compose.dev.yml exec app docker-php-ext-enable swoole
 docker-compose -f docker-compose.dev.yml restart app
 ```
 
-### Porta 8080 já está em uso
+### Port 8080 already in use
 
-Edite `.env` e mude a porta:
+Edit `.env` and change port:
 
 ```env
 APP_PORT=8081
 ```
 
-Ou especifique ao iniciar:
+Or specify when starting:
 
 ```bash
 APP_PORT=8081 docker-compose -f docker-compose.dev.yml up
@@ -197,38 +197,38 @@ APP_PORT=8081 docker-compose -f docker-compose.dev.yml up
 
 ---
 
-## Limpar Tudo
+## Clean Everything
 
 ```bash
-# Parar e remover containers + volumes
+# Stop and remove containers + volumes
 docker-compose -f docker-compose.dev.yml down -v
 
-# Remover vendor e cache locais
+# Remove vendor and local cache
 rm -rf vendor storage/cache/* storage/logs/* bootstrap/cache/*
 ```
 
 ---
 
-## Comparação de Workflows
+## Workflow Comparison
 
-### Sem docker-compose.dev.yml (Antigo)
+### Without docker-compose.dev.yml (Old)
 
 ```bash
-# 1. Instalar Swoole na máquina (complexo)
+# 1. Install Swoole on machine (complex)
 sudo pecl install swoole
 
-# 2. Configurar PHP
+# 2. Configure PHP
 echo "extension=swoole.so" >> /etc/php/8.2/cli/conf.d/20-swoole.ini
 
-# 3. Instalar dependências
+# 3. Install dependencies
 composer install
 
-# 4. Configurar ambiente
+# 4. Configure environment
 cp .env.example .env
 mkdir -p storage/framework storage/logs storage/cache bootstrap/cache
 chmod -R 777 storage bootstrap/cache
 
-# 5. Iniciar servidor
+# 5. Start server
 php public/index.php
 ```
 
@@ -247,27 +247,27 @@ make dev
 
 **Benefits:**
 - ✅ Works on any OS (Linux, macOS, Windows)
-- ✅ Ambiente isolado e consistente
-- ✅ Sem conflitos com instalações locais
-- ✅ ~2-3 minutos de setup automático
-- ✅ Fácil de compartilhar com time
+- ✅ Isolated and consistent environment
+- ✅ No conflicts with local installations
+- ✅ ~2-3 minutes of automatic setup
+- ✅ Easy to share with team
 
 ---
 
-## Boas Práticas
+## Best Practices
 
-### Para Desenvolvimento Diário
+### For Daily Development
 
-1. Use sempre `make dev` ou `docker-compose -f docker-compose.dev.yml up`
-2. Mantenha o container rodando (não recrie a cada mudança)
-3. Código é sincronizado automaticamente via volumes
-4. Para mudanças no composer.json, execute `composer install` dentro do container
+1. Always use `make dev` or `docker-compose -f docker-compose.dev.yml up`
+2. Keep container running (don't recreate on every change)
+3. Code is synced automatically via volumes
+4. For composer.json changes, run `composer install` inside container
 
-### Para Commitar Código
+### For Committing Code
 
-1. Não comite arquivos gerados (vendor, storage/*, etc)
-2. .gitignore já está configurado corretamente
-3. Outros desenvolvedores usarão o mesmo docker-compose.dev.yml
+1. Don't commit generated files (vendor, storage/*, etc)
+2. .gitignore is already configured correctly
+3. Other developers will use the same docker-compose.dev.yml
 
 ### Para CI/CD
 
@@ -279,41 +279,41 @@ make dev
 
 ## FAQ
 
-**Q: Preciso instalar Swoole na minha máquina?**  
-A: Não! O docker-compose.dev.yml instala tudo dentro do container.
+**Q: Do I need to install Swoole on my machine?**  
+A: No! docker-compose.dev.yml installs everything inside the container.
 
-**Q: As mudanças no código são refletidas automaticamente?**  
-A: Sim! O código está montado via volume, mudanças são instantâneas.
+**Q: Are code changes reflected automatically?**  
+A: Yes! The code is mounted via volume, changes are instant.
 
 **Q: Can I use my favorite IDE?**  
 A: Yes! Edit files normally. The container only executes the code.
 
-**Q: Como depurar o código?**  
-A: Configure Xdebug (instruções separadas) ou use `var_dump()` e veja nos logs.
+**Q: How to debug the code?**  
+A: Configure Xdebug (separate instructions) or use `var_dump()` and check logs.
 
-**Q: O banco de dados é persistente?**  
-A: Sim! Os dados ficam em volume Docker (`dbdata-dev`).
+**Q: Is the database persistent?**  
+A: Yes! Data is stored in Docker volume (`dbdata-dev`).
 
-**Q: Posso usar Redis/Postgres?**  
-A: Sim! Adicione mais serviços no docker-compose.dev.yml conforme necessário.
+**Q: Can I use Redis/Postgres?**  
+A: Yes! Add more services to docker-compose.dev.yml as needed.
 
-**Q: É mais lento que execução local?**  
-A: Não significativamente. Swoole compensa com performance superior.
+**Q: Is it slower than local execution?**  
+A: Not significantly. Swoole compensates with superior performance.
 
-**Q: Funciona no Windows?**  
-A: Sim! Desde que tenha Docker Desktop instalado.
-
----
-
-## Próximos Passos
-
-1. ✅ Inicie o ambiente: `make dev`
-2. ✅ Acesse http://localhost:9999
-3. ✅ Leia a documentação completa no README.md
-4. ✅ Instale pacotes adicionais: `composer require alphavel/database`
-5. ✅ Comece a desenvolver!
+**Q: Does it work on Windows?**  
+A: Yes! As long as you have Docker Desktop installed.
 
 ---
 
-**Dúvidas?** Veja a documentação completa no [README.md](README.html)  
-**Problemas?** Abra uma issue no [GitHub](https://github.com/alphavel/skeleton/issues)
+## Next Steps
+
+1. ✅ Start environment: `make dev`
+2. ✅ Access http://localhost:9999
+3. ✅ Read full documentation in README.md
+4. ✅ Install additional packages: `composer require alphavel/database`
+5. ✅ Start developing!
+
+---
+
+**Questions?** Check full documentation in [README.md](README.html)  
+**Issues?** Open an issue on [GitHub](https://github.com/alphavel/skeleton/issues)
