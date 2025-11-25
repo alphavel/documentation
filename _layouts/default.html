@@ -482,12 +482,10 @@
 <script>
   // Simple syntax highlighting for code blocks (VS Code Dark+ colors)
   function highlightCode(code) {
-    // Escape HTML entities first
+    // Escape HTML entities (but keep quotes for now)
     code = code.replace(/&/g, '&amp;')
                .replace(/</g, '&lt;')
-               .replace(/>/g, '&gt;')
-               .replace(/"/g, '&quot;')
-               .replace(/'/g, '&#039;');
+               .replace(/>/g, '&gt;');
     
     // Multi-line comments (must come before single-line)
     code = code.replace(/(\/\*[\s\S]*?\*\/)/g, '<span style="color: #6a9955; font-style: italic;">$1</span>');
@@ -495,8 +493,11 @@
     // Single-line comments (// and #)
     code = code.replace(/(\/\/.*$|#[^!].*$)/gm, '<span style="color: #6a9955; font-style: italic;">$1</span>');
     
-    // Strings (must come before other replacements to avoid conflicts)
-    code = code.replace(/(&quot;(?:[^&quot;\\]|\\.)*&quot;|'(?:[^'\\]|\\.)*')/g, '<span style="color: #ce9178">$1</span>');
+    // Double-quoted strings
+    code = code.replace(/"([^"\\]|\\.)*"/g, '<span style="color: #ce9178">$&</span>');
+    
+    // Single-quoted strings
+    code = code.replace(/'([^'\\]|\\.)*'/g, '<span style="color: #ce9178">$&</span>');
     
     // PHP/SQL/JS keywords
     code = code.replace(/\b(class|public|protected|private|static|function|return|if|else|elseif|foreach|while|for|do|new|extends|implements|namespace|use|const|var|let|try|catch|throw|finally|abstract|interface|trait|as|array|echo|print|exit|die|require|include|require_once|include_once|isset|empty|unset|clone|instanceof|yield|async|await|case|switch|default|break|continue|goto)\b/g, '<span style="color: #c586c0">$1</span>');
@@ -513,14 +514,20 @@
     // PHP variables
     code = code.replace(/(\$[a-zA-Z_]\w*)/g, '<span style="color: #9cdcfe">$1</span>');
     
+    // Object operators (-> and ::)
+    code = code.replace(/(-&gt;|::)/g, '<span style="color: #d4d4d4">$1</span>');
+    
     // Functions/methods (word followed by opening parenthesis)
     code = code.replace(/\b([a-zA-Z_]\w*)\s*(?=\()/g, '<span style="color: #dcdcaa">$1</span>');
     
-    // Class names (PascalCase words not after -> or ::)
-    code = code.replace(/(?<!-&gt;|::)\b([A-Z][a-zA-Z0-9_]*)\b/g, '<span style="color: #4ec9b0">$1</span>');
+    // Class names (PascalCase words)
+    code = code.replace(/\b([A-Z][a-zA-Z0-9_]*)\b/g, '<span style="color: #4ec9b0">$1</span>');
     
     // Constants (UPPER_CASE words)
     code = code.replace(/\b([A-Z_][A-Z0-9_]{2,})\b/g, '<span style="color: #4fc1ff">$1</span>');
+    
+    // Operators and punctuation
+    code = code.replace(/(=&gt;|==|!=|&lt;=|&gt;=|&lt;&lt;|&gt;&gt;|\+\+|--|&amp;&amp;|\|\|)/g, '<span style="color: #d4d4d4">$1</span>');
     
     return code;
   }
