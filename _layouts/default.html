@@ -314,29 +314,87 @@
     width: 100%;
     border-collapse: collapse;
     margin: 20px 0;
+    display: table;
     overflow-x: auto;
-    display: block;
   }
   
-  article table th,
-  article table td {
-    border: 1px solid #30363d;
-    padding: 8px 12px;
-    text-align: left;
-    color: #c9d1d9;
+  article table thead {
+    display: table-header-group;
   }
   
-  article table th {
-    background: #161b22;
-    font-weight: 600;
+  article table tbody {
+    display: table-row-group;
   }
   
   article table tr {
+    display: table-row;
     background: #0d1117;
   }
   
   article table tr:nth-child(even) {
     background: #161b22;
+  }
+  
+  article table th,
+  article table td {
+    display: table-cell;
+    border: 1px solid #30363d;
+    padding: 8px 12px;
+    text-align: left;
+    color: #c9d1d9;
+    vertical-align: top;
+  }
+  
+  article table th {
+    background: #161b22;
+    font-weight: 600;
+    border-bottom: 2px solid #58a6ff;
+  }
+  
+  /* Ensure tables are responsive on small screens */
+  @media (max-width: 768px) {
+    article table {
+      display: block;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+    
+    article table thead,
+    article table tbody,
+    article table tr,
+    article table th,
+    article table td {
+      display: block;
+    }
+    
+    article table tr {
+      margin-bottom: 15px;
+      border: 1px solid #30363d;
+      border-radius: 4px;
+    }
+    
+    article table th {
+      position: absolute;
+      top: -9999px;
+      left: -9999px;
+    }
+    
+    article table td {
+      border: none;
+      position: relative;
+      padding-left: 50%;
+      text-align: left;
+    }
+    
+    article table td:before {
+      position: absolute;
+      left: 6px;
+      width: 45%;
+      padding-right: 10px;
+      white-space: nowrap;
+      font-weight: bold;
+      content: attr(data-label);
+    }
   }
   
   article blockquote {
@@ -349,7 +407,9 @@
     border-radius: 4px;
   }
   
+  /* Mobile responsive styles */
   @media (max-width: 768px) {
+    /* Header */
     header h1 {
       font-size: 22px !important;
     }
@@ -374,7 +434,7 @@
       height: 50px !important;
     }
     
-    /* Only apply column layout to main content wrapper on mobile */
+    /* Layout */
     body > div > div[style*="display: flex"] {
       flex-direction: column !important;
     }
@@ -383,6 +443,43 @@
       position: static !important;
       margin-bottom: 20px;
       flex: 1 1 100% !important;
+    }
+    
+    /* Tables - card style on mobile */
+    article table {
+      display: block;
+      overflow-x: auto;
+    }
+    
+    article table thead {
+      display: none;
+    }
+    
+    article table tbody {
+      display: block;
+    }
+    
+    article table tr {
+      display: block;
+      margin-bottom: 15px;
+      border: 1px solid #30363d;
+      border-radius: 4px;
+      padding: 10px;
+    }
+    
+    article table td {
+      display: block;
+      text-align: right;
+      padding: 8px;
+      border: none;
+      position: relative;
+    }
+    
+    article table td:before {
+      content: attr(data-label);
+      float: left;
+      font-weight: bold;
+      color: #58a6ff;
     }
   }
 </style>
