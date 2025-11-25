@@ -15,6 +15,7 @@ composer require alphavel/testing --dev
 
 ## Usage
 
+{% raw %}
 ```php
 use Alphavel\Testing\TestCase;
 
@@ -48,6 +49,7 @@ class UserTest extends TestCase
     }
 }
 ```
+{% endraw %}
 
 ## Features
 - HTTP assertions (`assertStatus`, `assertJson`)

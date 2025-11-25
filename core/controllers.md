@@ -13,6 +13,7 @@ Controllers handle HTTP requests and contain your application logic. Alphavel pr
 
 Create a controller in `app/Controllers/`:
 
+{% raw %}
 ```php
 <?php
 
@@ -42,13 +43,16 @@ class UserController extends Controller
     }
 }
 ```
+{% endraw %}
 
 Register routes in `routes/api.php`:
 
+{% raw %}
 ```php
 $router->get('/users', 'App\Controllers\UserController@index');
 $router->get('/users/{id}', 'App\Controllers\UserController@show');
 ```
+{% endraw %}
 
 ---
 
@@ -58,6 +62,7 @@ Alphavel automatically injects dependencies into controller methods using **cons
 
 ### Constructor Injection
 
+{% raw %}
 ```php
 <?php
 
@@ -89,9 +94,11 @@ class UserController extends Controller
     }
 }
 ```
+{% endraw %}
 
 ### Method Injection
 
+{% raw %}
 ```php
 <?php
 
@@ -138,6 +145,7 @@ class UserController extends Controller
     }
 }
 ```
+{% endraw %}
 
 ---
 
@@ -145,6 +153,7 @@ class UserController extends Controller
 
 ### Accessing Request Data
 
+{% raw %}
 ```php
 public function store(Request $request)
 {
@@ -176,9 +185,11 @@ public function store(Request $request)
     $body = $request->getContent();
 }
 ```
+{% endraw %}
 
 ### File Uploads
 
+{% raw %}
 ```php
 public function uploadAvatar(Request $request)
 {
@@ -199,9 +210,11 @@ public function uploadAvatar(Request $request)
     ], 400);
 }
 ```
+{% endraw %}
 
 ### Headers
 
+{% raw %}
 ```php
 public function checkHeaders(Request $request)
 {
@@ -218,6 +231,7 @@ public function checkHeaders(Request $request)
     }
 }
 ```
+{% endraw %}
 
 ---
 
@@ -225,6 +239,7 @@ public function checkHeaders(Request $request)
 
 ### JSON Response
 
+{% raw %}
 ```php
 public function index()
 {
@@ -249,9 +264,11 @@ public function error()
     ], 404);
 }
 ```
+{% endraw %}
 
 ### Success/Error Helpers
 
+{% raw %}
 ```php
 // Success response (200)
 return Response::success(['user' => $user]);
@@ -267,9 +284,11 @@ return Response::error('Validation failed', 400, [
 // Not found (404)
 return Response::error('User not found', 404);
 ```
+{% endraw %}
 
 ### Custom Headers
 
+{% raw %}
 ```php
 public function download()
 {
@@ -280,9 +299,11 @@ public function download()
         ->status(200);
 }
 ```
+{% endraw %}
 
 ### Redirect
 
+{% raw %}
 ```php
 public function redirect()
 {
@@ -290,6 +311,7 @@ public function redirect()
         ->redirect('/dashboard', 302);
 }
 ```
+{% endraw %}
 
 ---
 
@@ -297,6 +319,7 @@ public function redirect()
 
 Integrate with Validation package:
 
+{% raw %}
 ```php
 <?php
 
@@ -340,6 +363,7 @@ class UserController extends Controller
     }
 }
 ```
+{% endraw %}
 
 ---
 
@@ -347,6 +371,7 @@ class UserController extends Controller
 
 ### Using Query Builder
 
+{% raw %}
 ```php
 <?php
 
@@ -423,9 +448,11 @@ class UserController extends Controller
     }
 }
 ```
+{% endraw %}
 
 ### Using Raw Queries
 
+{% raw %}
 ```php
 public function complexQuery(DB $db)
 {
@@ -447,9 +474,11 @@ public function complexQuery(DB $db)
     return Response::make()->json(['top_customers' => $results]);
 }
 ```
+{% endraw %}
 
 ### Transactions
 
+{% raw %}
 ```php
 public function transferFunds(Request $request, DB $db)
 {
@@ -486,11 +515,13 @@ public function transferFunds(Request $request, DB $db)
     }
 }
 ```
+{% endraw %}
 
 ---
 
 ## Caching
 
+{% raw %}
 ```php
 <?php
 
@@ -551,11 +582,13 @@ class ProductController extends Controller
     }
 }
 ```
+{% endraw %}
 
 ---
 
 ## Logging
 
+{% raw %}
 ```php
 <?php
 
@@ -598,11 +631,13 @@ class OrderController extends Controller
     }
 }
 ```
+{% endraw %}
 
 ---
 
 ## Events
 
+{% raw %}
 ```php
 <?php
 
@@ -644,6 +679,7 @@ class UserController extends Controller
     }
 }
 ```
+{% endraw %}
 
 ---
 
@@ -651,6 +687,7 @@ class UserController extends Controller
 
 Complete CRUD controller example:
 
+{% raw %}
 ```php
 <?php
 
@@ -800,9 +837,11 @@ class ArticleController extends Controller
     }
 }
 ```
+{% endraw %}
 
 **Routes:**
 
+{% raw %}
 ```php
 $router->get('/articles', 'App\Controllers\ArticleController@index');
 $router->get('/articles/{id}', 'App\Controllers\ArticleController@show');
@@ -810,6 +849,7 @@ $router->post('/articles', 'App\Controllers\ArticleController@store');
 $router->put('/articles/{id}', 'App\Controllers\ArticleController@update');
 $router->delete('/articles/{id}', 'App\Controllers\ArticleController@destroy');
 ```
+{% endraw %}
 
 ---
 
@@ -817,6 +857,7 @@ $router->delete('/articles/{id}', 'App\Controllers\ArticleController@destroy');
 
 ### ✅ DO
 
+{% raw %}
 ```php
 // Use dependency injection
 public function index(DB $db, Cache $cache) { }
@@ -836,9 +877,11 @@ $log->info('User created', ['user_id' => $id]);
 // Return proper HTTP status codes
 return Response::make()->json([...], 201);
 ```
+{% endraw %}
 
 ### ❌ DON'T
 
+{% raw %}
 ```php
 // Don't instantiate dependencies manually
 $db = new Database(); // ❌
@@ -857,6 +900,7 @@ $router->get('/users', function() {
 // Don't return raw arrays
 return ['users' => $users]; // ❌ Use Response object
 ```
+{% endraw %}
 
 ---
 

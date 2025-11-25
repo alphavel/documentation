@@ -74,6 +74,7 @@ SWOOLE_LOG_LEVEL=0  # 0=DEBUG, 2=ERROR
 ### Understanding the Optimizations
 
 #### 1. BASE Mode (Default)
+{% raw %}
 ```php
 // config/swoole.php
 'mode' => env('SERVER_MODE', 'base'),
@@ -86,8 +87,10 @@ SWOOLE_LOG_LEVEL=0  # 0=DEBUG, 2=ERROR
 // Perfect for: WebSockets, long-running tasks
 // Result: 17k req/s
 ```
+{% endraw %}
 
 #### 2. CPU × 2 Workers (Default)
+{% raw %}
 ```php
 // config/swoole.php
 'workers' => swoole_cpu_num() * 2,
@@ -96,8 +99,10 @@ SWOOLE_LOG_LEVEL=0  # 0=DEBUG, 2=ERROR
 // After:  CPU × 2   (4 cores = 8 workers)
 // Result: Better CPU utilization, +2-5% throughput
 ```
+{% endraw %}
 
 #### 3. Infinite max_request (Default)
+{% raw %}
 ```php
 // config/swoole.php
 'max_request' => 0,
@@ -106,6 +111,7 @@ SWOOLE_LOG_LEVEL=0  # 0=DEBUG, 2=ERROR
 // After:  Workers never restart (unless crash)
 // Result: No restart overhead, +2-4% throughput
 ```
+{% endraw %}
 
 #### 4. APCu Autoloader (Default)
 ```dockerfile
@@ -153,6 +159,7 @@ Alphavel is built for extreme performance from day one:
 
 Raw routes bypass the entire framework stack for **maximum performance**.
 
+{% raw %}
 ```php
 // Regular route: ~20k req/s
 $router->get('/api/users', [UserController::class, 'index']);
@@ -160,6 +167,7 @@ $router->get('/api/users', [UserController::class, 'index']);
 // Raw route: ~520k req/s (26x faster!)
 $router->raw('/ping', 'pong');
 ```
+{% endraw %}
 
 ### Performance Impact
 
@@ -185,6 +193,7 @@ $router->raw('/ping', 'pong');
 
 ### Examples
 
+{% raw %}
 ```php
 // routes/api.php
 
@@ -210,6 +219,7 @@ $router->raw('/metrics', function($request, $response) {
     ]));
 });
 ```
+{% endraw %}
 
 ### Benchmarks
 
@@ -249,6 +259,7 @@ alpha route:clear
 
 ### How It Works
 
+{% raw %}
 ```php
 // Without caching: routes loaded every request
 require_once __DIR__.'/../routes/api.php';
@@ -257,6 +268,7 @@ require_once __DIR__.'/../routes/web.php';
 // With caching: single file, pre-compiled
 $routes = require __DIR__.'/../bootstrap/cache/routes.php';
 ```
+{% endraw %}
 
 ### Best Practices
 
@@ -280,6 +292,7 @@ php alpha serve  # No caching needed
 
 Instead of creating a new database connection for each request, connections are **reused** across requests.
 
+{% raw %}
 ```php
 // Without pooling (traditional PHP)
 // Each request: connect → query → disconnect
@@ -289,9 +302,11 @@ Instead of creating a new database connection for each request, connections are 
 // Pre-connect → reuse → reuse → reuse
 // ~20,000 queries/sec (7x faster!)
 ```
+{% endraw %}
 
 ### Configuration
 
+{% raw %}
 ```php
 // config/database.php
 
@@ -314,11 +329,13 @@ return [
     ],
 ];
 ```
+{% endraw %}
 
 ### Pool Sizing
 
 **Formula**: `max = 2 * CPU_CORES * WORKERS`
 
+{% raw %}
 ```php
 // 4 CPU cores, 8 workers
 'max' => 2 * 4 * 8 = 64 connections
@@ -327,9 +344,11 @@ return [
 // MySQL default: 151 connections
 // Your app max: Should be < 151
 ```
+{% endraw %}
 
 ### Monitoring
 
+{% raw %}
 ```php
 use Alphavel\Database\DB;
 
@@ -340,6 +359,7 @@ echo "Idle: {$stats['idle']}\n";         // Available connections
 echo "Total: {$stats['total']}\n";       // Total connections
 echo "Waiting: {$stats['waiting']}\n";   // Requests waiting
 ```
+{% endraw %}
 
 ### Performance Impact
 
@@ -357,6 +377,7 @@ Alphavel automatically reuses Request/Response objects across requests.
 
 ### Traditional PHP
 
+{% raw %}
 ```php
 // Apache/PHP-FPM: new objects every request
 $request = new Request();   // Allocate memory
@@ -365,9 +386,11 @@ $response = new Response(); // Allocate memory
 // Destroy objects
 // Next request: repeat!
 ```
+{% endraw %}
 
 ### Alphavel (Swoole)
 
+{% raw %}
 ```php
 // Pre-allocate once
 $requestPool = [/* 100 Request objects */];
@@ -380,6 +403,7 @@ $response = $responsePool->get(); // Get from pool
 $requestPool->put($request);     // Return to pool
 $responsePool->put($response);   // Return to pool
 ```
+{% endraw %}
 
 ### Impact
 
@@ -440,6 +464,7 @@ php -r "echo opcache_get_status()['jit']['enabled'];"
 
 Service providers only load when actually needed.
 
+{% raw %}
 ```php
 // Traditional: all providers load on boot
 // Alphavel: only load when used
@@ -455,9 +480,11 @@ class ArticleController extends Controller
     }
 }
 ```
+{% endraw %}
 
 ### Configuration
 
+{% raw %}
 ```php
 // config/app.php
 
@@ -470,6 +497,7 @@ return [
     ],
 ];
 ```
+{% endraw %}
 
 ### Performance Impact
 
@@ -479,6 +507,7 @@ return [
 
 ### Example
 
+{% raw %}
 ```php
 // Route without database access
 $router->get('/ping', fn() => 'pong');
@@ -488,6 +517,7 @@ $router->get('/ping', fn() => 'pong');
 $router->get('/users', [UserController::class, 'index']);
 // DatabaseServiceProvider loads only when DB is used
 ```
+{% endraw %}
 
 ---
 
@@ -497,6 +527,7 @@ $router->get('/users', [UserController::class, 'index']);
 
 Lightweight concurrent execution without threads.
 
+{% raw %}
 ```php
 // Traditional: sequential (slow)
 $user = $db->query('SELECT * FROM users WHERE id = 1');     // 10ms
@@ -516,9 +547,11 @@ go(function() use ($db) {
 });
 // Total: 10ms (3x faster!)
 ```
+{% endraw %}
 
 ### Practical Example
 
+{% raw %}
 ```php
 use Swoole\Coroutine;
 
@@ -545,6 +578,7 @@ class UserController extends Controller
     }
 }
 ```
+{% endraw %}
 
 ### Performance Impact
 
@@ -560,6 +594,7 @@ class UserController extends Controller
 
 Prevent memory leaks by restarting workers periodically.
 
+{% raw %}
 ```php
 // config/swoole.php
 
@@ -571,9 +606,11 @@ return [
     'max_request_execution_time' => 0,
 ];
 ```
+{% endraw %}
 
 ### Unset Large Variables
 
+{% raw %}
 ```php
 // Bad: keeps large array in memory
 function processData()
@@ -593,9 +630,11 @@ function processData()
     return $result;
 }
 ```
+{% endraw %}
 
 ### Generator Functions
 
+{% raw %}
 ```php
 // Bad: loads entire dataset into memory
 function getUsers()
@@ -611,6 +650,7 @@ function getUsers()
     }
 }
 ```
+{% endraw %}
 
 ---
 
@@ -618,6 +658,7 @@ function getUsers()
 
 ### Application Cache
 
+{% raw %}
 ```php
 use Alphavel\Cache\Cache;
 
@@ -632,9 +673,11 @@ Cache::tags(['users', 'api'])->put('users.all', $users, 3600);
 // Invalidate by tag
 Cache::tags(['users'])->flush();
 ```
+{% endraw %}
 
 ### HTTP Caching
 
+{% raw %}
 ```php
 // Set cache headers
 $response->header('Cache-Control', 'public, max-age=3600');
@@ -645,6 +688,7 @@ if ($request->header('If-None-Match') === $etag) {
     return $response->status(304)->end();
 }
 ```
+{% endraw %}
 
 ---
 
@@ -678,6 +722,7 @@ blackfire curl http://localhost:9501/api/users
 
 ### Custom Timing
 
+{% raw %}
 ```php
 $start = microtime(true);
 
@@ -687,6 +732,7 @@ $result = expensiveOperation();
 $duration = microtime(true) - $start;
 Log::info("Operation took {$duration}s");
 ```
+{% endraw %}
 
 ---
 

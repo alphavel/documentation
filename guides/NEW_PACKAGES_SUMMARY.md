@@ -59,6 +59,7 @@ php alpha websocket:serve
 ```
 
 #### Exemplo de Uso
+{% raw %}
 ```php
 use Alphavel\WebSocket\Facades\WebSocket;
 
@@ -77,6 +78,7 @@ WebSocket::toUser(123)->push([
 // Get presence (who's online)
 $online = WebSocket::getPresence('presence-dashboard');
 ```
+{% endraw %}
 
 #### Use Cases
 - ✅ Chat real-time
@@ -146,6 +148,7 @@ composer require alphavel/circuit-breaker
 ```
 
 #### Exemplo de Uso
+{% raw %}
 ```php
 use Alphavel\CircuitBreaker\Facades\CircuitBreaker;
 
@@ -169,6 +172,7 @@ $result = CircuitBreaker::call('payment-api',
 $stats = CircuitBreaker::getStats('payment-api');
 // ['state' => 'closed', 'success_rate' => 98.5, ...]
 ```
+{% endraw %}
 
 #### Use Cases
 - ✅ Microservices communication
@@ -223,16 +227,19 @@ $stats = CircuitBreaker::getStats('payment-api');
 ## 🎯 Filosofia Alphavel Mantida
 
 ### ✅ Zero Overhead
+{% raw %}
 ```php
 // Não instalou? Zero impacto no core!
 composer require alphavel/websocket  // Só se precisar
 ```
+{% endraw %}
 
 ### ✅ Altíssima Performance
 - WebSocket: 500k+ msgs/s (Swoole Table, zero-copy)
 - Circuit Breaker: < 0.1ms overhead (lock-free)
 
 ### ✅ Laravel-Like API
+{% raw %}
 ```php
 // WebSocket (familiar para devs Laravel)
 WebSocket::toChannel('chat')->push($message);
@@ -240,6 +247,7 @@ WebSocket::toChannel('chat')->push($message);
 // Circuit Breaker (intuitivo)
 CircuitBreaker::call('api', fn() => Http::get('...'));
 ```
+{% endraw %}
 
 ### ✅ Modularidade Total
 - Packages separados
@@ -301,6 +309,7 @@ git push -u origin master
 
 ### Skeleton App com WebSocket
 
+{% raw %}
 ```php
 // app/Http/Controllers/ChatController.php
 class ChatController extends Controller
@@ -319,9 +328,11 @@ class ChatController extends Controller
     }
 }
 ```
+{% endraw %}
 
 ### Skeleton App com Circuit Breaker
 
+{% raw %}
 ```php
 // app/Services/PaymentService.php
 class PaymentService
@@ -335,6 +346,7 @@ class PaymentService
     }
 }
 ```
+{% endraw %}
 
 ---
 

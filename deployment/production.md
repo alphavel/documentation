@@ -456,6 +456,7 @@ opcache.jit_buffer_size=128M
 
 ### 2. Swoole Configuration (config/swoole.php)
 
+{% raw %}
 ```php
 return [
     'host' => env('SWOOLE_HOST', '0.0.0.0'),
@@ -488,6 +489,7 @@ return [
     'document_root' => base_path('public'),
 ];
 ```
+{% endraw %}
 
 ### 3. Cache Routes
 
@@ -503,6 +505,7 @@ alpha route:cache
 
 Already included via raw route:
 
+{% raw %}
 ```php
 $router->raw('/metrics', function($request, $response) {
     $stats = swoole_get_server_stats();
@@ -525,6 +528,7 @@ METRICS;
     $response->end($metrics);
 }, 'text/plain');
 ```
+{% endraw %}
 
 ### Grafana Dashboard
 
@@ -538,6 +542,7 @@ Monitor:
 
 ### Application Logging
 
+{% raw %}
 ```php
 // Structured logging
 Log::info('Order created', [
@@ -554,6 +559,7 @@ Log::error('Payment failed', [
     'trace' => $e->getTraceAsString()
 ]);
 ```
+{% endraw %}
 
 ---
 

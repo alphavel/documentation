@@ -43,6 +43,7 @@ php alpha vendor:publish --tag=websocket-config
 
 Edit `config/websocket.php`:
 
+{% raw %}
 ```php
 return [
     'host' => env('WEBSOCKET_HOST', '0.0.0.0'),
@@ -59,6 +60,7 @@ return [
     ],
 ];
 ```
+{% endraw %}
 
 ## 🎯 Quick Start
 
@@ -108,6 +110,7 @@ ws.onmessage = (event) => {
 
 **PHP:**
 
+{% raw %}
 ```php
 use Alphavel\WebSocket\Facades\WebSocket;
 
@@ -132,6 +135,7 @@ WebSocket::toChannel('dashboard')
     ->except([42]) // fd 42 = sender
     ->push(['metric' => 'sales', 'value' => 1500]);
 ```
+{% endraw %}
 
 ## 📚 Usage Examples
 
@@ -139,6 +143,7 @@ WebSocket::toChannel('dashboard')
 
 **Server-side:**
 
+{% raw %}
 ```php
 // In your ChatController
 public function sendMessage(Request $request): Response
@@ -164,6 +169,7 @@ public function sendMessage(Request $request): Response
     return response()->json($message);
 }
 ```
+{% endraw %}
 
 **Client-side:**
 
@@ -200,6 +206,7 @@ function sendMessage(text) {
 
 **Server-side:**
 
+{% raw %}
 ```php
 // Update dashboard metrics every second
 $server = app('websocket.server');
@@ -220,6 +227,7 @@ $server->on('workerStart', function() {
     });
 });
 ```
+{% endraw %}
 
 **Client-side:**
 
@@ -242,6 +250,7 @@ ws.onmessage = (event) => {
 
 **Server-side:**
 
+{% raw %}
 ```php
 // Get online users
 $online = WebSocket::getPresence('presence-chat.room.1');
@@ -258,6 +267,7 @@ $stats = WebSocket::getChannelStats('presence-chat.room.1');
 //     'type' => 'presence'
 // ]
 ```
+{% endraw %}
 
 **Client-side:**
 
@@ -288,6 +298,7 @@ ws.onmessage = (event) => {
 
 **Server-side:**
 
+{% raw %}
 ```php
 $server = app('websocket.server');
 
@@ -305,6 +316,7 @@ $server->on('authorize', function($fd, $channel) {
     return false;
 });
 ```
+{% endraw %}
 
 **Client-side:**
 
@@ -331,6 +343,7 @@ ws.onmessage = (event) => {
 
 **Server-side:**
 
+{% raw %}
 ```php
 $server = app('websocket.server');
 
@@ -360,6 +373,7 @@ function handleTypingIndicator($fd, $payload) {
         ]);
 }
 ```
+{% endraw %}
 
 ## 📊 Performance Benchmarks
 
@@ -411,6 +425,7 @@ php tests/benchmark-connections.php --connections=1000000
 
 For multi-server deployments:
 
+{% raw %}
 ```php
 // config/websocket.php
 'broadcasting' => [
@@ -423,11 +438,13 @@ For multi-server deployments:
     ],
 ],
 ```
+{% endraw %}
 
 ### Swoole Options
 
 Fine-tune performance:
 
+{% raw %}
 ```php
 'options' => [
     // Workers = CPU cores (optimal for CPU-bound)
@@ -454,15 +471,18 @@ Fine-tune performance:
     'socket_buffer_size' => 128 * 1024 * 1024, // 128MB
 ],
 ```
+{% endraw %}
 
 ### SSL/TLS (WSS)
 
+{% raw %}
 ```php
 'options' => [
     'ssl_cert_file' => '/path/to/cert.pem',
     'ssl_key_file' => '/path/to/key.pem',
 ],
 ```
+{% endraw %}
 
 Client connects with `wss://` instead of `ws://`.
 
@@ -502,6 +522,7 @@ Active Channels:
 
 ### Enable Verbose Logging
 
+{% raw %}
 ```php
 // config/websocket.php
 'logging' => [
@@ -510,6 +531,7 @@ Active Channels:
     'file' => storage_path('logs/websocket.log'),
 ],
 ```
+{% endraw %}
 
 ### Monitor Logs
 

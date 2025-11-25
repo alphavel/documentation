@@ -30,6 +30,7 @@ php alpha websocket:serve
 ```
 
 **Exemplo:**
+{% raw %}
 ```php
 use Alphavel\WebSocket\Facades\WebSocket;
 
@@ -38,6 +39,7 @@ WebSocket::toChannel('chat.room.1')->push([
     'data' => ['user' => 'João', 'message' => 'Olá!']
 ]);
 ```
+{% endraw %}
 
 ---
 
@@ -59,6 +61,7 @@ composer require alphavel/circuit-breaker
 ```
 
 **Exemplo:**
+{% raw %}
 ```php
 use Alphavel\CircuitBreaker\Facades\CircuitBreaker;
 
@@ -67,6 +70,7 @@ $result = CircuitBreaker::call('payment-api',
     fallback: fn() => ['status' => 'queued']
 );
 ```
+{% endraw %}
 
 ---
 
@@ -140,11 +144,13 @@ composer require alphavel/websocket  # Só se precisar
 - Circuit Breaker: Lock-free, O(1) lookups
 
 ### ✅ Laravel-Like API
+{% raw %}
 ```php
 // Familiar para devs Laravel
 WebSocket::toChannel('chat')->push($msg);
 CircuitBreaker::call('api', fn() => Http::get('...'));
 ```
+{% endraw %}
 
 ### ✅ Modularidade
 - Packages separados

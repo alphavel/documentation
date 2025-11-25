@@ -24,6 +24,7 @@ title: Performance
 Mantém conexões MySQL abertas entre requisições, eliminando overhead de TCP handshake e autenticação.
 
 ### Habilitado por Padrão ✅
+{% raw %}
 ```php
 // config/database.php
 return [
@@ -45,14 +46,17 @@ return [
     ],
 ];
 ```
+{% endraw %}
 
 ### Quando Desabilitar?
+{% raw %}
 ```php
 'persistent' => false,  // Use quando:
 // - Conexões de longa duração causam problemas
 // - Servidor MySQL tem limite de conexões muito baixo
 // - Debugging de connection leaks
 ```
+{% endraw %}
 
 ### Benchmark
 ```bash
@@ -84,6 +88,7 @@ Requests per second:    6,541.87 [#/sec]
 
 ### Como funciona?
 
+{% raw %}
 ```php
 // Antes (v1.2.0): Recompilava SQL toda vez
 $results = DB::table('world')
@@ -103,11 +108,13 @@ $results = DB::table('world')
     ->get();
 // SQL cached → Prepare → Execute (economiza compilação!) 🔥
 ```
+{% endraw %}
 
 ### Estrutura vs Valores
 
 O cache identifica queries pela **estrutura**, não pelos valores:
 
+{% raw %}
 ```php
 // Todas essas queries usam o MESMO statement cacheado:
 
@@ -118,6 +125,7 @@ DB::table('world')->where('id', '>=', 1000)->where('id', '<=', 5000)->get();
 // Estrutura: "SELECT * FROM world WHERE id >= ? AND id <= ?"
 // Statement preparado UMA VEZ, executado 3 vezes com valores diferentes!
 ```
+{% endraw %}
 
 ### Benchmark: TechEmpower Search
 
@@ -140,6 +148,7 @@ Requests per second: 1,109-1,434 [#/sec]
 
 O cache é **habilitado por padrão**, mas você pode ajustar:
 
+{% raw %}
 ```php
 // Verificar estatísticas do cache
 $stats = DB::getQueryBuilderCacheStats();
@@ -151,11 +160,13 @@ DB::setMaxQueryBuilderStatements(1000);
 // Limpar cache (útil em testes ou após mudanças de schema)
 DB::clearQueryBuilderCache();
 ```
+{% endraw %}
 
 ### Uso no código
 
 **Nenhuma mudança necessária!** Seu código continua exatamente igual:
 
+{% raw %}
 ```php
 // ✅ Código antigo funciona sem mudanças
 $users = DB::table('users')
@@ -167,9 +178,11 @@ $users = DB::table('users')
 
 // Agora é 5-8x mais rápido automaticamente! 🔥
 ```
+{% endraw %}
 
 ### Performance: Query Builder vs findOne()
 
+{% raw %}
 ```php
 // Cenário 1: Query simples com WHERE
 $user = DB::table('users')->where('id', 123)->first();
@@ -191,6 +204,7 @@ $results = DB::table('world')
 // v1.2.0: 274 req/s
 // v1.3.0: 1,500-2,000 req/s (+500-630%) 🔥
 ```
+{% endraw %}
 
 ### Quando usar Query Builder agora?
 
@@ -213,6 +227,7 @@ Método otimizado para buscar **um único registro** que gera SQL consistente, m
 
 ### Por que usar?
 O Query Builder gera SQL dinâmico que varia a cada chamada:
+{% raw %}
 ```php
 // ❌ Query Builder: SQL dinâmico (cache miss)
 $world = DB::table('World')->where('id', $id)->first();
@@ -222,8 +237,10 @@ $world = DB::table('World')->where('id', $id)->first();
 $world = DB::findOne('World', $id);
 // SEMPRE: SELECT * FROM World WHERE id = ?
 ```
+{% endraw %}
 
 ### Uso
+{% raw %}
 ```php
 use Alphavel\Database\DB;
 
@@ -241,6 +258,7 @@ if ($post === null) {
     return response()->json(['error' => 'Not found'], 404);
 }
 ```
+{% endraw %}
 
 ### Benchmark
 ```bash
@@ -268,6 +286,7 @@ Busca múltiplos registros **diferentes** reutilizando um único prepared statem
 ### Por que usar?
 Quando você precisa buscar diferentes entidades no mesmo request:
 
+{% raw %}
 ```php
 // ❌ LENTO: Múltiplos findOne() (cache hit, mas overhead de função)
 $user = DB::findOne('entities', $userId);
@@ -286,6 +305,7 @@ $order = DB::findOne('entities', $orderId);
 // ✅ ALIAS MAIS LIMPO: batchFetch()
 [$user, $product] = DB::batchFetch('world', [$userId, $productId]);
 ```
+{% endraw %}
 
 ### Diferença para findMany()
 
@@ -320,6 +340,7 @@ Requests per second:    7,500 [#/sec]
 Expõe prepared statements diretamente para cenários de **ultra-performance** onde você controla o cache manualmente.
 
 ### Uso
+{% raw %}
 ```php
 use Alphavel\Database\DB;
 
@@ -344,6 +365,7 @@ public function ultraHotPath(): Response
     return response()->json(['world' => $world, 'world2' => $world2]);
 }
 ```
+{% endraw %}
 
 ### Quando usar?
 - **TechEmpower Benchmarks** (queries, fortunes)
@@ -371,6 +393,7 @@ Requests per second:    8,200 [#/sec]
 Busca múltiplos registros em uma única query ao invés de N queries sequenciais.
 
 ### DB::findMany() - Recomendado
+{% raw %}
 ```php
 use Alphavel\Database\DB;
 
@@ -384,8 +407,10 @@ foreach ($ids as $id) {
 $worlds = DB::findMany('World', $ids);
 // SELECT * FROM World WHERE id IN (1,2,3,4,5,...)
 ```
+{% endraw %}
 
 ### QueryBuilder::whereIn() - Mais flexível
+{% raw %}
 ```php
 // Busca por coluna customizada
 $users = DB::table('users')
@@ -398,8 +423,10 @@ $activeUsers = DB::table('users')
     ->where('status', 'active')
     ->get();
 ```
+{% endraw %}
 
 ### DB::queryIn() - SQL direto
+{% raw %}
 ```php
 // Query customizada com IN
 $results = DB::queryIn(
@@ -407,6 +434,7 @@ $results = DB::queryIn(
     [1, 2, 3, 4, 5]
 );
 ```
+{% endraw %}
 
 ### Benchmark
 ```bash
@@ -431,6 +459,7 @@ Statements SQL são compilados **UMA VEZ** e reutilizados em **TODAS as requisi�
 ### Implementação Hyperf-Style ✅
 Alphavel usa **cache estático global** (cross-worker), igual ao Hyperf:
 
+{% raw %}
 ```php
 // Classe Connection.php (built-in)
 class Connection extends PDO
@@ -465,10 +494,12 @@ class Connection extends PDO
     }
 }
 ```
+{% endraw %}
 
 ### Você não precisa fazer nada! 🎉
 O cache é **automático**, **agressivo** e **transparente**:
 
+{% raw %}
 ```php
 // Request 1
 DB::query('SELECT * FROM users WHERE id = ?', [1]);  // Compile ⚙️
@@ -481,17 +512,21 @@ DB::query('SELECT * FROM users WHERE id = ?', [3]);  // Reuse ✅ (cache global)
 
 // Todas as requisições subsequentes: ZERO parsing SQL!
 ```
+{% endraw %}
 
 ### 🎯 Diferença vs Frameworks Tradicionais
 
 #### Laravel/Symfony (sem cache estático):
+{% raw %}
 ```php
 // Cada requisição:
 $stmt = $pdo->prepare($sql);  // ⚙️ Parse SQL novamente
 $stmt->execute($params);
 ```
+{% endraw %}
 
 #### Alphavel/Hyperf (cache estático global):
+{% raw %}
 ```php
 // Primeira requisição:
 $stmt = $pdo->prepare($sql);  // ⚙️ Parse SQL
@@ -500,9 +535,11 @@ $stmt = $pdo->prepare($sql);  // ⚙️ Parse SQL
 $stmt = self::$globalStatements[$hash];  // ⚡ Zero overhead!
 $stmt->execute($params);
 ```
+{% endraw %}
 
 ### Monitoramento do Cache
 
+{% raw %}
 ```php
 // Ver estatísticas do cache
 $stats = DB::getCacheStats();
@@ -515,6 +552,7 @@ DB::clearCache();
 // Ajustar limite de cache
 DB::setMaxCachedStatements(5000);  // Padrão: 1000
 ```
+{% endraw %}
 
 ### Ganho Real
 - **+20-30%** em queries repetidas (vs cache por instância)
@@ -530,6 +568,7 @@ DB::setMaxCachedStatements(5000);  // Padrão: 1000
 Pool de conexões reutilizáveis por corrotina, eliminando overhead de criar/destruir conexões.
 
 ### Implementação Automática ✅
+{% raw %}
 ```php
 // Classe ConnectionPool.php (built-in)
 public function get(): Connection
@@ -546,6 +585,7 @@ public function put(Connection $connection): void
     $this->pool->push($connection);
 }
 ```
+{% endraw %}
 
 ### Configuração Recomendada
 ```env
@@ -583,6 +623,7 @@ POOL_MIN   = 16  (8 * 2)
 ### 🛠️ Configure para Seu Projeto
 
 #### 1. Ajuste o Pool Size
+{% raw %}
 ```php
 // config/database.php
 'pool' => [
@@ -590,8 +631,10 @@ POOL_MIN   = 16  (8 * 2)
     'max' => (int) env('DB_POOL_MAX', 40),  // 5x workers
 ],
 ```
+{% endraw %}
 
 #### 2. Use Batch Queries
+{% raw %}
 ```php
 // ❌ EVITE loops com queries
 foreach ($ids as $id) {
@@ -601,8 +644,10 @@ foreach ($ids as $id) {
 // ✅ USE batch queries
 $users = DB::findMany('users', $ids);
 ```
+{% endraw %}
 
 #### 3. Prepare Queries Repetidas
+{% raw %}
 ```php
 // ❌ EVITE queries dinâmicas em loops
 foreach ($users as $user) {
@@ -614,6 +659,7 @@ foreach ($users as $user) {
     DB::query("SELECT * FROM orders WHERE user_id = ?", [$user->id]);
 }
 ```
+{% endraw %}
 
 ---
 
@@ -653,6 +699,7 @@ DB_POOL_MAX=20  # De 40 para 20
 ```
 
 ### Problema: Conexões ficam abertas
+{% raw %}
 ```php
 // Desabilite persistent connections temporariamente
 'persistent' => false,
@@ -660,6 +707,7 @@ DB_POOL_MAX=20  # De 40 para 20
 // Investigue connection leaks
 DB::getPoolStats();  // Check active connections
 ```
+{% endraw %}
 
 ### Problema: Queries lentas com IN
 ```sql

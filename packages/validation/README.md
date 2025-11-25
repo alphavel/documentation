@@ -19,6 +19,7 @@ alpha package:add validation
 
 ## Usage
 
+{% raw %}
 ```php
 use Alphavel\Validation\Validator;
 
@@ -47,6 +48,7 @@ public function store(Request $request)
     return Response::make()->json(['id' => $userId], 201);
 }
 ```
+{% endraw %}
 
 ---
 
@@ -74,6 +76,7 @@ public function store(Request $request)
 
 ## Custom Error Messages
 
+{% raw %}
 ```php
 $validator = Validator::make($request->all(), [
     'name' => 'required|string|max:255',
@@ -84,11 +87,13 @@ $validator = Validator::make($request->all(), [
     'email.email' => 'Email inválido',
 ]);
 ```
+{% endraw %}
 
 ---
 
 ## Custom Rules
 
+{% raw %}
 ```php
 Validator::extend('cpf', function ($attribute, $value) {
     // CPF validation logic
@@ -100,6 +105,7 @@ $validator = Validator::make($data, [
     'cpf' => 'required|cpf',
 ]);
 ```
+{% endraw %}
 
 ---
 

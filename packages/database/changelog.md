@@ -105,6 +105,7 @@ composer require alphavel/database:^2.0
 ```
 
 **Code Changes:**
+{% raw %}
 ```php
 // v1.x (two packages)
 use Alphavel\Database\DB;      // from alphavel/database
@@ -117,6 +118,7 @@ use Alphavel\Database\Model;   // Now in database package!
 // OLD namespace still works (backward compatible)
 use Alphavel\ORM\Relations\HasMany;  // ✅ Still works via alias
 ```
+{% endraw %}
 
 **Performance:**
 - Query Builder: **6,700 req/s** (unchanged ✅)
@@ -169,19 +171,23 @@ alphavel/database v2.0
 **Strategy: Hybrid Approach**
 
 1. **Global Statement Cache for READS**
+{% raw %}
 ```php
 // Single persistent connection for ALL read operations
 // Prepare once, execute many across ALL coroutines
 // Safe for SELECT (no state mutation)
 // Performance: ~6,700 req/s (vs 1,233 before)
 ```
+{% endraw %}
 
 2. **Isolated Connections for WRITES**
+{% raw %}
 ```php
 // Per-coroutine connection for transactions/writes
 // Maintains ACID guarantees
 // Automatic isolation when needed
 ```
+{% endraw %}
 
 **Implementation:**
 - `DB::connectionRead()` - Single global connection (reads)
@@ -223,18 +229,22 @@ alphavel/database v2.0
 **Solution Implemented - Hybrid Cache Strategy:**
 
 1. **Query Builder - SQL Cache + Statement Pool**
+{% raw %}
 ```php
 // SQL compilation cached globally (thread-safe)
 // PDOStatements pooled per coroutine (isolated, fast)
 // Best of both worlds: safety + performance
 ```
+{% endraw %}
 
 2. **DB::findOne() - Hot Path Optimization**
+{% raw %}
 ```php
 // Statement pooled per coroutine for ultra-hot paths
 // Target: 40,000-50,000 req/s
 // Eliminates prepare() overhead completely
 ```
+{% endraw %}
 
 **Performance Results (Expected):**
 - Dashboard: 765 → 1,500-2,000 req/s (+100-160%)
@@ -312,6 +322,7 @@ alphavel/database v2.0
 - Perfect for TechEmpower Search benchmark: 274 → 1,500-2,000 req/s
 
 **Example (no changes needed!):**
+{% raw %}
 ```php
 // This code runs 5-8x faster automatically in v1.3.0:
 $results = DB::table('world')
@@ -321,6 +332,7 @@ $results = DB::table('world')
     ->limit(20)
     ->get();
 ```
+{% endraw %}
 
 **New Management Methods:**
 - `DB::getQueryBuilderCacheStats()` - View cache statistics
@@ -473,12 +485,15 @@ DB_PERSISTENT=true      # Enable persistent connections
 #### For Existing Projects
 
 **1. Enable persistent connections** (already default):
+{% raw %}
 ```php
 // config/database.php
 'persistent' => true,  // ✅ Already default
 ```
+{% endraw %}
 
 **2. Refactor to batch queries**:
+{% raw %}
 ```php
 // Before (312 req/s)
 foreach ($ids as $id) {
@@ -488,6 +503,7 @@ foreach ($ids as $id) {
 // After (2,269 req/s) - +627% 🔥
 $results = DB::findMany('World', $ids);
 ```
+{% endraw %}
 
 **3. Configure workers** (optional):
 ```env

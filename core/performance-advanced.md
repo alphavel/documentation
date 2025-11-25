@@ -28,6 +28,7 @@ We implemented **5 strategic optimizations** to recover performance without sacr
 
 **Solution**: Deferred provider registration.
 
+{% raw %}
 ```php
 // Application.php
 private array $deferredProviders = [];
@@ -66,6 +67,7 @@ public function boot(): void
     $this->booted = true;
 }
 ```
+{% endraw %}
 
 **Impact**: 3-5% improvement by avoiding unnecessary provider instantiation.
 
@@ -77,6 +79,7 @@ public function boot(): void
 
 **Solution**: Fast path for classes with no constructor dependencies.
 
+{% raw %}
 ```php
 // Container.php
 private static array $simpleClasses = []; // Cache for simple classes
@@ -102,6 +105,7 @@ private function resolve(string $class): mixed
     return $this->buildInstance($class);
 }
 ```
+{% endraw %}
 
 **Impact**: 2-4% improvement on controller instantiation.
 
@@ -119,6 +123,7 @@ php alpha route:cache
 ```
 
 **Generated Cache**:
+{% raw %}
 ```php
 // bootstrap/cache/routes.php
 return [
@@ -147,8 +152,10 @@ return [
     ],
 ];
 ```
+{% endraw %}
 
 **Usage in Bootstrap**:
+{% raw %}
 ```php
 // bootstrap/app.php
 $router = $app->make('router');
@@ -162,6 +169,7 @@ if (file_exists($routesCache)) {
     require __DIR__.'/../routes/api.php';
 }
 ```
+{% endraw %}
 
 **Clear Cache**:
 ```bash
@@ -176,6 +184,7 @@ php alpha route:clear
 
 **Already Implemented**: Router separates static and dynamic routes for O(1) lookup.
 
+{% raw %}
 ```php
 // Router.php
 public function dispatch(string $uri, string $method): ?array
@@ -195,6 +204,7 @@ public function dispatch(string $uri, string $method): ?array
     return null;
 }
 ```
+{% endraw %}
 
 **Impact**: Crucial for endpoints like `/json` and `/plaintext`.
 
@@ -204,6 +214,7 @@ public function dispatch(string $uri, string $method): ?array
 
 **Already Implemented**: Reuse Request objects to avoid allocation overhead.
 
+{% raw %}
 ```php
 // Application.php
 private array $requestPool = [];
@@ -229,6 +240,7 @@ public function handleRequest($request, $response): void
     }
 }
 ```
+{% endraw %}
 
 **Impact**: 1-2% improvement by reducing GC pressure.
 
@@ -288,6 +300,7 @@ public function handleRequest($request, $response): void
 
 ### Enable Performance Logging:
 
+{% raw %}
 ```php
 // config/app.php
 'performance' => [
@@ -295,9 +308,11 @@ public function handleRequest($request, $response): void
     'slow_threshold_ms' => 100,
 ],
 ```
+{% endraw %}
 
 ### Measure with Swoole Timer:
 
+{% raw %}
 ```php
 use Swoole\Coroutine;
 
@@ -308,6 +323,7 @@ $start = microtime(true);
 $duration = (microtime(true) - $start) * 1000;
 echo "Execution time: {$duration}ms\n";
 ```
+{% endraw %}
 
 ### Profile with Blackfire/Xdebug:
 

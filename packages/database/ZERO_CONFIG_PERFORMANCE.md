@@ -31,6 +31,7 @@ The framework now **automatically adapts** to your workload:
 
 Returns optimal database configuration with maximum performance settings:
 
+{% raw %}
 ```php
 use Alphavel\Database\DB;
 
@@ -48,6 +49,7 @@ return [
     ],
 ];
 ```
+{% endraw %}
 
 **What it does:**
 - ✅ Sets `ATTR_EMULATE_PREPARES => false` (+20% throughput for reads)
@@ -56,6 +58,7 @@ return [
 - ✅ Achieves **7,000+ req/s** automatically
 
 **NEW v2.1.0 - Workload Adaptation:**
+{% raw %}
 ```php
 // For transaction-heavy workloads (e-commerce, checkout)
 $config = DB::optimizedConfig([
@@ -66,28 +69,33 @@ $config = DB::optimizedConfig([
     ],
 ]);
 ```
+{% endraw %}
 
 #### `DB::fromEnv()` - Ultra-Fast Setup
 
 Quick setup from environment variables:
 
+{% raw %}
 ```php
 use Alphavel\Database\DB;
 
 // Reads DB_HOST, DB_DATABASE, DB_USERNAME, etc.
 DB::configure(DB::fromEnv());
 ```
+{% endraw %}
 
 #### `DB::validateConfig()` - Configuration Validation
 
 Validates configuration and returns performance warnings:
 
+{% raw %}
 ```php
 $warnings = DB::validateConfig();
 foreach ($warnings as $warning) {
     error_log("[Warning] $warning");
 }
 ```
+{% endraw %}
 
 ### 2. **Automatic Validation in Development**
 
@@ -339,6 +347,7 @@ DB_PASSWORD=secret
 ### From v2.0.0 to v2.0.1+
 
 #### Before (manual config):
+{% raw %}
 ```php
 'mysql' => [
     'host' => env('DB_HOST', '127.0.0.1'),
@@ -353,8 +362,10 @@ DB_PASSWORD=secret
     ],
 ],
 ```
+{% endraw %}
 
 #### After (helper):
+{% raw %}
 ```php
 'mysql' => DB::optimizedConfig([
     'host' => env('DB_HOST', '127.0.0.1'),
@@ -363,11 +374,14 @@ DB_PASSWORD=secret
     'password' => env('DB_PASSWORD', ''),
 ]),
 ```
+{% endraw %}
 
 #### Or (ultra-short):
+{% raw %}
 ```php
 'mysql' => DB::fromEnv(),
 ```
+{% endraw %}
 
 ---
 
@@ -381,6 +395,7 @@ DB_PASSWORD=secret
 - ✅ MySQL 5.7, 8.0, MariaDB 10.3+
 
 ### Junior developers can use blindly:
+{% raw %}
 ```php
 use Alphavel\Database\DB;
 
@@ -392,6 +407,7 @@ return [
     ],
 ];
 ```
+{% endraw %}
 
 **Result: +35% performance on ANY server!** 🚀
 
@@ -401,6 +417,7 @@ return [
 
 ### ✅ DO:
 
+{% raw %}
 ```php
 // Use DB::optimizedConfig() for new projects
 'mysql' => DB::optimizedConfig([
@@ -419,9 +436,11 @@ if (!empty($warnings)) {
     }
 }
 ```
+{% endraw %}
 
 ### ❌ DON'T (unless you know what you're doing):
 
+{% raw %}
 ```php
 // Don't set ATTR_EMULATE_PREPARES to true BY DEFAULT
 'options' => [
@@ -437,6 +456,7 @@ if (!empty($warnings)) {
 // Don't set large pool_size
 'pool_size' => 64,  // ❌ -7% performance
 ```
+{% endraw %}
 
 ---
 
@@ -462,6 +482,7 @@ if (!empty($warnings)) {
 
 ### **API REST / Read-Heavy Workloads**
 
+{% raw %}
 ```php
 // Default config is already optimized for this!
 'mysql' => DB::optimizedConfig([
@@ -471,6 +492,7 @@ if (!empty($warnings)) {
 // ATTR_EMULATE_PREPARES = false (default)
 // Result: 8,500 req/s on queries
 ```
+{% endraw %}
 
 **Best for:**
 - RESTful APIs
@@ -482,6 +504,7 @@ if (!empty($warnings)) {
 
 ### **E-commerce / Transaction-Heavy Workloads**
 
+{% raw %}
 ```php
 // Override emulate_prepares for transaction optimization
 'mysql' => DB::optimizedConfig([
@@ -493,6 +516,7 @@ if (!empty($warnings)) {
 ]),
 // Result: 3,320 req/s on checkout (20% faster)
 ```
+{% endraw %}
 
 **Best for:**
 - E-commerce checkout
@@ -504,6 +528,7 @@ if (!empty($warnings)) {
 
 ### **Mixed Workloads / BFF / Dashboards**
 
+{% raw %}
 ```php
 // Default config + intelligent connection pool
 'mysql' => DB::optimizedConfig([
@@ -513,6 +538,7 @@ if (!empty($warnings)) {
 'connections_per_worker' => env('DB_CONNECTIONS_PER_WORKER', 8),
 // Result: 4,850 req/s on realistic workload
 ```
+{% endraw %}
 
 **Best for:**
 - Backend for Frontend (BFF)

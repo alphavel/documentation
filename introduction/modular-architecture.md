@@ -61,6 +61,7 @@ alpha package:add cache
 
 ### Core Only (Minimal Setup)
 
+{% raw %}
 ```php
 // bootstrap/app.php
 $app = new Alphavel\Application();
@@ -70,6 +71,7 @@ $app->router->get('/health', fn() => ['status' => 'ok']);
 
 return $app;
 ```
+{% endraw %}
 
 **Performance:**
 - Boot time: **5ms**
@@ -83,12 +85,14 @@ return $app;
 composer require alphavel/database
 ```
 
+{% raw %}
 ```php
 // config/app.php
 'providers' => [
     Alphavel\Database\DatabaseServiceProvider::class,
 ],
 ```
+{% endraw %}
 
 **Performance:**
 - Boot time: **7ms** (+2ms)
@@ -162,6 +166,7 @@ Packages register automaticamente via `composer.json`:
 
 Only load what you use:
 
+{% raw %}
 ```php
 // API without database? Don't install it!
 $app = new Application();
@@ -169,6 +174,7 @@ $app->router->get('/status', fn() => ['status' => 'ok']);
 
 // Memory: 2 MB (vs 40 MB in Laravel)
 ```
+{% endraw %}
 
 ### 2. Faster Boot Time
 
@@ -229,6 +235,7 @@ Application Container
 
 ### Layer 2: Service Providers
 
+{% raw %}
 ```php
 // Loaded based on installed packages
 DatabaseServiceProvider::class
@@ -237,6 +244,7 @@ ValidationServiceProvider::class
 LoggingServiceProvider::class
 EventServiceProvider::class
 ```
+{% endraw %}
 
 **Conditionally loaded** - Only if package is installed.
 
@@ -292,6 +300,7 @@ my-package/
 
 ### Step 3: Service Provider
 
+{% raw %}
 ```php
 namespace Company\MyPackage;
 
@@ -314,6 +323,7 @@ class MyServiceProvider extends ServiceProvider
     }
 }
 ```
+{% endraw %}
 
 ### Step 4: Install & Use
 
@@ -321,10 +331,12 @@ class MyServiceProvider extends ServiceProvider
 composer require company/my-package
 ```
 
+{% raw %}
 ```php
 // Auto-discovered, ready to use!
 $result = app('my-service')->doSomething();
 ```
+{% endraw %}
 
 ---
 
@@ -443,6 +455,7 @@ composer require alphavel/database
 
 ### Memory Usage by Package
 
+{% raw %}
 ```php
 // Measure memory impact
 $before = memory_get_usage(true);
@@ -467,9 +480,11 @@ $cacheMemory = memory_get_usage(true) - $before - $coreMemory - $dbMemory;
 echo "Cache: " . ($cacheMemory / 1024 / 1024) . " MB\n";
 // Output: Cache: 2 MB
 ```
+{% endraw %}
 
 ### Boot Time by Package
 
+{% raw %}
 ```php
 // Measure boot time impact
 $start = microtime(true);
@@ -489,6 +504,7 @@ $cacheTime = (microtime(true) - $start) * 1000 - $coreTime - $dbTime;
 echo "Cache boot: {$cacheTime}ms\n";
 // Output: Cache boot: 1ms
 ```
+{% endraw %}
 
 ---
 

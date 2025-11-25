@@ -39,6 +39,7 @@ title: README
 
 ## 🎯 Quick Start (Laravel Developers)
 
+{% raw %}
 ```php
 use Alphavel\Database\DB;
 
@@ -59,6 +60,7 @@ DB::transaction(function() {
     DB::execute('UPDATE accounts SET balance = balance + 100 WHERE id = ?', [2]);
 });
 ```
+{% endraw %}
 
 ---
 
@@ -69,14 +71,17 @@ DB::transaction(function() {
 Alphavel Database includes **4 native performance optimizations**:
 
 ### 1. ⚡ Persistent Connections (+1,769%)
+{% raw %}
 ```php
 // config/database.php - ENABLED BY DEFAULT
 'persistent' => true,  // PDO::ATTR_PERSISTENT
 ```
+{% endraw %}
 
 **Benchmark**: 350 → 6,541 req/s (+1,769%) 🔥
 
 ### 2. 📦 Batch Queries (+627%)
+{% raw %}
 ```php
 // ❌ BAD: 20 queries (312 req/s)
 foreach ($ids as $id) {
@@ -86,6 +91,7 @@ foreach ($ids as $id) {
 // ✅ GOOD: 1 query (2,269 req/s)
 $worlds = DB::findMany('World', $ids);
 ```
+{% endraw %}
 
 **Benchmark**: 312 → 2,269 req/s (+627%) 🔥
 
@@ -95,6 +101,7 @@ Automatic prepared statement caching - **no configuration needed**!
 ### 3.1 🚀 Global Statement Cache (v1.3.3 - REVOLUTIONARY!)
 **🏆 #1 Fastest PHP Framework**: Global statement cache beats Go & C implementations!
 
+{% raw %}
 ```php
 // v1.2.0: 274 req/s
 // v1.3.1: 1,434 req/s (+423%)
@@ -106,6 +113,7 @@ $results = DB::table('users')
     ->where('city', $city)
     ->get();
 ```
+{% endraw %}
 
 **Performance Impact (v1.3.3)**:
 - **findOne()**: 1,233 → **6,700 req/s** (+443%) 🏆
@@ -128,6 +136,7 @@ $results = DB::table('users')
 - **Performance**: Eliminates prepare() overhead (~150-250µs) on every request
 
 **Optional management**:
+{% raw %}
 ```php
 // View cache statistics
 $stats = DB::getQueryBuilderCacheStats();
@@ -138,6 +147,7 @@ DB::clearQueryBuilderCache();
 // Adjust max size (default: 500)
 DB::setMaxQueryBuilderStatements(1000);
 ```
+{% endraw %}
 
 ### 4. 🔄 Connection Pooling (+200-400%)
 Swoole connection pool - **automatic** with configuration:
@@ -181,6 +191,7 @@ This automatically:
 
 Edit `config/database.php`:
 
+{% raw %}
 ```php
 <?php
 
@@ -222,6 +233,7 @@ return [
     ],
 ];
 ```
+{% endraw %}
 
 Set environment variables in `.env`:
 
@@ -245,6 +257,7 @@ DB_POOL_TIMEOUT=3.0
 
 ### Raw Queries
 
+{% raw %}
 ```php
 <?php
 
@@ -271,6 +284,7 @@ $affected = DB::execute(
 // DELETE
 $affected = DB::execute('DELETE FROM users WHERE id = ?', [1]);
 ```
+{% endraw %}
 
 ---
 
@@ -278,6 +292,7 @@ $affected = DB::execute('DELETE FROM users WHERE id = ?', [1]);
 
 ### SELECT Queries
 
+{% raw %}
 ```php
 // Get all
 $users = DB::table('users')->get();
@@ -331,9 +346,11 @@ $users = DB::table('users')
     ->select(['id', 'name', 'email'])
     ->get();
 ```
+{% endraw %}
 
 ### INSERT
 
+{% raw %}
 ```php
 // Single insert
 $id = DB::table('users')->insert([
@@ -345,9 +362,11 @@ $id = DB::table('users')->insert([
 // Get last insert ID
 echo "New user ID: {$id}";
 ```
+{% endraw %}
 
 ### UPDATE
 
+{% raw %}
 ```php
 $affected = DB::table('users')
     ->where('id', 1)
@@ -358,9 +377,11 @@ $affected = DB::table('users')
 
 echo "Updated {$affected} rows";
 ```
+{% endraw %}
 
 ### DELETE
 
+{% raw %}
 ```php
 $affected = DB::table('users')
     ->where('id', 1)
@@ -369,11 +390,13 @@ $affected = DB::table('users')
 // Or direct
 $affected = DB::table('users')->delete(1);
 ```
+{% endraw %}
 
 ---
 
 ## Transactions
 
+{% raw %}
 ```php
 use Alphavel\Database\DB;
 
@@ -403,6 +426,7 @@ try {
     echo "Transaction failed: " . $e->getMessage();
 }
 ```
+{% endraw %}
 
 ---
 
@@ -435,6 +459,7 @@ Request 2:
 
 ### Configuration
 
+{% raw %}
 ```php
 // config/database.php
 
@@ -444,9 +469,11 @@ Request 2:
     'wait_timeout' => 3.0,     // Wait 3s for available connection
 ],
 ```
+{% endraw %}
 
 ### Best Practices
 
+{% raw %}
 ```php
 // ✅ DO: Release connection after use (automatic)
 public function index()
@@ -479,11 +506,13 @@ public function process()
     }
 }
 ```
+{% endraw %}
 
 ---
 
 ## Multiple Connections
 
+{% raw %}
 ```php
 // Use specific connection
 $users = DB::connection('pgsql')
@@ -495,6 +524,7 @@ $orders = DB::connection('orders_db')
     ->where('status', 'pending')
     ->get();
 ```
+{% endraw %}
 
 ---
 
@@ -502,6 +532,7 @@ $orders = DB::connection('orders_db')
 
 Active Record pattern for database tables with automatic dirty tracking:
 
+{% raw %}
 ```php
 <?php
 
@@ -522,6 +553,7 @@ $user->save(); // Updates only dirty attributes
 
 $users = User::where('active', 1)->get();
 ```
+{% endraw %}
 
 ---
 
@@ -539,6 +571,7 @@ $users = User::where('active', 1)->get();
 
 ### Real Performance Comparison
 
+{% raw %}
 ```php
 // ❌ SLOWEST: Model with hydration (363 req/s)
 $users = User::all(); // Hydrates objects, tracks changes
@@ -549,10 +582,12 @@ $users = DB::table('users')->get(); // Returns plain arrays
 // ✅ FASTEST: Raw SQL (8,000+ req/s)
 $users = DB::query('SELECT * FROM users'); // Zero overhead
 ```
+{% endraw %}
 
 ### Critical Performance Tips
 
 **1. Use Query Builder for APIs** (18x faster than Models)
+{% raw %}
 ```php
 // ❌ BAD: Model hydration overhead
 Route::get('/api/users', function() {
@@ -564,8 +599,10 @@ Route::get('/api/users', function() {
     return DB::table('users')->get(); // 6,700 req/s
 });
 ```
+{% endraw %}
 
 **2. Batch Queries for Multiple Records** (627% faster)
+{% raw %}
 ```php
 // ❌ BAD: N queries in loop
 foreach ([1,2,3,4,5] as $id) {
@@ -575,16 +612,20 @@ foreach ([1,2,3,4,5] as $id) {
 // ✅ GOOD: Single query with IN clause
 $worlds = DB::findMany('World', [1,2,3,4,5]); // 2,269 req/s
 ```
+{% endraw %}
 
 **3. Use Models ONLY for CRUD** (when you need dirty tracking)
+{% raw %}
 ```php
 // ✅ GOOD: Model with save() tracks dirty attributes
 $user = User::find(1);
 $user->name = 'New Name';
 $user->save(); // Updates only changed fields
 ```
+{% endraw %}
 
 **4. Release Connections After Fetching Data**
+{% raw %}
 ```php
 // ❌ BAD: Holds connection during processing
 $users = DB::query('SELECT * FROM users');
@@ -599,14 +640,17 @@ foreach ($users as $user) {
     sleep(1); // No connection held
 }
 ```
+{% endraw %}
 
 **5. Statement Cache is Automatic** (no configuration needed!)
+{% raw %}
 ```php
 // v1.3.3+: Statement cache enabled globally
 // Same query structure = reused prepared statement
 $users = DB::table('users')->where('age', '>', $minAge)->get(); // 6,700 req/s
 // No DB::prepare() needed - automatic!
 ```
+{% endraw %}
 
 ### Memory vs Performance Trade-offs
 
@@ -622,6 +666,7 @@ $users = DB::table('users')->where('age', '>', $minAge)->get(); // 6,700 req/s
 
 ### DB Class
 
+{% raw %}
 ```php
 // Raw queries
 DB::query(string $sql, array $params = []): array
@@ -641,9 +686,11 @@ DB::rollBack(): void
 // Connection management
 DB::release(): void
 ```
+{% endraw %}
 
 ### QueryBuilder Class
 
+{% raw %}
 ```php
 // SELECT
 ->get(): array
@@ -666,6 +713,7 @@ DB::release(): void
 // DELETE
 ->delete(int $id = null): int  // Returns affected rows
 ```
+{% endraw %}
 
 ---
 
@@ -685,21 +733,25 @@ DB_PASSWORD=secret
 
 ### Pool Timeout
 
+{% raw %}
 ```php
 // Increase timeout in config/database.php
 'pool' => [
     'wait_timeout' => 5.0,  // Increase from 3.0
 ],
 ```
+{% endraw %}
 
 ### Too Many Connections
 
+{% raw %}
 ```php
 // Reduce max connections
 'pool' => [
     'max_connections' => 5,  // Reduce from 10
 ],
 ```
+{% endraw %}
 
 ---
 

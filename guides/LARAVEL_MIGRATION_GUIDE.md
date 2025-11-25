@@ -75,26 +75,31 @@ composer require alphavel/alphavel
 ### 2. Port Routes
 
 **Laravel:**
+{% raw %}
 ```php
 // routes/web.php
 Route::get('/users', [UserController::class, 'index']);
 Route::post('/users', [UserController::class, 'store']);
 Route::get('/users/{id}', [UserController::class, 'show']);
 ```
+{% endraw %}
 
 **Alphavel:**
+{% raw %}
 ```php
 // routes/api.php
 $router->get('/users', [UserController::class, 'index']);
 $router->post('/users', [UserController::class, 'store']);
 $router->get('/users/{id}', [UserController::class, 'show']);
 ```
+{% endraw %}
 
 **Change**: `Route::` → `$router->`
 
 ### 3. Update Controllers
 
 **Laravel:**
+{% raw %}
 ```php
 namespace App\Http\Controllers;
 
@@ -109,8 +114,10 @@ class UserController extends Controller
     }
 }
 ```
+{% endraw %}
 
 **Alphavel:**
+{% raw %}
 ```php
 namespace App\Controllers;
 
@@ -126,6 +133,7 @@ class UserController extends Controller
     }
 }
 ```
+{% endraw %}
 
 **Changes**:
 - Namespace: `App\Http\Controllers` → `App\Controllers`
@@ -135,6 +143,7 @@ class UserController extends Controller
 ### 4. Port Models
 
 **Laravel:**
+{% raw %}
 ```php
 namespace App\Models;
 
@@ -150,8 +159,10 @@ class User extends Model
     }
 }
 ```
+{% endraw %}
 
 **Alphavel:**
+{% raw %}
 ```php
 namespace App\Models;
 
@@ -170,6 +181,7 @@ class User extends Model
     }
 }
 ```
+{% endraw %}
 
 **Changes**:
 - Import: `Illuminate\Database\Eloquent\Model` → `Alphavel\Database\Model`
@@ -208,6 +220,7 @@ DB_PASSWORD=
 ### Laravel Sanctum → Alphavel JWT
 
 **Laravel:**
+{% raw %}
 ```php
 // Login
 $token = $user->createToken('auth_token')->plainTextToken;
@@ -219,8 +232,10 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 });
 ```
+{% endraw %}
 
 **Alphavel:**
+{% raw %}
 ```php
 // Login
 $token = Auth::attempt([
@@ -235,6 +250,7 @@ $router->group(['middleware' => Authenticate::class], function ($router) {
     });
 });
 ```
+{% endraw %}
 
 **Performance**: 6x faster (3,000 vs 500 req/s)
 
@@ -245,6 +261,7 @@ $router->group(['middleware' => Authenticate::class], function ($router) {
 ### Laravel Queue → Alphavel Queue
 
 **Laravel:**
+{% raw %}
 ```php
 // Job
 namespace App\Jobs;
@@ -268,8 +285,10 @@ SendWelcomeEmail::dispatch($user);
 // Worker
 php artisan queue:work
 ```
+{% endraw %}
 
 **Alphavel:**
+{% raw %}
 ```php
 // Job
 namespace App\Jobs;
@@ -290,6 +309,7 @@ dispatch(new SendWelcomeEmail($user));
 // Worker
 php alphavel queue:work
 ```
+{% endraw %}
 
 **Changes**:
 - Remove traits: `Queueable`, `SerializesModels`
@@ -305,6 +325,7 @@ php alphavel queue:work
 ### Laravel Mail → Alphavel Mail
 
 **Laravel:**
+{% raw %}
 ```php
 // Mailable
 namespace App\Mail;
@@ -326,8 +347,10 @@ Mail::to($user)->send(new WelcomeEmail());
 // Queue
 Mail::to($user)->queue(new WelcomeEmail());
 ```
+{% endraw %}
 
 **Alphavel:**
+{% raw %}
 ```php
 // Mailable
 namespace App\Mail;
@@ -349,6 +372,7 @@ Mail::send(new WelcomeEmail($user));
 // Queue
 Mail::queue(new WelcomeEmail($user));
 ```
+{% endraw %}
 
 **Changes**:
 - Import: `Illuminate\Mail\Mailable` → `Alphavel\Mail\Mailable`
@@ -364,6 +388,7 @@ Mail::queue(new WelcomeEmail($user));
 ### Laravel Eloquent → Alphavel ORM
 
 **Laravel:**
+{% raw %}
 ```php
 // Eager loading
 $users = User::with('posts')->get();
@@ -376,8 +401,10 @@ $users = User::with(['posts' => function ($query) {
     $query->where('published', true);
 }])->get();
 ```
+{% endraw %}
 
 **Alphavel:**
+{% raw %}
 ```php
 // Exactly the same!
 $users = User::with('posts')->get();
@@ -386,6 +413,7 @@ $users = User::with(['posts' => function ($query) {
     $query->where('published', true);
 }])->get();
 ```
+{% endraw %}
 
 **No changes needed** ✅
 
@@ -398,6 +426,7 @@ $users = User::with(['posts' => function ($query) {
 ### Laravel Query Builder → Alphavel Query Builder
 
 **Laravel:**
+{% raw %}
 ```php
 // Select
 $users = DB::table('users')->where('active', true)->get();
@@ -417,8 +446,10 @@ DB::transaction(function () {
     DB::table('posts')->insert(['title' => 'First Post']);
 });
 ```
+{% endraw %}
 
 **Alphavel:**
+{% raw %}
 ```php
 // Exactly the same!
 $users = DB::table('users')->where('active', true)->get();
@@ -430,6 +461,7 @@ DB::transaction(function () {
     DB::table('posts')->insert(['title' => 'First Post']);
 });
 ```
+{% endraw %}
 
 **No changes needed** ✅
 
@@ -442,6 +474,7 @@ DB::transaction(function () {
 ### Laravel Middleware → Alphavel Middleware
 
 **Laravel:**
+{% raw %}
 ```php
 namespace App\Http\Middleware;
 
@@ -460,8 +493,10 @@ class CheckAge
     }
 }
 ```
+{% endraw %}
 
 **Alphavel:**
+{% raw %}
 ```php
 namespace App\Middleware;
 
@@ -481,6 +516,7 @@ class CheckAge
     }
 }
 ```
+{% endraw %}
 
 **Changes**:
 - Namespace: `App\Http\Middleware` → `App\Middleware`
@@ -495,6 +531,7 @@ class CheckAge
 ### Laravel → Alphavel (Auto-Discovery)
 
 **Laravel:**
+{% raw %}
 ```php
 // app/Providers/AppServiceProvider.php
 namespace App\Providers;
@@ -521,8 +558,10 @@ class AppServiceProvider extends ServiceProvider
     App\Providers\AppServiceProvider::class,
 ],
 ```
+{% endraw %}
 
 **Alphavel:**
+{% raw %}
 ```php
 // app/Providers/AppServiceProvider.php
 namespace App\Providers;
@@ -553,6 +592,7 @@ class AppServiceProvider extends ServiceProvider
     }
 }
 ```
+{% endraw %}
 
 **Changes**:
 - Import: `Illuminate\Support\ServiceProvider` → `Alphavel\ServiceProvider`
@@ -684,15 +724,18 @@ wrk -t4 -c100 -d30s http://localhost:9999/api/users
 
 ### 1. Use Raw Routes for High-Traffic Endpoints
 
+{% raw %}
 ```php
 // Health check (zero overhead)
 $router->raw('/health', 'OK', 'text/plain');
 
 // 520k+ req/s vs 5k req/s with full stack
 ```
+{% endraw %}
 
 ### 2. Enable Connection Pooling
 
+{% raw %}
 ```php
 // config/database.php
 'pool' => [
@@ -702,28 +745,35 @@ $router->raw('/health', 'OK', 'text/plain');
 
 // 10x faster database queries
 ```
+{% endraw %}
 
 ### 3. Use Swoole Table for Cache
 
+{% raw %}
 ```php
 // 0.001ms lookup vs 0.15ms Redis
 Cache::remember('users', 3600, fn() => User::all());
 ```
+{% endraw %}
 
 ### 4. Queue Long-Running Tasks
 
+{% raw %}
 ```php
 // User waits < 1ms instead of 50ms
 Mail::queue(new WelcomeEmail($user));
 dispatch(new ProcessOrder($order));
 ```
+{% endraw %}
 
 ### 5. Eager Load Relationships
 
+{% raw %}
 ```php
 // 2 queries instead of 101
 $users = User::with('posts')->get();
 ```
+{% endraw %}
 
 ---
 

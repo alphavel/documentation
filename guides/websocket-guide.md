@@ -54,6 +54,7 @@ ws.onmessage = (event) => {
 
 ### 3. Broadcast do Servidor (PHP)
 
+{% raw %}
 ```php
 use Alphavel\WebSocket\Facades\WebSocket;
 
@@ -73,11 +74,13 @@ WebSocket::toUser(123)->push([
     'data' => ['title' => 'Novo pedido', 'body' => 'Pedido #1234']
 ]);
 ```
+{% endraw %}
 
 ## 💡 Casos de Uso
 
 ### Chat em Tempo Real
 
+{% raw %}
 ```php
 // Controller
 public function sendMessage(Request $request)
@@ -102,9 +105,11 @@ public function sendMessage(Request $request)
     return response()->json($message);
 }
 ```
+{% endraw %}
 
 ### Dashboard ao Vivo
 
+{% raw %}
 ```php
 // Atualizar métricas a cada segundo
 $server = app('websocket.server');
@@ -124,9 +129,11 @@ $server->on('workerStart', function() {
     });
 });
 ```
+{% endraw %}
 
 ### Presence Channels (Quem Está Online)
 
+{% raw %}
 ```php
 // Obter usuários online
 $online = WebSocket::getPresence('presence-chat.room.1');
@@ -143,6 +150,7 @@ $stats = WebSocket::getChannelStats('presence-chat.room.1');
 //     'type' => 'presence'
 // ]
 ```
+{% endraw %}
 
 ## 🔒 Tipos de Canais
 
@@ -181,6 +189,7 @@ ws.send(JSON.stringify({
 
 `config/websocket.php`:
 
+{% raw %}
 ```php
 return [
     'host' => env('WEBSOCKET_HOST', '0.0.0.0'),
@@ -198,6 +207,7 @@ return [
     ],
 ];
 ```
+{% endraw %}
 
 ## 📊 Monitoramento
 
@@ -222,6 +232,7 @@ Active Channels:
 
 ### Estatísticas via Código
 
+{% raw %}
 ```php
 // Total de conexões
 $count = app('websocket.server')->connections()->count();
@@ -232,6 +243,7 @@ $channels = WebSocket::getChannels();
 // Stats de canal específico
 $stats = WebSocket::getChannelStats('chat.room.1');
 ```
+{% endraw %}
 
 ## 🚀 Deploy em Produção
 
@@ -392,21 +404,25 @@ sudo kill -9 PID
 
 Verifique configuração de heartbeat:
 
+{% raw %}
 ```php
 'options' => [
     'heartbeat_check_interval' => 60,
     'heartbeat_idle_time' => 600,
 ],
 ```
+{% endraw %}
 
 ### Autenticação falhando
 
+{% raw %}
 ```php
 // Desabilitar auth para testes
 'auth' => [
     'enabled' => false,
 ],
 ```
+{% endraw %}
 
 ## ❓ FAQ
 

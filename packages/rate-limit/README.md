@@ -60,6 +60,7 @@ RATE_LIMIT_GLOBAL=10000        # 10k req/s globally
 
 Initialize Swoole Table **BEFORE** `$server->start()`:
 
+{% raw %}
 ```php
 // bootstrap/server.php
 
@@ -81,6 +82,7 @@ $server->on('request', function ($request, $response) use ($app) {
 
 $server->start();
 ```
+{% endraw %}
 
 ---
 
@@ -88,6 +90,7 @@ $server->start();
 
 ### Basic Rate Limiting
 
+{% raw %}
 ```php
 // routes/api.php
 
@@ -106,9 +109,11 @@ $router->middleware(['auth', 'rate_limit:1000,60,user'])->group(function ($route
 // 10 requests per minute per IP on this endpoint
 $router->middleware('rate_limit:10,60,endpoint')->post('/reports/generate', [ReportController::class, 'generate']);
 ```
+{% endraw %}
 
 ### Multiple Levels (Defense in Depth)
 
+{% raw %}
 ```php
 // Apply multiple rate limits
 $router->middleware([
@@ -117,6 +122,7 @@ $router->middleware([
     'rate_limit:10,60,endpoint'    // 10/min on this endpoint
 ])->post('/ai/generate', [AIController::class, 'generate']);
 ```
+{% endraw %}
 
 ### Available Levels
 
@@ -149,6 +155,7 @@ This is applied **before** individual rate limits and returns HTTP 503 when exce
 
 Add trusted IPs that are never rate limited:
 
+{% raw %}
 ```php
 // config/rate_limit.php
 
@@ -160,6 +167,7 @@ Add trusted IPs that are never rate limited:
     '203.0.113.0/24',    // Office network
 ],
 ```
+{% endraw %}
 
 ---
 
@@ -352,6 +360,7 @@ done
 **Cause:** Swoole Table not initialized before `$server->start()`
 
 **Solution:**
+{% raw %}
 ```php
 // bootstrap/server.php
 
@@ -360,6 +369,7 @@ SwooleTableDriver::init(100000);
 
 $server->start();
 ```
+{% endraw %}
 
 ### Rate Limit Not Shared Between Workers
 
@@ -372,9 +382,11 @@ $server->start();
 **Cause:** `max_entries` too high
 
 **Solution:** Reduce in config:
+{% raw %}
 ```php
 'max_entries' => 50000, // Reduces to 800KB
 ```
+{% endraw %}
 
 ---
 
@@ -417,6 +429,7 @@ https://github.com/alphavel/rate-limit
 
 ### 1. API Protection
 
+{% raw %}
 ```php
 // Prevent API abuse
 $router->middleware('rate_limit:1000,60,api_key')->group(function ($router) {
@@ -424,23 +437,29 @@ $router->middleware('rate_limit:1000,60,api_key')->group(function ($router) {
     $router->get('/api/orders', [ApiController::class, 'orders']);
 });
 ```
+{% endraw %}
 
 ### 2. Login Brute Force Protection
 
+{% raw %}
 ```php
 // 5 login attempts per minute
 $router->middleware('rate_limit:5,60,ip')->post('/auth/login', [AuthController::class, 'login']);
 ```
+{% endraw %}
 
 ### 3. Heavy Operations
 
+{% raw %}
 ```php
 // 10 exports per hour per user
 $router->middleware(['auth', 'rate_limit:10,3600,user'])->post('/exports/csv', [ExportController::class, 'csv']);
 ```
+{% endraw %}
 
 ### 4. Public API with Tiered Limits
 
+{% raw %}
 ```php
 // Free tier: 100/day
 $router->middleware('rate_limit:100,86400,api_key')->group(function ($router) {
@@ -452,6 +471,7 @@ $router->middleware('rate_limit:10000,86400,api_key')->group(function ($router) 
     $router->get('/api/pro/*');
 });
 ```
+{% endraw %}
 
 ---
 

@@ -127,6 +127,7 @@ The documentation **accurately reflects** the Alphavel codebase with the followi
 ### Raw Routes Implementation
 
 **Code:** `alphavel/Router.php` lines 41-66
+{% raw %}
 ```php
 public function raw(
     string $path,
@@ -140,6 +141,7 @@ public function raw(
     ];
 }
 ```
+{% endraw %}
 
 **Documentation:** ✅ `alphavel/RAW_ROUTES.md` and `documentation/core/raw-routes.md`
 
@@ -150,6 +152,7 @@ public function raw(
 ### Request Pooling Implementation
 
 **Code:** `alphavel/Application.php` lines 23, 184-212
+{% raw %}
 ```php
 private array $requestPool = [];
 
@@ -165,6 +168,7 @@ if (count($this->requestPool) < 1024) {
     $this->requestPool[] = $psr;
 }
 ```
+{% endraw %}
 
 **Documentation:** ✅ `documentation/core/getting-started.md` Advanced Features section
 
@@ -175,6 +179,7 @@ if (count($this->requestPool) < 1024) {
 ### Reflection Caching Implementation
 
 **Code:** `alphavel/Container.php` lines 20-24, 60-88
+{% raw %}
 ```php
 private static array $reflectionCache = [];
 private static array $simpleClasses = [];
@@ -199,6 +204,7 @@ private function resolve(string $class): mixed
     return $this->buildInstance($class);
 }
 ```
+{% endraw %}
 
 **Documentation:** ✅ `documentation/core/getting-started.md` Advanced Features section
 
@@ -209,6 +215,7 @@ private function resolve(string $class): mixed
 ### Connection Pooling Implementation
 
 **Code:** `database/ConnectionPool.php`
+{% raw %}
 ```php
 private Channel $pool;
 private int $size;
@@ -229,6 +236,7 @@ public function put(Connection $connection): void
     $this->pool->push($connection);
 }
 ```
+{% endraw %}
 
 **Documentation:** ✅ `documentation/packages/database/connection-pooling.md`
 
@@ -239,6 +247,7 @@ public function put(Connection $connection): void
 ### Helper Functions Implementation
 
 **Code:** `alphavel/helpers.php`
+{% raw %}
 ```php
 function app(string $abstract = null): mixed { ... }
 function config(string $key, mixed $default = null): mixed { ... }
@@ -253,6 +262,7 @@ function now(): string { ... }
 function today(): string { ... }
 // + 5 more functions
 ```
+{% endraw %}
 
 **Documentation:** ✅ `documentation/core/helpers-and-facades.md`
 
@@ -263,6 +273,7 @@ function today(): string { ... }
 ### Validation Implementation
 
 **Code:** `validation/Validator.php`
+{% raw %}
 ```php
 public function validate(array $data, array $rules): bool
 {
@@ -270,6 +281,7 @@ public function validate(array $data, array $rules): bool
     // alpha, alphanumeric, in, confirmed, url, date, boolean, array, regex
 }
 ```
+{% endraw %}
 
 **Documentation:** ✅ `documentation/packages/validation/rules.md`
 
@@ -280,6 +292,7 @@ public function validate(array $data, array $rules): bool
 ### Event Dispatcher Implementation
 
 **Code:** `events/EventDispatcher.php`
+{% raw %}
 ```php
 private array $listeners = [];
 
@@ -288,6 +301,7 @@ public function dispatch(string $event, mixed $data = null): mixed
 public function forget(string $event): void
 public function has(string $event): bool
 ```
+{% endraw %}
 
 **Documentation:** ✅ `documentation/packages/events/`
 

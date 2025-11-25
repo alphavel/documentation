@@ -55,6 +55,7 @@ JWT_TTL=3600  # 1 hour in seconds
 
 ### 2. Create User Model
 
+{% raw %}
 ```php
 // app/Models/User.php
 namespace App\Models;
@@ -82,9 +83,11 @@ class User extends Model implements Authenticatable
     }
 }
 ```
+{% endraw %}
 
 ### 3. Create Auth Routes
 
+{% raw %}
 ```php
 // routes/api.php
 use App\Controllers\AuthController;
@@ -96,9 +99,11 @@ $router->post('/auth/logout', [AuthController::class, 'logout'])
 $router->get('/auth/me', [AuthController::class, 'me'])
     ->middleware('auth');
 ```
+{% endraw %}
 
 ### 4. Create AuthController
 
+{% raw %}
 ```php
 // app/Controllers/AuthController.php
 namespace App\Controllers;
@@ -151,6 +156,7 @@ class AuthController extends Controller
     }
 }
 ```
+{% endraw %}
 
 ---
 
@@ -158,6 +164,7 @@ class AuthController extends Controller
 
 ### Login / Attempt
 
+{% raw %}
 ```php
 use Alphavel\Auth\Facades\Auth;
 
@@ -172,9 +179,11 @@ if ($token) {
     return ['token' => $token];
 }
 ```
+{% endraw %}
 
 ### Get Authenticated User
 
+{% raw %}
 ```php
 // In controllers/routes with 'auth' middleware
 $user = Auth::user();
@@ -187,9 +196,11 @@ if (Auth::check()) {
 // Get user ID
 $userId = Auth::id();
 ```
+{% endraw %}
 
 ### Protect Routes
 
+{% raw %}
 ```php
 // Single route
 $router->get('/api/posts', [PostController::class, 'index'])
@@ -203,9 +214,11 @@ $router->middleware('auth')->group(function ($router) {
     $router->delete('/posts/{id}', [PostController::class, 'destroy']);
 });
 ```
+{% endraw %}
 
 ### Manual Token Management
 
+{% raw %}
 ```php
 // Login with user instance
 $user = User::find(1);
@@ -217,9 +230,11 @@ Auth::guard()->setToken($token);
 // Logout (blacklist token)
 Auth::logout();
 ```
+{% endraw %}
 
 ### Helper Function
 
+{% raw %}
 ```php
 // Use auth() helper
 $user = auth()->user();
@@ -229,6 +244,7 @@ $check = auth()->check();
 // Attempt login via helper
 $token = auth()->attempt($credentials);
 ```
+{% endraw %}
 
 ---
 
@@ -242,6 +258,7 @@ Publish config:
 php alpha vendor:publish --tag=auth-config
 ```
 
+{% raw %}
 ```php
 // config/auth.php
 return [
@@ -277,6 +294,7 @@ return [
     ],
 ];
 ```
+{% endraw %}
 
 ---
 
@@ -311,12 +329,15 @@ return [
 
 Tokens are blacklisted on logout:
 
+{% raw %}
 ```php
 Auth::logout(); // Adds token to blacklist
 ```
+{% endraw %}
 
 ### Password Hashing
 
+{% raw %}
 ```php
 // Secure password hashing
 $hashed = password_hash($password, PASSWORD_BCRYPT, ['cost' => 12]);
@@ -326,6 +347,7 @@ if (password_verify($password, $hashed)) {
     // Correct password
 }
 ```
+{% endraw %}
 
 ### Token Expiration
 
@@ -341,6 +363,7 @@ JWT_TTL=3600  # 1 hour
 
 ### Auth Facade
 
+{% raw %}
 ```php
 // Attempt login
 Auth::attempt(array $credentials): string|false
@@ -366,9 +389,11 @@ Auth::guard(string $name = null): Guard
 // Get token
 Auth::token(): ?string
 ```
+{% endraw %}
 
 ### JWT Class
 
+{% raw %}
 ```php
 // Encode payload
 JWT::encode(array $payload): string
@@ -382,11 +407,13 @@ JWT::blacklist(string $token): void
 // Check if blacklisted
 JWT::isBlacklisted(string $token): bool
 ```
+{% endraw %}
 
 ---
 
 ## 🧪 Testing
 
+{% raw %}
 ```php
 use Alphavel\Testing\TestCase;
 use App\Models\User;
@@ -410,6 +437,7 @@ class AuthTest extends TestCase
     }
 }
 ```
+{% endraw %}
 
 ---
 

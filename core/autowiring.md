@@ -12,6 +12,7 @@ Autowiring é a capacidade do framework de **resolver automaticamente** as depen
 ## ✨ Exemplo de Uso
 
 ### Antes (Sem Autowiring)
+{% raw %}
 ```php
 // ❌ Tinha que instanciar manualmente ou registrar no container
 class UserController
@@ -24,8 +25,10 @@ class UserController
     }
 }
 ```
+{% endraw %}
 
 ### Depois (Com Autowiring)
+{% raw %}
 ```php
 // ✅ O container resolve automaticamente!
 class UserController
@@ -44,6 +47,7 @@ class UserController
     }
 }
 ```
+{% endraw %}
 
 **Magic!** O framework automaticamente:
 1. Detecta que `UserController` precisa de `UserService` e `LoggerInterface`
@@ -57,6 +61,7 @@ class UserController
 
 O Alphavel usa um cache inteligente:
 
+{% raw %}
 ```php
 // Primeira requisição (1x por worker, ~0.5ms)
 UserController → ReflectionClass → detecta dependências → CACHEIA
@@ -64,6 +69,7 @@ UserController → ReflectionClass → detecta dependências → CACHEIA
 // Requisições seguintes (~0.001ms)
 UserController → lê do cache → instancia → RÁPIDO!
 ```
+{% endraw %}
 
 **Resultado:** Autowiring com performance idêntica a `new Class()` manual.
 
@@ -71,6 +77,7 @@ UserController → lê do cache → instancia → RÁPIDO!
 
 ### 1. Injeção em Cadeia (Nested Dependencies)
 
+{% raw %}
 ```php
 class OrderController
 {
@@ -92,11 +99,13 @@ class PaymentGateway
     public function __construct(private HttpClient $client) {}
 }
 ```
+{% endraw %}
 
 O container resolve toda a árvore automaticamente! 🌳
 
 ### 2. Parâmetros com Valor Padrão
 
+{% raw %}
 ```php
 class EmailController
 {
@@ -106,11 +115,13 @@ class EmailController
     ) {}
 }
 ```
+{% endraw %}
 
 ### 3. Interfaces e Bindings
 
 Se você quiser usar interfaces (recomendado):
 
+{% raw %}
 ```php
 // No bootstrap/app.php
 $app->bind(LoggerInterface::class, function() {
@@ -124,11 +135,13 @@ class UserController
     public function __construct(private LoggerInterface $logger) {}
 }
 ```
+{% endraw %}
 
 ## ⚠️ Limitações
 
 ### ❌ Não funciona com tipos primitivos sem default
 
+{% raw %}
 ```php
 // ❌ ERRO! Container não sabe que string passar
 public function __construct(private string $apiKey) {}
@@ -142,9 +155,11 @@ public function __construct(private string $apiKey) {
     // E receba via $app->make('api.key')
 }
 ```
+{% endraw %}
 
 ### ✅ Sempre funciona com classes
 
+{% raw %}
 ```php
 // ✅ SEMPRE funciona! Classes são auto-resolvidas
 public function __construct(
@@ -153,10 +168,12 @@ public function __construct(
     private EventDispatcher $events
 ) {}
 ```
+{% endraw %}
 
 ## 🎓 Boas Práticas
 
 ### 1. Use interfaces para flexibilidade
+{% raw %}
 ```php
 // ✅ Bom: Pode trocar implementação
 public function __construct(private CacheInterface $cache) {}
@@ -164,8 +181,10 @@ public function __construct(private CacheInterface $cache) {}
 // ❌ Menos flexível: Acoplado à implementação
 public function __construct(private RedisCache $cache) {}
 ```
+{% endraw %}
 
 ### 2. Mantenha construtores simples
+{% raw %}
 ```php
 // ✅ Bom: Apenas dependências
 public function __construct(
@@ -178,8 +197,10 @@ public function __construct(private UserRepository $users) {
     $this->users->connect(); // NÃO faça isso!
 }
 ```
+{% endraw %}
 
 ### 3. Controllers devem ser stateless
+{% raw %}
 ```php
 // ✅ Bom: Sem estado mutável
 class UserController
@@ -201,6 +222,7 @@ class UserController
     }
 }
 ```
+{% endraw %}
 
 ## 📊 Comparação de Performance
 
@@ -215,17 +237,21 @@ class UserController
 ## 🔧 Diagnóstico
 
 ### Ver o cache de reflexão (debug)
+{% raw %}
 ```php
 // Em modo dev, você pode inspecionar:
 dd(Container::getInstance()->getReflectionCache()); // Não público por padrão
 ```
+{% endraw %}
 
 ### Forçar limpeza do cache
+{% raw %}
 ```php
 // Ao fazer deploy, reinicie os workers Swoole:
 docker-compose restart
 # Ou: docker exec <container> kill -USR1 1
 ```
+{% endraw %}
 
 O cache é armazenado **na memória do worker**, então:
 - ✅ Extremamente rápido (RAM)

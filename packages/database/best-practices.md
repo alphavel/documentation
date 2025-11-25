@@ -14,28 +14,35 @@ This guide consolidates performance patterns for the Alphavel Database layer, fo
 ### 1. Use DB:: Static Facade Everywhere
 
 **Before (Instance-based):**
+{% raw %}
 ```php
 $db = $this->app->make('db');
 $users = $db->table('users')->where('status', 'active')->get();
 ```
+{% endraw %}
 
 **After (Static Facade):**
+{% raw %}
 ```php
 $users = DB::table('users')->where('status', 'active')->get();
 ```
+{% endraw %}
 
 **Performance Gain:** ~5-8% reduction in overhead per query
 
 ### 2. Prepared Statements for Hot Paths
 
 **Before:**
+{% raw %}
 ```php
 foreach ($ids as $id) {
     $user = DB::table('users')->where('id', $id)->first();
 }
 ```
+{% endraw %}
 
 **After:**
+{% raw %}
 ```php
 $stmt = DB::prepare("SELECT * FROM users WHERE id = ? LIMIT 1");
 foreach ($ids as $id) {
@@ -43,12 +50,14 @@ foreach ($ids as $id) {
     $user = $stmt->fetch();
 }
 ```
+{% endraw %}
 
 **Performance Gain:** ~20% improvement for N repeated queries
 
 ### 3. Raw Queries for Complex Operations
 
 **Before (Query Builder):**
+{% raw %}
 ```php
 DB::table('orders')
     ->selectRaw('DATE(created_at) as date, COUNT(*) as count, SUM(total) as sum')
@@ -56,8 +65,10 @@ DB::table('orders')
     ->groupBy('date')
     ->get();
 ```
+{% endraw %}
 
 **After (Raw Query):**
+{% raw %}
 ```php
 DB::query("
     SELECT DATE(created_at) as date, COUNT(*) as count, SUM(total) as sum
@@ -66,19 +77,23 @@ DB::query("
     GROUP BY date
 ", ['completed']);
 ```
+{% endraw %}
 
 **Performance Gain:** ~10-15% for complex aggregations
 
 ### 4. Transactions for Bulk Operations
 
 **Before:**
+{% raw %}
 ```php
 foreach ($users as $user) {
     DB::table('users')->insert($user);
 }
 ```
+{% endraw %}
 
 **After:**
+{% raw %}
 ```php
 DB::transaction(function() use ($users) {
     foreach ($users as $user) {
@@ -86,12 +101,14 @@ DB::transaction(function() use ($users) {
     }
 });
 ```
+{% endraw %}
 
 **Performance Gain:** ~80% improvement for 1000+ inserts
 
 ### 5. whereIn Instead of Multiple OR Conditions
 
 **Before:**
+{% raw %}
 ```php
 $query = DB::table('products');
 foreach ($ids as $id) {
@@ -99,11 +116,14 @@ foreach ($ids as $id) {
 }
 $products = $query->get();
 ```
+{% endraw %}
 
 **After:**
+{% raw %}
 ```php
 $products = DB::table('products')->whereIn('id', $ids)->get();
 ```
+{% endraw %}
 
 **Performance Gain:** ~30% for 100+ conditions
 
@@ -111,6 +131,7 @@ $products = DB::table('products')->whereIn('id', $ids)->get();
 
 ### Pattern 1: Read-Heavy Endpoints
 
+{% raw %}
 ```php
 // Benchmark: GET /api/users/{id}
 public function show($id)
@@ -127,11 +148,13 @@ public function show($id)
     return Response::json($user);
 }
 ```
+{% endraw %}
 
 **Result:** 15,000 req/s → 18,000 req/s (+20%)
 
 ### Pattern 2: List with Pagination
 
+{% raw %}
 ```php
 // Benchmark: GET /api/products?page=1&limit=20
 public function index()
@@ -148,11 +171,13 @@ public function index()
     return Response::json($products);
 }
 ```
+{% endraw %}
 
 **Result:** 12,000 req/s → 13,500 req/s (+12.5%)
 
 ### Pattern 3: Aggregations
 
+{% raw %}
 ```php
 // Benchmark: GET /api/stats/daily
 public function dailyStats()
@@ -178,6 +203,7 @@ public function dailyStats()
     return Response::json($stats);
 }
 ```
+{% endraw %}
 
 **Result:** 8,000 req/s → 9,200 req/s (+15%)
 
@@ -198,14 +224,17 @@ public function dailyStats()
 ### 1. N+1 Queries
 
 **Bad:**
+{% raw %}
 ```php
 $users = DB::table('users')->get();
 foreach ($users as $user) {
     $user['orders'] = DB::table('orders')->where('user_id', $user['id'])->get();
 }
 ```
+{% endraw %}
 
 **Good:**
+{% raw %}
 ```php
 $users = DB::table('users')->get();
 $userIds = array_column($users, 'id');
@@ -221,36 +250,46 @@ foreach ($users as &$user) {
     $user['orders'] = $ordersByUser[$user['id']] ?? [];
 }
 ```
+{% endraw %}
 
 ### 2. SELECT * in Production
 
 **Bad:**
+{% raw %}
 ```php
 $users = DB::table('users')->get(); // Fetches all columns including blobs
 ```
+{% endraw %}
 
 **Good:**
+{% raw %}
 ```php
 $users = DB::table('users')->select('id', 'name', 'email')->get();
 ```
+{% endraw %}
 
 ### 3. Counting with count()
 
 **Bad (for large tables):**
+{% raw %}
 ```php
 $total = DB::table('logs')->count(); // Slow on millions of rows
 ```
+{% endraw %}
 
 **Good (estimate for pagination):**
+{% raw %}
 ```php
 // Use SQL_CALC_FOUND_ROWS or cache count
 $total = Cache::remember('logs_count', 3600, fn() => DB::table('logs')->count());
 ```
+{% endraw %}
 
 ## 🔧 Connection Configuration
 
 Optimized PDO options in `DatabaseServiceProvider`:
 
+{% raw %}
 ```php
 DB::configure([
     'host' => 'localhost',
@@ -266,6 +305,7 @@ DB::configure([
     ],
 ]);
 ```
+{% endraw %}
 
 ## 🎯 Quick Wins Checklist
 

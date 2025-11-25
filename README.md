@@ -99,6 +99,7 @@ php alpha serve
 
 ### Your First Route
 
+{% raw %}
 ```php
 // routes/api.php
 
@@ -108,6 +109,7 @@ $router->raw('/health', ['status' => 'ok'], 'application/json');
 // Standard route
 $router->get('/users', 'App\Controllers\UserController@index');
 ```
+{% endraw %}
 
 ### Add Packages
 

@@ -40,6 +40,7 @@ TOTAL:                40h = 1 semana
 - **Market fit**: Real-time é padrão hoje
 
 **Exemplo de uso:**
+{% raw %}
 ```php
 // Chat real-time
 WebSocket::to('chat.room.1')->broadcast([
@@ -61,6 +62,7 @@ WebSocket::toUser(123)->notify([
     'body' => 'Order #1234 received'
 ]);
 ```
+{% endraw %}
 
 **Conclusão**: **IMPLEMENTAR JÁ** 🚀
 
@@ -93,6 +95,7 @@ TOTAL:                20h = 2-3 dias
 - **Production**: Evita downtime em cascata
 
 **Exemplo:**
+{% raw %}
 ```php
 // Payment service down? Fail fast!
 try {
@@ -104,6 +107,7 @@ try {
     return $this->queuePaymentForLater($data);
 }
 ```
+{% endraw %}
 
 **Conclusão**: **IMPLEMENTAR EM SEGUIDA** 🛡️
 
@@ -181,6 +185,7 @@ TOTAL:                 60h = 1.5 semana
 - ✅ Só necessário se **integração com sistema legado**
 
 **Alternativa:**
+{% raw %}
 ```php
 // Alphavel Queue JÁ FAZ ISSO:
 dispatch(new ProcessOrder($order));
@@ -190,6 +195,7 @@ dispatch(new ProcessOrder($order));
 // - RabbitMQ:          5-10k msgs/sec
 // Similar, mas sem dependência!
 ```
+{% endraw %}
 
 **Conclusão**: **NÃO IMPLEMENTAR** (Queue atual suficiente) ❌
 
@@ -365,10 +371,12 @@ grpc/
 ## 🎯 Vantagens de Packages Separados
 
 ### 1. **Zero Overhead** (filosofia mantida)
+{% raw %}
 ```php
 // Não instalou? Zero bytes no core!
 composer require alphavel/websocket  // Só instala se precisar
 ```
+{% endraw %}
 
 ### 2. **Versionamento Independente**
 ```

@@ -10,6 +10,7 @@ title: Aggressive Caching
 Query Builders modernos (Laravel, Symfony, etc) recompilam SQL statements **a cada requisição**, causando overhead de parsing.
 
 ### Laravel/Frameworks Tradicionais
+{% raw %}
 ```php
 // Cada requisição:
 public function index() {
@@ -20,8 +21,10 @@ public function index() {
     // Overhead: ~20-30%
 }
 ```
+{% endraw %}
 
 ### Hyperf/FrankenPHP (Trick de Performance)
+{% raw %}
 ```php
 // Primeira requisição:
 private static ?PDOStatement $stmt = null;
@@ -34,6 +37,7 @@ public function index() {
     // ⚡ Zero overhead após primeira vez!
 }
 ```
+{% endraw %}
 
 ---
 
@@ -43,6 +47,7 @@ Alphavel implementa **cache agressivo automático** no nível da classe `Connect
 
 ### Implementação Nativa
 
+{% raw %}
 ```php
 // /database/Connection.php
 class Connection extends PDO
@@ -91,12 +96,14 @@ class Connection extends PDO
     }
 }
 ```
+{% endraw %}
 
 ---
 
 ## 🎯 Vantagens
 
 ### 1. **Automático** - Sem Código Manual
+{% raw %}
 ```php
 // Laravel (precisa de trick manual)
 class Controller {
@@ -117,8 +124,10 @@ class Controller {
     }
 }
 ```
+{% endraw %}
 
 ### 2. **Query Builder Compatível**
+{% raw %}
 ```php
 // Funciona com Query Builder também!
 $users = DB::table('users')
@@ -128,8 +137,10 @@ $users = DB::table('users')
 // SQL gerado é cacheado automaticamente
 // Próximas requisições: zero overhead!
 ```
+{% endraw %}
 
 ### 3. **Cross-Worker** - Máxima Performance
+{% raw %}
 ```php
 // Worker 1, Request 1
 DB::query('SELECT * FROM World WHERE id = ?', [1]);  // Compile ⚙️
@@ -142,6 +153,7 @@ DB::query('SELECT * FROM World WHERE id = ?', [999]);  // Cache ✅
 
 // Zero overhead em TODAS as requisições seguintes!
 ```
+{% endraw %}
 
 ---
 
@@ -169,6 +181,7 @@ Ganho: +49% 🔥
 ## 🛠️ API de Monitoramento
 
 ### Ver Estatísticas do Cache
+{% raw %}
 ```php
 $stats = DB::getCacheStats();
 
@@ -179,8 +192,10 @@ print_r($stats);
 //     'memory_kb' => 42.5    // 42.5 KB de memória
 // ]
 ```
+{% endraw %}
 
 ### Limpar Cache (Debug/Manutenção)
+{% raw %}
 ```php
 // Limpar cache global (todos os workers)
 DB::clearCache();
@@ -190,8 +205,10 @@ DB::clearCache();
 // - Liberar memória em manutenção
 // - Testes de cache behavior
 ```
+{% endraw %}
 
 ### Ajustar Limite de Cache
+{% raw %}
 ```php
 // Aumentar para aplicações com muitas queries únicas
 DB::setMaxCachedStatements(5000);
@@ -201,6 +218,7 @@ DB::setMaxCachedStatements(500);
 
 // Default: 1000 statements (suficiente para 99% dos casos)
 ```
+{% endraw %}
 
 ---
 
@@ -252,6 +270,7 @@ Request 3, 4, 5, ..., 1000:
 ## 💡 Best Practices
 
 ### ✅ DO: Use Query Builder Normalmente
+{% raw %}
 ```php
 // Cache automático funciona com Query Builder!
 $users = DB::table('users')
@@ -261,8 +280,10 @@ $users = DB::table('users')
 
 // SQL gerado é cacheado automaticamente
 ```
+{% endraw %}
 
 ### ✅ DO: Use Raw Queries para Performance Crítica
+{% raw %}
 ```php
 // Ainda mais rápido em endpoints críticos
 $world = DB::queryOne(
@@ -270,8 +291,10 @@ $world = DB::queryOne(
     [mt_rand(1, 10000)]
 );
 ```
+{% endraw %}
 
 ### ❌ DON'T: Criar Statements Manualmente
+{% raw %}
 ```php
 // ❌ Não precisa mais disso!
 class Controller {
@@ -291,8 +314,10 @@ class Controller {
     }
 }
 ```
+{% endraw %}
 
 ### ✅ DO: Monitorar em Produção
+{% raw %}
 ```php
 // Adicione endpoint de health check
 Route::get('/health', function() {
@@ -305,11 +330,13 @@ Route::get('/health', function() {
     ];
 });
 ```
+{% endraw %}
 
 ---
 
 ## 🚀 Resultado Final
 
+{% raw %}
 ```php
 // Código Laravel-style, performance Hyperf-level! 💚⚡
 
@@ -321,6 +348,7 @@ $users = DB::table('users')->where('active', true)->get();
 
 // Melhor dos dois mundos! 🎉
 ```
+{% endraw %}
 
 ---
 

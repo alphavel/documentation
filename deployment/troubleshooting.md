@@ -189,6 +189,7 @@ PHP Fatal error: Call to undefined method Alphavel\Database\DatabaseServiceProvi
 
 **Solução - Corrigir estrutura do ServiceProvider:**
 
+{% raw %}
 ```php
 <?php
 
@@ -211,6 +212,7 @@ class DatabaseServiceProvider extends ServiceProvider
     }
 }
 ```
+{% endraw %}
 
 **Padrão correto:**
 - ✅ Estende `Alphavel\Framework\ServiceProvider`
@@ -332,6 +334,7 @@ make composer-dump
 
 ### Usar cache APCu/Redis
 
+{% raw %}
 ```php
 // config/cache.php
 return [
@@ -342,6 +345,7 @@ return [
     ],
 ];
 ```
+{% endraw %}
 
 ---
 

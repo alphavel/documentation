@@ -15,6 +15,7 @@ composer require alphavel/view
 
 ## Usage
 
+{% raw %}
 ```php
 // Render view
 return view('welcome', ['name' => 'John']);
@@ -33,6 +34,7 @@ class HomeController extends Controller
     }
 }
 ```
+{% endraw %}
 
 ## Blade Syntax
 

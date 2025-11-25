@@ -38,6 +38,7 @@ Raw Routes são um recurso de **ultra-alta performance** do Alphavel que permite
 
 ### Sintaxe Básica
 
+{% raw %}
 ```php
 $router->raw(
     string $path,               // Caminho estático (sem parâmetros)
@@ -46,6 +47,7 @@ $router->raw(
     string $method = 'GET'      // Método HTTP
 ): void
 ```
+{% endraw %}
 
 ---
 
@@ -53,6 +55,7 @@ $router->raw(
 
 ### 1. String Simples
 
+{% raw %}
 ```php
 // Plain text
 $router->raw('/ping', 'pong');
@@ -63,9 +66,11 @@ $router->raw('/status', '<h1>System Online</h1>', 'text/html');
 // Plain text com múltiplas linhas
 $router->raw('/robots.txt', "User-agent: *\nDisallow: /admin\nDisallow: /api", 'text/plain');
 ```
+{% endraw %}
 
 ### 2. JSON Estático
 
+{% raw %}
 ```php
 // Health check
 $router->raw('/health', ['status' => 'healthy'], 'application/json');
@@ -83,9 +88,11 @@ $router->raw('/status', [
     ]
 ], 'application/json');
 ```
+{% endraw %}
 
 ### 3. Closure com Controle Total
 
+{% raw %}
 ```php
 // Métricas Prometheus
 $router->raw('/metrics', function($request, $response) {
@@ -125,6 +132,7 @@ $router->raw('/webhook', function($request, $response) {
     $response->end(json_encode(['received' => true]));
 }, 'application/json', 'POST');
 ```
+{% endraw %}
 
 ---
 
@@ -133,18 +141,22 @@ $router->raw('/webhook', function($request, $response) {
 ### Benchmark: Health Check
 
 **Raw Route:**
+{% raw %}
 ```php
 $router->raw('/health', ['status' => 'ok'], 'application/json');
 ```
+{% endraw %}
 
 **Resultado:** ~45,000 req/s
 
 **Rota Normal:**
+{% raw %}
 ```php
 $router->get('/health', function() {
     return Response::make()->json(['status' => 'ok']);
 });
 ```
+{% endraw %}
 
 **Resultado:** ~20,000 req/s
 
@@ -190,6 +202,7 @@ Router::dispatch() ← Verifica rawRoutes PRIMEIRO (O(1))
 ### Código Relevante
 
 **Router.php:**
+{% raw %}
 ```php
 public function dispatch(string $uri, string $method): ?array
 {
@@ -205,8 +218,10 @@ public function dispatch(string $uri, string $method): ?array
     // 1. Normal routes...
 }
 ```
+{% endraw %}
 
 **Application.php:**
+{% raw %}
 ```php
 // RAW ROUTE: Zero overhead path
 if ($route['handler'] === '__RAW__') {
@@ -214,6 +229,7 @@ if ($route['handler'] === '__RAW__') {
     return;
 }
 ```
+{% endraw %}
 
 ---
 
@@ -270,6 +286,7 @@ Routes cached successfully!
 
 ### ✅ DO
 
+{% raw %}
 ```php
 // Health checks simples
 $router->raw('/health', ['status' => 'ok'], 'application/json');
@@ -284,9 +301,11 @@ $router->raw('/metrics', function($req, $res) {
 // Arquivos estáticos conhecidos
 $router->raw('/robots.txt', "User-agent: *\nDisallow: /admin");
 ```
+{% endraw %}
 
 ### ❌ DON'T
 
+{% raw %}
 ```php
 // Lógica complexa de negócio
 $router->raw('/users', function($req, $res) {
@@ -305,6 +324,7 @@ $router->raw('/admin/dashboard', function($req, $res) {
 // Parâmetros dinâmicos
 $router->raw('/user/{id}', ...); // ❌ Não suporta!
 ```
+{% endraw %}
 
 ---
 
@@ -340,6 +360,7 @@ Se uma raw route não funciona:
 
 ### 1. Kubernetes Health Checks
 
+{% raw %}
 ```php
 // Liveness: Aplicação está viva?
 $router->raw('/healthz', ['alive' => true], 'application/json');
@@ -354,9 +375,11 @@ $router->raw('/readyz', function($req, $res) {
     $res->end(json_encode(['ready' => $dbOk]));
 }, 'application/json');
 ```
+{% endraw %}
 
 ### 2. Prometheus Metrics
 
+{% raw %}
 ```php
 $router->raw('/metrics', function($req, $res) {
     $stats = swoole_get_server_stats();
@@ -379,9 +402,11 @@ METRICS;
     $res->end($metrics);
 }, 'text/plain');
 ```
+{% endraw %}
 
 ### 3. TechEmpower Benchmark
 
+{% raw %}
 ```php
 // Plaintext test
 $router->raw('/plaintext', 'Hello, World!');
@@ -389,6 +414,7 @@ $router->raw('/plaintext', 'Hello, World!');
 // JSON test
 $router->raw('/json', ['message' => 'Hello, World!'], 'application/json');
 ```
+{% endraw %}
 
 ---
 

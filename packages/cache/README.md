@@ -31,6 +31,7 @@ The cache uses **Swoole\Table** by default (no Redis/Memcached required):
 
 **In `bootstrap/app.php` (already configured):**
 
+{% raw %}
 ```php
 use Alphavel\Cache\Cache;
 
@@ -40,6 +41,7 @@ $cache = Cache::getInstance(
     valueSize: 4096  // Max value size in bytes
 );
 ```
+{% endraw %}
 
 **Environment variables (.env):**
 
@@ -60,6 +62,7 @@ CACHE_VALUE_SIZE=4096  # Max size per entry (bytes)
 
 ## Basic Usage
 
+{% raw %}
 ```php
 use Alphavel\Cache\Cache;
 
@@ -100,6 +103,7 @@ $cache->decrement('stock:item:5', 3);
 // Get cache statistics
 $count = $cache->count(); // Number of entries
 ```
+{% endraw %}
 
 ---
 
@@ -117,6 +121,7 @@ $count = $cache->count(); // Number of entries
 
 ### Real Performance Impact
 
+{% raw %}
 ```php
 // ❌ WITHOUT CACHE: 6,700 req/s
 Route::get('/api/users', function() {
@@ -131,10 +136,12 @@ Route::get('/api/users', function() {
     });
 });
 ```
+{% endraw %}
 
 ### Best Practices for Beginners
 
 **1. Use Short TTLs for Starting**
+{% raw %}
 ```php
 // ❌ BAD: 1 day cache (data gets stale)
 $cache->set('products', $data, 86400);
@@ -142,8 +149,10 @@ $cache->set('products', $data, 86400);
 // ✅ GOOD: 5 minutes (balance freshness vs performance)
 $cache->set('products', $data, 300);
 ```
+{% endraw %}
 
 **2. Always Provide Default Values**
+{% raw %}
 ```php
 // ❌ BAD: No default (might return null)
 $user = $cache->get('user:' . $id);
@@ -151,8 +160,10 @@ $user = $cache->get('user:' . $id);
 // ✅ GOOD: Default value prevents null checks
 $user = $cache->get('user:' . $id, ['name' => 'Unknown']);
 ```
+{% endraw %}
 
 **3. Use Namespaced Keys**
+{% raw %}
 ```php
 // ❌ BAD: Key collision risk
 $cache->set('1', $data);
@@ -161,8 +172,10 @@ $cache->set('1', $data);
 $cache->set('user:1', $data);
 $cache->set('product:1', $data);
 ```
+{% endraw %}
 
 **4. Cache Expensive Operations Only**
+{% raw %}
 ```php
 // ❌ BAD: Caching simple operations (no benefit)
 $cache->remember('sum', 3600, fn() => 1 + 1);
@@ -172,8 +185,10 @@ $cache->remember('users:report', 3600, function() {
     return DB::query('SELECT ... FROM users JOIN orders ...'); // Expensive
 });
 ```
+{% endraw %}
 
 **5. Invalidate Cache on Updates**
+{% raw %}
 ```php
 // Update user in database
 DB::table('users')->where('id', $id)->update($data);
@@ -182,6 +197,7 @@ DB::table('users')->where('id', $id)->update($data);
 $cache->delete('user:' . $id);
 $cache->delete('users:all'); // Also clear list cache
 ```
+{% endraw %}
 
 ### Memory Management
 
@@ -192,6 +208,7 @@ Example: 10,000 entries × 4KB = 40MB RAM
 ```
 
 **Increase cache size for more data:**
+{% raw %}
 ```php
 // In bootstrap/app.php
 $cache = Cache::getInstance(
@@ -199,6 +216,7 @@ $cache = Cache::getInstance(
     valueSize: 8192  // 8KB per entry instead of 4KB
 );
 ```
+{% endraw %}
 
 **Warning:** Exceeding `CACHE_SIZE` limit means `set()` returns `false` (no automatic eviction).
 

@@ -24,6 +24,7 @@ Alphavel Database foi projetado para ser **extremamente familiar** para desenvol
 
 ### SELECT Queries
 
+{% raw %}
 ```php
 use Alphavel\Database\DB;
 
@@ -42,9 +43,11 @@ $posts = DB::query(
     ['author' => 1, 'status' => 'published']
 );
 ```
+{% endraw %}
 
 ### INSERT / UPDATE / DELETE
 
+{% raw %}
 ```php
 // Insert
 $affected = DB::execute(
@@ -64,6 +67,7 @@ $affected = DB::execute(
     [42]
 );
 ```
+{% endraw %}
 
 ---
 
@@ -73,6 +77,7 @@ API 100% compatível com Laravel!
 
 ### Select
 
+{% raw %}
 ```php
 // Simple select
 $users = DB::table('users')->get();
@@ -92,9 +97,11 @@ $names = DB::table('users')
     ->select(['id', 'name', 'email'])
     ->get();
 ```
+{% endraw %}
 
 ### Where Clauses
 
+{% raw %}
 ```php
 // Simple where
 $posts = DB::table('posts')
@@ -122,9 +129,11 @@ $recent = DB::table('posts')
     ->whereBetween('created_at', ['2024-01-01', '2024-12-31'])
     ->get();
 ```
+{% endraw %}
 
 ### Joins
 
+{% raw %}
 ```php
 // Inner join
 $results = DB::table('users')
@@ -137,9 +146,11 @@ $results = DB::table('users')
     ->leftJoin('posts', 'users.id', '=', 'posts.user_id')
     ->get();
 ```
+{% endraw %}
 
 ### Order By & Limit
 
+{% raw %}
 ```php
 // Order by
 $users = DB::table('users')
@@ -158,9 +169,11 @@ $paginated = DB::table('users')
     ->offset(20)
     ->get();
 ```
+{% endraw %}
 
 ### Group By & Having
 
+{% raw %}
 ```php
 // Group by
 $counts = DB::table('posts')
@@ -175,6 +188,7 @@ $active = DB::table('posts')
     ->having('total', '>', 5)
     ->get();
 ```
+{% endraw %}
 
 ---
 
@@ -182,6 +196,7 @@ $active = DB::table('posts')
 
 ### Por que usar Batch Queries?
 
+{% raw %}
 ```php
 // ❌ LENTO: N queries (312 req/s)
 $worlds = [];
@@ -193,11 +208,13 @@ foreach ($ids as $id) {
 // ✅ RÁPIDO: 1 query (2,269 req/s) - 627% mais rápido! 🔥
 $worlds = DB::findMany('World', $ids);
 ```
+{% endraw %}
 
 ### DB::findOne() - Maximum Performance
 
 O método mais rápido para buscar um único registro:
 
+{% raw %}
 ```php
 // Hot path optimization (benchmark-ready)
 $world = DB::findOne('World', mt_rand(1, 10000));
@@ -214,6 +231,7 @@ if ($post === null) {
     return response()->json(['error' => 'Not found'], 404);
 }
 ```
+{% endraw %}
 
 **Performance**: +49% vs Query Builder (6,500 → 9,712 req/s) 🔥
 
@@ -221,6 +239,7 @@ if ($post === null) {
 
 Para buscar múltiplos registros **diferentes** com statement cacheado:
 
+{% raw %}
 ```php
 // Buscar 3 registros diferentes com 1 statement cacheado
 [$user, $product, $order] = DB::findMultiple('entities', [
@@ -235,6 +254,7 @@ Para buscar múltiplos registros **diferentes** com statement cacheado:
 // Find by custom column
 [$post1, $post2] = DB::findMultiple('posts', ['slug-1', 'slug-2'], 'slug');
 ```
+{% endraw %}
 
 **Performance**: +70% vs múltiplos `findOne()` 🔥  
 **Diferença para findMany()**: findMultiple = diferentes IDs, findMany = IN clause batch
@@ -243,6 +263,7 @@ Para buscar múltiplos registros **diferentes** com statement cacheado:
 
 Para cenários de ultra-performance com reuso de statements:
 
+{% raw %}
 ```php
 // Cache statement no worker (Swoole persistence)
 static $stmt = null;
@@ -259,6 +280,7 @@ $world = $stmt->fetch(PDO::FETCH_ASSOC);
 $stmt->execute([mt_rand(1, 10000)]);
 $world2 = $stmt->fetch(PDO::FETCH_ASSOC);
 ```
+{% endraw %}
 
 **Performance**: +50% vs `findOne()` para queries repetidas 🔥  
 **Use case**: Endpoints com múltiplas queries do mesmo padrão SQL
@@ -267,6 +289,7 @@ $world2 = $stmt->fetch(PDO::FETCH_ASSOC);
 
 Para buscar múltiplos registros com IN clause:
 
+{% raw %}
 ```php
 // Find multiple users by ID
 $users = DB::findMany('users', [1, 2, 3, 4, 5]);
@@ -279,6 +302,7 @@ $posts = DB::findMany('posts', ['published', 'draft'], 'status');
 // With empty array (returns [])
 $empty = DB::findMany('users', []);  // No query executed
 ```
+{% endraw %}
 
 **Performance**: +627% vs sequential queries (312 → 2,269 req/s) 🔥
 
@@ -286,6 +310,7 @@ $empty = DB::findMany('users', []);  // No query executed
 
 Quando você precisa de mais controle:
 
+{% raw %}
 ```php
 // Simple IN query
 $results = DB::queryIn(
@@ -309,11 +334,13 @@ $active = DB::query(
     array_merge($ids, ['active', '2024-01-01'])
 );
 ```
+{% endraw %}
 
 ### QueryBuilder::whereIn() - Mais Flexível
 
 Para usar com o Query Builder:
 
+{% raw %}
 ```php
 // Basic whereIn
 $users = DB::table('users')
@@ -340,6 +367,7 @@ $data = DB::table('users')
     ->select(['users.name', 'posts.title'])
     ->get();
 ```
+{% endraw %}
 
 ---
 
@@ -347,6 +375,7 @@ $data = DB::table('users')
 
 Laravel-style transaction handling:
 
+{% raw %}
 ```php
 // Transaction with closure (recommended)
 DB::transaction(function() {
@@ -367,6 +396,7 @@ try {
     throw $e;
 }
 ```
+{% endraw %}
 
 ---
 
@@ -374,6 +404,7 @@ try {
 
 Ativado por padrão para máxima performance!
 
+{% raw %}
 ```php
 // config/database.php
 return [
@@ -391,6 +422,7 @@ return [
     ],
 ];
 ```
+{% endraw %}
 
 ### Performance Boost
 
@@ -421,6 +453,7 @@ Ganho: +1,769% 🚀
 ### Exemplos Lado a Lado
 
 #### Laravel
+{% raw %}
 ```php
 // Laravel
 $users = User::whereIn('id', [1, 2, 3])->get();
@@ -430,8 +463,10 @@ $users = DB::table('users')
     ->whereIn('id', [1, 2, 3])
     ->get();
 ```
+{% endraw %}
 
 #### Alphavel (3 formas)
+{% raw %}
 ```php
 // 1. findMany (mais simples) - RECOMENDADO
 $users = DB::findMany('users', [1, 2, 3]);
@@ -447,6 +482,7 @@ $users = DB::queryIn(
     [1, 2, 3]
 );
 ```
+{% endraw %}
 
 ---
 
@@ -454,6 +490,7 @@ $users = DB::queryIn(
 
 ### 1. Use Batch Queries para Múltiplos IDs
 
+{% raw %}
 ```php
 // ❌ Evite N queries
 foreach ($ids as $id) {
@@ -463,9 +500,11 @@ foreach ($ids as $id) {
 // ✅ Use batch query
 $results = DB::findMany('users', $ids);
 ```
+{% endraw %}
 
 ### 2. Use Prepared Statements (Automático)
 
+{% raw %}
 ```php
 // ✅ BOM: Prepared statements (automático)
 $user = DB::queryOne('SELECT * FROM users WHERE email = ?', [$email]);
@@ -473,9 +512,11 @@ $user = DB::queryOne('SELECT * FROM users WHERE email = ?', [$email]);
 // ❌ RUIM: String concatenation (SQL injection!)
 $user = DB::query("SELECT * FROM users WHERE email = '{$email}'");
 ```
+{% endraw %}
 
 ### 3. Use Transações para Operações Críticas
 
+{% raw %}
 ```php
 // ✅ BOM: Transaction garante atomicidade
 DB::transaction(function() {
@@ -483,6 +524,7 @@ DB::transaction(function() {
     DB::execute('UPDATE accounts SET balance = balance + 100 WHERE id = ?', [2]);
 });
 ```
+{% endraw %}
 
 ### 4. Configure Workers Corretamente
 
@@ -499,6 +541,7 @@ DB_PERSISTENT=true     # Já é padrão
 ## 📊 Performance Tips
 
 ### Single Query Optimization
+{% raw %}
 ```php
 // Query Builder: 350 req/s (baseline)
 // DB::findOne(): 6,500 req/s (+1,757%)
@@ -506,14 +549,17 @@ DB_PERSISTENT=true     # Já é padrão
 
 $user = DB::findOne('users', 42);  // Hot path otimizado!
 ```
+{% endraw %}
 
 ### Batch Query Optimization
+{% raw %}
 ```php
 // 20 queries sequenciais: 312 req/s
 // 1 query com IN: 2,269 req/s (+627%)
 
 $users = DB::findMany('users', $ids);  // 627% mais rápido!
 ```
+{% endraw %}
 
 ### Performance Comparison - Query Methods
 
@@ -528,6 +574,7 @@ $users = DB::findMany('users', $ids);  // 627% mais rápido!
 
 ### Quando usar cada método?
 
+{% raw %}
 ```php
 // ✅ DB::statement() - Ultra hot paths (endpoints críticos)
 static $stmt = null;
@@ -549,6 +596,7 @@ $users = DB::table('users')
     ->whereIn('role', ['admin', 'moderator'])
     ->get();
 ```
+{% endraw %}
 
 ---
 
@@ -562,6 +610,7 @@ $users = DB::table('users')
 
 ## 💡 Dicas Rápidas
 
+{% raw %}
 ```php
 // ✅ Laravel-style fluent API
 DB::table('users')
@@ -589,5 +638,6 @@ DB::transaction(fn() => /* ... */);
 // ✅ Conexões persistentes (automático)
 // Nada a fazer, já está ativo! 🎉
 ```
+{% endraw %}
 
 **Alphavel Database: Laravel-like API + Swoole Performance = ❤️**

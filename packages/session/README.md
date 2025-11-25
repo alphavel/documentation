@@ -15,6 +15,7 @@ composer require alphavel/session
 
 ## Usage
 
+{% raw %}
 ```php
 // Get
 $value = session('key');
@@ -35,6 +36,7 @@ session()->forget('key');
 // Flash (next request only)
 session()->flash('message', 'Success!');
 ```
+{% endraw %}
 
 ## Drivers
 - File (default)

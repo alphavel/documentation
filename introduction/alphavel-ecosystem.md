@@ -53,6 +53,7 @@ O ecossistema Alphavel consiste em **dois projetos complementares** que trabalha
 
 ### Componentes Core
 
+{% raw %}
 ```php
 Alphavel\Framework\
 ├── Application.php         # Application container
@@ -65,6 +66,7 @@ Alphavel\Framework\
 ├── Facade.php             # Static interface
 └── helpers.php            # Helper functions
 ```
+{% endraw %}
 
 ### CLI Commands (Built-in)
 
@@ -164,6 +166,7 @@ CREATE TABLE posts (
 ```
 
 **Generated Model (`User`):**
+{% raw %}
 ```php
 namespace App\Models;
 
@@ -184,8 +187,10 @@ class User extends Model
     }
 }
 ```
+{% endraw %}
 
 **Generated Validation Rules:**
+{% raw %}
 ```php
 [
     'name' => 'required|string|max:100',
@@ -194,8 +199,10 @@ class User extends Model
     'status' => 'in:active,inactive'
 ]
 ```
+{% endraw %}
 
 **Generated Controller:**
+{% raw %}
 ```php
 namespace App\Controllers;
 
@@ -230,6 +237,7 @@ class UserController extends Controller
     // update() and destroy() methods also generated...
 }
 ```
+{% endraw %}
 
 ### Installation
 
@@ -294,10 +302,12 @@ php php alpha make:controller UserController
 
 **Contexto:** TechEmpower Benchmark (plaintext test)
 
+{% raw %}
 ```php
 // routes/api.php
 $router->raw('/plaintext', 'Hello, World!', 'text/plain');
 ```
+{% endraw %}
 
 **Performance:** **520,000+ req/s**
 
@@ -312,10 +322,12 @@ $router->raw('/plaintext', 'Hello, World!', 'text/plain');
 
 **Contexto:** Aplicações reais com lógica de negócio
 
+{% raw %}
 ```php
 // routes/api.php
 $router->get('/users', 'UserController@index');
 ```
+{% endraw %}
 
 **Performance:** **20-45k req/s**
 

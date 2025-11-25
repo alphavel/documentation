@@ -50,6 +50,7 @@ Auto-discovery enabled. Configure in `config/auth.php`.
 
 ### Quick Start
 
+{% raw %}
 ```php
 use Alphavel\Auth\Facades\Auth;
 
@@ -65,6 +66,7 @@ $user = Auth::user(); // Returns authenticated user or null
 // Logout (blacklist token)
 Auth::logout();
 ```
+{% endraw %}
 
 ### Features
 
@@ -88,15 +90,18 @@ Total overhead: < 0.08%
 
 ### Middleware
 
+{% raw %}
 ```php
 use Alphavel\Auth\Middleware\Authenticate;
 
 $router->get('/dashboard', [DashboardController::class, 'index'])
        ->middleware(Authenticate::class);
 ```
+{% endraw %}
 
 ### Guards
 
+{% raw %}
 ```php
 // config/auth.php
 'guards' => [
@@ -113,6 +118,7 @@ $router->get('/dashboard', [DashboardController::class, 'index'])
 // Usage
 Auth::guard('api')->attempt($credentials);
 ```
+{% endraw %}
 
 ---
 
@@ -130,6 +136,7 @@ Auto-discovery enabled. Configure in `config/queue.php`.
 
 ### Quick Start
 
+{% raw %}
 ```php
 use Alphavel\Queue\Facades\Queue;
 
@@ -151,6 +158,7 @@ dispatch(new SendWelcomeEmail($user))->delay(60);
 // Sync execution
 dispatch_now(new SendWelcomeEmail($user));
 ```
+{% endraw %}
 
 ### Features
 
@@ -185,6 +193,7 @@ php alphavel queue:work --queue=emails --workers=4 --tries=3
 
 ### Job Lifecycle
 
+{% raw %}
 ```php
 class ProcessOrder extends Job
 {
@@ -202,6 +211,7 @@ class ProcessOrder extends Job
     }
 }
 ```
+{% endraw %}
 
 ---
 
@@ -219,6 +229,7 @@ Auto-discovery enabled. Works with `alphavel/database`.
 
 ### Quick Start
 
+{% raw %}
 ```php
 use Alphavel\Database\Model;
 use Alphavel\ORM\HasRelationships;
@@ -253,9 +264,11 @@ class Post extends Model
     }
 }
 ```
+{% endraw %}
 
 ### Lazy Loading (Default)
 
+{% raw %}
 ```php
 $user = User::find(1);
 
@@ -265,11 +278,13 @@ $posts = $user->posts;  // SELECT * FROM posts WHERE user_id = 1
 // Cached on subsequent access (no query)
 $posts = $user->posts;  // No query
 ```
+{% endraw %}
 
 **Performance**: 0.1-0.5ms per relationship query
 
 ### Eager Loading (N+1 Prevention)
 
+{% raw %}
 ```php
 // ❌ BAD: N+1 problem (101 queries)
 $users = User::all();
@@ -283,11 +298,13 @@ foreach ($users as $user) {
     echo $user->posts->count();  // No query (cached)
 }
 ```
+{% endraw %}
 
 **Performance**: O(n+m) hash map matching, not O(n×m)
 
 ### Multiple & Nested
 
+{% raw %}
 ```php
 // Multiple relationships
 $users = User::with(['posts', 'profile'])->get();
@@ -302,6 +319,7 @@ $users = User::with(['posts' => function($query) {
           ->limit(5);
 }])->get();
 ```
+{% endraw %}
 
 ### Performance Benchmarks
 
@@ -339,6 +357,7 @@ Auto-discovery enabled. Symfony Mailer included.
 
 ### Quick Start
 
+{% raw %}
 ```php
 use Alphavel\Mail\Facades\Mail;
 
@@ -360,20 +379,24 @@ Mail::to('user@example.com')
     ->subject('Alert')
     ->html('<h1>Important</h1>');
 ```
+{% endraw %}
 
 ### Async Sending (Queue)
 
+{% raw %}
 ```php
 // Queue for background sending (< 0.5ms dispatch)
 Mail::to('user@example.com')
     ->subject('Welcome!')
     ->queue('emails.welcome', ['name' => 'John']);
 ```
+{% endraw %}
 
 **Performance**: User waits < 1ms instead of 10-50ms
 
 ### Mailable Classes
 
+{% raw %}
 ```php
 use Alphavel\Mail\Mailable;
 
@@ -400,6 +423,7 @@ Mail::send(new WelcomeEmail($user));
 // Queue
 Mail::queue(new WelcomeEmail($user));
 ```
+{% endraw %}
 
 ### Features
 
@@ -427,6 +451,7 @@ Queue integration:
 
 ### Configuration
 
+{% raw %}
 ```php
 // config/mail.php
 return [
@@ -446,6 +471,7 @@ return [
     ],
 ];
 ```
+{% endraw %}
 
 ---
 
@@ -453,6 +479,7 @@ return [
 
 ### Full Stack Example
 
+{% raw %}
 ```php
 // Controller
 class UserController extends Controller
@@ -505,9 +532,11 @@ class UserController extends Controller
     }
 }
 ```
+{% endraw %}
 
 ### Routes with Middleware
 
+{% raw %}
 ```php
 // routes/api.php
 use Alphavel\Auth\Middleware\Authenticate;
@@ -523,6 +552,7 @@ $router->group(['middleware' => Authenticate::class], function ($router) {
     $router->post('/posts', [PostController::class, 'store']);
 });
 ```
+{% endraw %}
 
 ---
 
@@ -549,6 +579,7 @@ Total degradation when ALL used together: < 5%
 
 ### Zero Overhead Guarantee
 
+{% raw %}
 ```php
 // Package not installed
 class_exists('Alphavel\Auth\JWT'); // false
@@ -562,6 +593,7 @@ Overhead: 0ms
 Auth::attempt($credentials); // Singleton instantiated on first call
 Overhead: 0.3ms (only on this request)
 ```
+{% endraw %}
 
 ---
 
@@ -569,6 +601,7 @@ Overhead: 0.3ms (only on this request)
 
 ### 1. Use Eager Loading
 
+{% raw %}
 ```php
 // ❌ BAD: N+1 queries
 $users = User::all();
@@ -582,9 +615,11 @@ foreach ($users as $user) {
     echo $user->posts->count();
 }
 ```
+{% endraw %}
 
 ### 2. Queue Long-Running Tasks
 
+{% raw %}
 ```php
 // ❌ BAD: User waits 50ms
 Mail::to($user->email)->send('emails.report');
@@ -592,9 +627,11 @@ Mail::to($user->email)->send('emails.report');
 // ✅ GOOD: User waits < 1ms
 Mail::to($user->email)->queue('emails.report');
 ```
+{% endraw %}
 
 ### 3. Cache Auth Checks
 
+{% raw %}
 ```php
 // ❌ BAD: JWT decode every request
 $user = Auth::user();
@@ -610,9 +647,11 @@ class Authenticate extends Middleware
     }
 }
 ```
+{% endraw %}
 
 ### 4. Use Raw Routes for High-Traffic Endpoints
 
+{% raw %}
 ```php
 // Health check (zero overhead)
 $router->raw('/health', 'OK', 'text/plain');
@@ -622,6 +661,7 @@ $router->raw('/metrics', function($req, $res) {
     $res->end(json_encode(['status' => 'ok']));
 });
 ```
+{% endraw %}
 
 ---
 
@@ -642,6 +682,7 @@ php alphavel queue:stats
 
 ### Auth Token Invalid
 
+{% raw %}
 ```php
 // Check JWT secret length (min 32 chars)
 'secret' => env('JWT_SECRET'), // Must be 32+ chars
@@ -652,6 +693,7 @@ php alphavel queue:stats
 // Clear blacklist (Swoole Table persists across restarts)
 Auth::clearBlacklist();
 ```
+{% endraw %}
 
 ### ORM N+1 Queries
 
@@ -667,6 +709,7 @@ dd(DB::getQueryLog());
 
 ### Mail Not Sending
 
+{% raw %}
 ```php
 // Test SMTP connection
 Mail::to('test@example.com')
@@ -679,6 +722,7 @@ tail -f storage/logs/alphavel.log
 // Use log driver for testing
 'driver' => 'log',
 ```
+{% endraw %}
 
 ---
 

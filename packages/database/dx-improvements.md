@@ -65,6 +65,7 @@ DB_POOL_SIZE=64
 
 ### Custom Configuration:
 
+{% raw %}
 ```php
 // config/database.php (in your app)
 return [
@@ -77,6 +78,7 @@ return [
     ],
 ];
 ```
+{% endraw %}
 
 ---
 
@@ -84,6 +86,7 @@ return [
 
 ### Facade (Recommended):
 
+{% raw %}
 ```php
 use DB;
 
@@ -108,9 +111,11 @@ DB::transaction(function($db) {
 // Last Insert ID
 $id = DB::lastInsertId();
 ```
+{% endraw %}
 
 ### Dependency Injection:
 
+{% raw %}
 ```php
 use Alphavel\Database\DatabaseManager;
 
@@ -128,12 +133,14 @@ class UserController extends Controller
     }
 }
 ```
+{% endraw %}
 
 ---
 
 ## 🏗️ Architecture
 
 ### Before (v2.0.0):
+{% raw %}
 ```php
 // DatabaseServiceProvider.php
 public static function boot(): void
@@ -144,6 +151,7 @@ public static function boot(): void
     DB::configure([/* config */]); // ❌ Static call
 }
 ```
+{% endraw %}
 
 **Problems:**
 - Configuration logic mixed with provider
@@ -152,6 +160,7 @@ public static function boot(): void
 - No config publishing
 
 ### After (v2.1.0):
+{% raw %}
 ```php
 // DatabaseServiceProvider.php
 public function register(): void
@@ -172,6 +181,7 @@ public function boot(): void
     ], 'config');
 }
 ```
+{% endraw %}
 
 **Benefits:**
 - ✅ Separation of concerns
@@ -201,14 +211,17 @@ public function boot(): void
 ### From v2.0.0 to v2.1.0:
 
 **Before:**
+{% raw %}
 ```php
 // bootstrap/app.php
 use Alphavel\Database\DatabaseServiceProvider;
 
 DatabaseServiceProvider::boot(); // ❌ Old way
 ```
+{% endraw %}
 
 **After:**
+{% raw %}
 ```php
 // bootstrap/app.php
 use Alphavel\Framework\Application;
@@ -218,6 +231,7 @@ $app = Application::getInstance();
 // Auto-discovered via composer.json extra.alphavel.providers
 // No manual registration needed! ✅
 ```
+{% endraw %}
 
 **If you need custom configuration:**
 ```bash

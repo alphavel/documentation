@@ -12,6 +12,7 @@ Facades são **aliases estáticos** para classes registradas no container de inj
 ## ⚙️ Como Funcionam
 
 ### Sem Facade (Injeção de Dependência)
+{% raw %}
 ```php
 use Alphavel\Database\DB;
 
@@ -31,8 +32,10 @@ class UserController extends Controller
     }
 }
 ```
+{% endraw %}
 
 ### Com Facade (Acesso Estático)
+{% raw %}
 ```php
 use DB; // Facade
 
@@ -45,6 +48,7 @@ class UserController extends Controller
     }
 }
 ```
+{% endraw %}
 
 ## 🎯 São Necessárias?
 
@@ -52,6 +56,7 @@ class UserController extends Controller
 
 ### O Framework é Totalmente Modular
 
+{% raw %}
 ```php
 // Forma 1: Usar o helper app() (recomendado)
 $users = app('db')->table('users')->get();
@@ -64,6 +69,7 @@ public function __construct(DB $db) {
 // Forma 3: Facades (conveniência, requer geração)
 $users = DB::table('users')->get();
 ```
+{% endraw %}
 
 ## 🔧 Como Gerar Facades
 
@@ -84,6 +90,7 @@ storage/framework/facades.php
 ```
 
 ### Conteúdo (Exemplo)
+{% raw %}
 ```php
 <?php
 
@@ -103,6 +110,7 @@ namespace {
     class Cache extends \Alphavel\Framework\Facade {}
 }
 ```
+{% endraw %}
 
 ### Por que não é versionado?
 
@@ -131,6 +139,7 @@ O arquivo `facades.php` está no `.gitignore` porque:
 
 ### 1. Prefira Injeção de Dependências
 
+{% raw %}
 ```php
 // ✅ RECOMENDADO
 class UserService
@@ -148,9 +157,11 @@ class UserService
     }
 }
 ```
+{% endraw %}
 
 ### 2. Use Helper `app()` para Acesso Rápido
 
+{% raw %}
 ```php
 // ✅ BOM para scripts e helpers
 function getActiveUsers(): array
@@ -160,15 +171,18 @@ function getActiveUsers(): array
         ->get();
 }
 ```
+{% endraw %}
 
 ### 3. Facades para Protótipos
 
+{% raw %}
 ```php
 // ✅ OK para MVPs e protótipos rápidos
 Route::get('/users', function() {
     return DB::table('users')->get();
 });
 ```
+{% endraw %}
 
 ## 🔍 IDE Auto-Complete
 

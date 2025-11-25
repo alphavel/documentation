@@ -187,6 +187,7 @@ php php alpha make:controller
 
 **Generated File (`app/Controllers/UserController.php`):**
 
+{% raw %}
 ```php
 <?php
 
@@ -204,6 +205,7 @@ class UserController extends Controller
     }
 }
 ```
+{% endraw %}
 
 ---
 
@@ -357,6 +359,7 @@ $ php alpha make:controller ArticleController --resource
 
 **Generated Code Preview (excerpt):**
 
+{% raw %}
 ```php
 /**
  * List all articles (paginated)
@@ -415,6 +418,7 @@ public function store(Request $request): Response
     }
 }
 ```
+{% endraw %}
 
 ---
 
@@ -430,6 +434,7 @@ php php alpha make:model Article
 
 **Generated Code (`app/Models/Article.php`):**
 
+{% raw %}
 ```php
 <?php
 
@@ -452,6 +457,7 @@ class Article extends Model
     ];
 }
 ```
+{% endraw %}
 
 ---
 
@@ -467,6 +473,7 @@ php php alpha make:middleware AuthMiddleware
 
 **Generated Code (`app/Middleware/AuthMiddleware.php`):**
 
+{% raw %}
 ```php
 <?php
 
@@ -486,6 +493,7 @@ class AuthMiddleware
     }
 }
 ```
+{% endraw %}
 
 ---
 
@@ -1008,6 +1016,7 @@ Create your own CLI commands by extending the `Command` class.
 
 `app/Console/Commands/SyncUsersCommand.php`:
 
+{% raw %}
 ```php
 <?php
 
@@ -1044,16 +1053,19 @@ class SyncUsersCommand extends Command
     }
 }
 ```
+{% endraw %}
 
 **2. Register Command:**
 
 `config/app.php`:
 
+{% raw %}
 ```php
 'commands' => [
     App\Console\Commands\SyncUsersCommand::class,
 ],
 ```
+{% endraw %}
 
 **3. Run Command:**
 
@@ -1076,6 +1088,7 @@ $ alpha users:sync
 
 **Command Methods:**
 
+{% raw %}
 ```php
 // Output methods
 $this->info('Information message');
@@ -1104,6 +1117,7 @@ $this->table(
     ]
 );
 ```
+{% endraw %}
 
 ---
 
@@ -1225,6 +1239,7 @@ php alpha package:add database
 
 **Generated Configuration Example:**
 
+{% raw %}
 ```php
 // config/database.php
 return [
@@ -1254,6 +1269,7 @@ return [
     ],
 ];
 ```
+{% endraw %}
 
 **Alpha CLI Output:**
 
@@ -1369,6 +1385,7 @@ php php alpha make:controller UserController --resource
 
 **Generated Code (app/Controllers/UserController.php):**
 
+{% raw %}
 ```php
 <?php
 
@@ -1475,6 +1492,7 @@ class UserController extends Controller
     }
 }
 ```
+{% endraw %}
 
 **Alpha CLI Output:**
 
@@ -2310,6 +2328,7 @@ $router->delete('/products/{id}', 'ProductController@destroy');
 **Generated Files:**
 
 **Model** (`app/Models/Product.php`):
+{% raw %}
 ```php
 <?php
 
@@ -2323,8 +2342,10 @@ class Product extends Model
     protected static string $primaryKey = 'id';
 }
 ```
+{% endraw %}
 
 **Controller** (`app/Controllers/ProductController.php`):
+{% raw %}
 ```php
 <?php
 
@@ -2368,6 +2389,7 @@ class ProductController extends Controller
     }
 }
 ```
+{% endraw %}
 
 **Time saved:** ~5 minutes per resource
 

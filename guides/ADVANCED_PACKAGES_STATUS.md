@@ -38,10 +38,12 @@ title: ADVANCED_PACKAGES_STATUS
 - ✅ Zero overhead (0.08%)
 
 **Arquitetura:**
+{% raw %}
 ```php
 // Swoole Table - Lock-free, shared memory
 RateLimitMiddleware → SwooleTableDriver → Atomic operations
 ```
+{% endraw %}
 
 **Performance:**
 ```
@@ -52,6 +54,7 @@ Latência:          0.001ms
 ```
 
 **Uso:**
+{% raw %}
 ```php
 // Múltiplos níveis simultâneos
 $router->middleware([
@@ -60,6 +63,7 @@ $router->middleware([
     'rate_limit:10,60,endpoint'    // 10/min neste endpoint
 ])->post('/ai/generate', [AIController::class, 'generate']);
 ```
+{% endraw %}
 
 **Recursos:**
 - ✅ Whitelist IPs confiáveis
@@ -83,6 +87,7 @@ $router->middleware([
 
 **Implementação Estimada:**
 
+{% raw %}
 ```php
 // Estrutura proposta
 namespace Alphavel\GRPC;
@@ -115,6 +120,7 @@ $grpc->registerService(UserService::class, [
 ]);
 $grpc->start();
 ```
+{% endraw %}
 
 **Dependências:**
 - `google/protobuf` - Protocol Buffers PHP
@@ -145,6 +151,7 @@ $grpc->start();
 
 **Implementação Estimada:**
 
+{% raw %}
 ```php
 namespace Alphavel\RabbitMQ;
 
@@ -186,6 +193,7 @@ class RabbitMQConsumer
     }
 }
 ```
+{% endraw %}
 
 **Dependências:**
 - `php-amqplib/php-amqplib` - AMQP client
@@ -220,6 +228,7 @@ class RabbitMQConsumer
 
 **Implementação Estimada:**
 
+{% raw %}
 ```php
 namespace Alphavel\Kafka;
 
@@ -262,6 +271,7 @@ class KafkaConsumer
     }
 }
 ```
+{% endraw %}
 
 **Dependências:**
 - `librdkafka` - C library
@@ -287,6 +297,7 @@ class KafkaConsumer
 
 **Swoole já suporta WebSocket:**
 
+{% raw %}
 ```php
 // Alphavel pode facilmente adicionar suporte
 use Swoole\WebSocket\Server;
@@ -314,6 +325,7 @@ $server->on('close', function (Server $server, $fd) {
 
 $server->start();
 ```
+{% endraw %}
 
 **O que falta:**
 
@@ -326,6 +338,7 @@ $server->start();
 
 **Implementação Proposta:**
 
+{% raw %}
 ```php
 namespace Alphavel\WebSocket;
 
@@ -359,6 +372,7 @@ WebSocket::to('chat.room.1')->broadcast([
     'data' => ['user' => 'John', 'text' => 'Hello!']
 ]);
 ```
+{% endraw %}
 
 **Performance Esperada:**
 - **Connections**: 100k+ simultâneas
@@ -387,6 +401,7 @@ Pattern para prevenir cascading failures em microserviços.
 
 **Implementação Proposta:**
 
+{% raw %}
 ```php
 namespace Alphavel\CircuitBreaker;
 
@@ -457,6 +472,7 @@ try {
     return response()->json(['error' => 'Service unavailable'], 503);
 }
 ```
+{% endraw %}
 
 **Features:**
 - ✅ Swoole Table para shared state
@@ -502,6 +518,7 @@ try {
 
 **Implementação Proposta:**
 
+{% raw %}
 ```php
 namespace Alphavel\Scheduler;
 
@@ -592,6 +609,7 @@ class Kernel
     }
 }
 ```
+{% endraw %}
 
 **Features Necessárias:**
 - ✅ Cron expression parsing

@@ -32,6 +32,7 @@ composer require alphavel/queue
 
 ### 1. Create a Job
 
+{% raw %}
 ```php
 // app/Jobs/SendEmailJob.php
 namespace App\Jobs;
@@ -62,9 +63,11 @@ class SendEmailJob extends Job
     }
 }
 ```
+{% endraw %}
 
 ### 2. Dispatch Job
 
+{% raw %}
 ```php
 use App\Jobs\SendEmailJob;
 
@@ -81,6 +84,7 @@ Queue::dispatch(new SendEmailJob(...));
 // Delayed dispatch (60 seconds)
 Queue::later(new SendEmailJob(...), 60);
 ```
+{% endraw %}
 
 ---
 
@@ -88,6 +92,7 @@ Queue::later(new SendEmailJob(...), 60);
 
 ### Basic Dispatching
 
+{% raw %}
 ```php
 use Alphavel\Queue\Facades\Queue;
 
@@ -100,9 +105,11 @@ Queue::dispatchNow(new SendEmailJob($data));
 // Delayed dispatch
 Queue::later(new SendEmailJob($data), 60); // 60 seconds
 ```
+{% endraw %}
 
 ### Job Options
 
+{% raw %}
 ```php
 class ProcessVideoJob extends Job
 {
@@ -117,9 +124,11 @@ class ProcessVideoJob extends Job
     }
 }
 ```
+{% endraw %}
 
 ### Queue Statistics
 
+{% raw %}
 ```php
 // Get queue stats
 $stats = Queue::stats();
@@ -138,6 +147,7 @@ $size = Queue::size('emails'); // specific queue
 Queue::clear();
 Queue::clear('emails');
 ```
+{% endraw %}
 
 ---
 
@@ -149,6 +159,7 @@ Publish config:
 php alpha vendor:publish --tag=queue-config
 ```
 
+{% raw %}
 ```php
 // config/queue.php
 return [
@@ -174,6 +185,7 @@ return [
     ],
 ];
 ```
+{% endraw %}
 
 ---
 
@@ -212,6 +224,7 @@ return [
 
 **Best for:** Single-server, high-throughput
 
+{% raw %}
 ```php
 // config/queue.php
 'connections' => [
@@ -221,6 +234,7 @@ return [
     ],
 ],
 ```
+{% endraw %}
 
 **Performance:**
 - Push: < 0.001ms
@@ -231,6 +245,7 @@ return [
 
 **Best for:** Distributed systems, job persistence
 
+{% raw %}
 ```php
 'connections' => [
     'redis' => [
@@ -240,11 +255,13 @@ return [
     ],
 ],
 ```
+{% endraw %}
 
 ---
 
 ## 🧪 Testing
 
+{% raw %}
 ```php
 use Alphavel\Testing\TestCase;
 use App\Jobs\SendEmailJob;
@@ -271,6 +288,7 @@ class QueueTest extends TestCase
     }
 }
 ```
+{% endraw %}
 
 ---
 
@@ -306,6 +324,7 @@ class QueueTest extends TestCase
 
 ### QueueManager
 
+{% raw %}
 ```php
 // Push job
 Queue::push(Job|string $job, array $data = [], ?string $queue = null): bool
@@ -334,9 +353,11 @@ Queue::size(?string $queue = null): int
 // Clear queue
 Queue::clear(?string $queue = null): bool
 ```
+{% endraw %}
 
 ### Helper Functions
 
+{% raw %}
 ```php
 // Dispatch job
 dispatch(Job $job): bool
@@ -347,6 +368,7 @@ dispatch_now(Job $job): bool
 // Get queue manager
 queue(): QueueManager
 ```
+{% endraw %}
 
 ---
 

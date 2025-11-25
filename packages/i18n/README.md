@@ -15,6 +15,7 @@ composer require alphavel/i18n
 
 ## Usage
 
+{% raw %}
 ```php
 // Translate
 echo __('messages.welcome');
@@ -27,24 +28,29 @@ $locale = app()->getLocale();
 // In views
 {{ __('auth.failed') }}
 ```
+{% endraw %}
 
 ## Language Files
 
 `resources/lang/en/messages.php`:
+{% raw %}
 ```php
 return [
     'welcome' => 'Welcome to our application!',
     'hello' => 'Hello, :name!',
 ];
 ```
+{% endraw %}
 
 `resources/lang/pt_BR/messages.php`:
+{% raw %}
 ```php
 return [
     'welcome' => 'Bem-vindo à nossa aplicação!',
     'hello' => 'Olá, :name!',
 ];
 ```
+{% endraw %}
 
 ## Performance
 - **Swoole Table cache:** < 0.001ms lookup

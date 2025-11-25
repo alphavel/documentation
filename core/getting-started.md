@@ -83,6 +83,7 @@ my-app/
 
 Edit `routes/api.php`:
 
+{% raw %}
 ```php
 <?php
 
@@ -111,6 +112,7 @@ $router->get('/users/{id}', function ($id) {
     ]);
 });
 ```
+{% endraw %}
 
 Test it:
 
@@ -128,6 +130,7 @@ curl http://localhost:9501/users
 
 Create `app/Controllers/UserController.php`:
 
+{% raw %}
 ```php
 <?php
 
@@ -191,14 +194,17 @@ class UserController extends Controller
     }
 }
 ```
+{% endraw %}
 
 Register routes in `routes/api.php`:
 
+{% raw %}
 ```php
 $router->get('/users', 'App\Controllers\UserController@index');
 $router->get('/users/{id}', 'App\Controllers\UserController@show');
 $router->post('/users', 'App\Controllers\UserController@store');
 ```
+{% endraw %}
 
 ---
 
@@ -206,6 +212,7 @@ $router->post('/users', 'App\Controllers\UserController@store');
 
 ### Request Methods (Complete API)
 
+{% raw %}
 ```php
 use Alphavel\Framework\Request;
 
@@ -272,9 +279,11 @@ public function example(Request $request)
     return $this->success(['received' => $data]);
 }
 ```
+{% endraw %}
 
 ### Response Methods (Complete API)
 
+{% raw %}
 ```php
 use Alphavel\Framework\Response;
 
@@ -322,6 +331,7 @@ return Response::make()
     ->header('X-Custom-Header', 'value')
     ->status(200);
 ```
+{% endraw %}
 
 **⚡ Performance Tip for Beginners:**
 
@@ -383,6 +393,7 @@ DB_POOL_TIMEOUT=3.0
 
 **2. Use in your controller:**
 
+{% raw %}
 ```php
 <?php
 
@@ -460,6 +471,7 @@ class UserController extends Controller
     DB::execute('INSERT INTO logs (action) VALUES (?)', ['user_created']);
 });
 ```
+{% endraw %}
 
 ---
 
@@ -498,6 +510,7 @@ SWOOLE_WORKERS=4
 
 Edit `config/app.php`:
 
+{% raw %}
 ```php
 return [
     'name' => env('APP_NAME', 'Alphavel'),
@@ -511,6 +524,7 @@ return [
     ],
 ];
 ```
+{% endraw %}
 
 ---
 
@@ -558,6 +572,7 @@ docker-compose build --no-cache
 
 Alphavel includes Laravel-style helper functions:
 
+{% raw %}
 ```php
 // Application helpers
 $app = app();                    // Get Application instance
@@ -583,6 +598,7 @@ str_starts_with($str, 'prefix'); // Check if starts with
 $now = now();                    // Current datetime
 $today = today();                // Current date
 ```
+{% endraw %}
 
 ---
 
@@ -590,6 +606,7 @@ $today = today();                // Current date
 
 Create static interfaces to services:
 
+{% raw %}
 ```php
 // Create a facade (app/Facades/Cache.php)
 namespace App\Facades;
@@ -610,6 +627,7 @@ use App\Facades\Cache;
 Cache::put('key', 'value', 3600);
 $value = Cache::get('key');
 ```
+{% endraw %}
 
 **Performance:** Zero overhead - resolved once per request via singleton container.
 
@@ -642,6 +660,7 @@ Alphavel automatically discovers packages from `composer.json`:
 
 Create custom middleware:
 
+{% raw %}
 ```php
 // app/Middleware/LogRequests.php
 namespace App\Middleware;
@@ -670,6 +689,7 @@ class LogRequests
 $router->get('/users', [UserController::class, 'index'])
     ->middleware(LogRequests::class);
 ```
+{% endraw %}
 
 ---
 
@@ -677,12 +697,14 @@ $router->get('/users', [UserController::class, 'index'])
 
 Alphavel automatically reuses Request objects across requests:
 
+{% raw %}
 ```php
 // Automatic - no configuration needed
 // Request objects are pooled (max 1024)
 // 50% less memory allocation
 // Faster garbage collection
 ```
+{% endraw %}
 
 **Performance Impact:**
 - 50% reduction in memory allocation
@@ -695,6 +717,7 @@ Alphavel automatically reuses Request objects across requests:
 
 Service providers can be lazy-loaded:
 
+{% raw %}
 ```php
 namespace App\Providers;
 
@@ -713,6 +736,7 @@ class HeavyServiceProvider extends ServiceProvider
     }
 }
 ```
+{% endraw %}
 
 **Impact:** 40% faster boot time on average.
 
@@ -722,6 +746,7 @@ class HeavyServiceProvider extends ServiceProvider
 
 Container caches reflection data for autowiring:
 
+{% raw %}
 ```php
 // First resolution: Reflection runs
 $controller = app(UserController::class);
@@ -729,6 +754,7 @@ $controller = app(UserController::class);
 // Subsequent resolutions: Uses cached data
 $controller = app(UserController::class); // ⚡ Instant
 ```
+{% endraw %}
 
 **Cache types:**
 - Constructor parameters cached per class

@@ -13,6 +13,7 @@ Alphavel provides a powerful and fast routing system with two types of routes: *
 
 Routes are defined in `routes/api.php`:
 
+{% raw %}
 ```php
 <?php
 
@@ -47,6 +48,7 @@ $router->patch('/users/{id}', function ($id) {
     return Response::make()->json(['patched' => true]);
 });
 ```
+{% endraw %}
 
 ---
 
@@ -54,6 +56,7 @@ $router->patch('/users/{id}', function ($id) {
 
 Raw routes bypass the entire framework stack for maximum performance:
 
+{% raw %}
 ```php
 // Plain text (520k+ req/s) - Default content-type: text/plain
 $router->raw('/ping', 'pong');
@@ -68,6 +71,7 @@ $router->raw('/metrics', function($request, $response) {
     $response->end("requests: {$stats['request_count']}");
 }, 'text/plain');
 ```
+{% endraw %}
 
 **Signature:** `raw(string $path, string|array|Closure $handler, string $contentType = 'text/plain', string $method = 'GET')`
 
@@ -85,6 +89,7 @@ $router->raw('/metrics', function($request, $response) {
 
 ## Route Parameters
 
+{% raw %}
 ```php
 // Single parameter
 $router->get('/users/{id}', function ($id) {
@@ -104,11 +109,13 @@ $router->get('/search/{query?}', function ($query = null) {
     return Response::make()->json(['query' => $query]);
 });
 ```
+{% endraw %}
 
 ---
 
 ## Controller Routes
 
+{% raw %}
 ```php
 // Basic controller route (string format: 'Controller@method')
 $router->get('/users', 'App\Controllers\UserController@index');
@@ -123,11 +130,13 @@ $router->get('/posts', [\App\Controllers\PostController::class, 'index']);
 // Use 'make:resource' CLI to generate Model + Controller + Route suggestions
 // php alpha make:resource Product
 ```
+{% endraw %}
 
 ---
 
 ## Route Groups (Coming Soon)
 
+{% raw %}
 ```php
 // Prefix
 $router->group(['prefix' => '/api/v1'], function ($router) {
@@ -147,11 +156,13 @@ $router->group(['prefix' => '/admin', 'middleware' => ['auth', 'admin']], functi
     $router->get('/settings', 'AdminController@settings');
 });
 ```
+{% endraw %}
 
 ---
 
 ## Middleware (Coming Soon)
 
+{% raw %}
 ```php
 // Single middleware
 $router->get('/dashboard', 'DashboardController@index')
@@ -161,6 +172,7 @@ $router->get('/dashboard', 'DashboardController@index')
 $router->get('/admin', 'AdminController@index')
     ->middleware(['auth', 'admin']);
 ```
+{% endraw %}
 
 ---
 
@@ -206,6 +218,7 @@ alpha route:clear
 
 ### ✅ DO
 
+{% raw %}
 ```php
 // Use raw routes for simple endpoints
 $router->raw('/health', ['status' => 'ok'], 'application/json');
@@ -216,9 +229,11 @@ $router->get('/about', 'PageController@about');
 // Use controllers for complex logic
 $router->get('/users', 'UserController@index');
 ```
+{% endraw %}
 
 ### ❌ DON'T
 
+{% raw %}
 ```php
 // Don't use raw routes for complex logic
 $router->raw('/users', function($req, $res) {
@@ -231,11 +246,13 @@ $router->get('/orders', function () {
     // 100 lines of code... ❌
 });
 ```
+{% endraw %}
 
 ---
 
 ## API Reference
 
+{% raw %}
 ```php
 // HTTP methods
 $router->get(string $path, string|Closure $handler): Route
@@ -253,6 +270,7 @@ $router->raw(
     string $method = 'GET'
 ): void
 ```
+{% endraw %}
 
 ---
 

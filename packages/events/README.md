@@ -21,6 +21,7 @@ alpha package:add events
 
 Edit `config/events.php`:
 
+{% raw %}
 ```php
 return [
     'listeners' => [
@@ -34,6 +35,7 @@ return [
     ],
 ];
 ```
+{% endraw %}
 
 ---
 
@@ -41,6 +43,7 @@ return [
 
 ### Dispatching Events
 
+{% raw %}
 ```php
 use Alphavel\Events\Event;
 
@@ -54,9 +57,11 @@ Event::dispatch('order.placed', [
     'user_id' => 123
 ]);
 ```
+{% endraw %}
 
 ### Creating Listeners
 
+{% raw %}
 ```php
 <?php
 
@@ -73,11 +78,13 @@ class SendWelcomeEmail
     }
 }
 ```
+{% endraw %}
 
 ### Registering Listeners
 
 In `config/events.php`:
 
+{% raw %}
 ```php
 'listeners' => [
     'user.created' => [
@@ -86,11 +93,13 @@ In `config/events.php`:
     ],
 ],
 ```
+{% endraw %}
 
 ---
 
 ## Example
 
+{% raw %}
 ```php
 // In UserController
 public function store(Request $request)
@@ -107,6 +116,7 @@ public function store(Request $request)
 // - SendWelcomeEmail
 // - CreateUserProfile
 ```
+{% endraw %}
 
 ---
 

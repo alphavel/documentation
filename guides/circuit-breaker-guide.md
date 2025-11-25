@@ -29,6 +29,7 @@ composer require alphavel/circuit-breaker
 
 ### Uso Básico
 
+{% raw %}
 ```php
 use Alphavel\CircuitBreaker\Facades\CircuitBreaker;
 
@@ -41,9 +42,11 @@ try {
     return $this->handlePaymentFailure();
 }
 ```
+{% endraw %}
 
 ### Com Fallback
 
+{% raw %}
 ```php
 $result = CircuitBreaker::call('payment-api', 
     function() {
@@ -56,6 +59,7 @@ $result = CircuitBreaker::call('payment-api',
     }
 );
 ```
+{% endraw %}
 
 ## 🔄 Estados do Circuito
 
@@ -65,10 +69,12 @@ $result = CircuitBreaker::call('payment-api',
 - ✅ Falhas são contadas
 - ⚠️ Abre quando threshold de falhas atingido
 
+{% raw %}
 ```php
 // Circuito fechado = operação normal
 $result = CircuitBreaker::call('api', fn() => Http::get('...'));
 ```
+{% endraw %}
 
 ### 2. OPEN (Aberto - Falhando)
 
@@ -76,6 +82,7 @@ $result = CircuitBreaker::call('api', fn() => Http::get('...'));
 - ❌ Nenhuma chamada ao serviço backend
 - ⏱️ Após recovery timeout → HALF_OPEN
 
+{% raw %}
 ```php
 // Após 5 falhas, circuito abre
 for ($i = 0; $i < 5; $i++) {
@@ -87,6 +94,7 @@ for ($i = 0; $i < 5; $i++) {
 // Agora está OPEN
 CircuitBreaker::getState('broken-service'); // CircuitState::OPEN
 ```
+{% endraw %}
 
 ### 3. HALF_OPEN (Meio Aberto - Testando)
 
@@ -94,17 +102,20 @@ CircuitBreaker::getState('broken-service'); // CircuitState::OPEN
 - ✅ Se taxa de sucesso >= threshold → CLOSED
 - ❌ Se qualquer falha → OPEN
 
+{% raw %}
 ```php
 // Após recovery timeout, próxima chamada testa recuperação
 sleep(30);
 CircuitBreaker::call('broken-service', fn() => Http::get('...'));
 CircuitBreaker::getState('broken-service'); // CircuitState::HALF_OPEN
 ```
+{% endraw %}
 
 ## 💡 Casos de Uso
 
 ### 1. Comunicação entre Microserviços
 
+{% raw %}
 ```php
 class OrderService
 {
@@ -137,9 +148,11 @@ class OrderService
     }
 }
 ```
+{% endraw %}
 
 ### 2. APIs Externas
 
+{% raw %}
 ```php
 class WeatherService
 {
@@ -166,9 +179,11 @@ class WeatherService
     }
 }
 ```
+{% endraw %}
 
 ### 3. Réplicas de Leitura (Database)
 
+{% raw %}
 ```php
 class UserRepository
 {
@@ -187,9 +202,11 @@ class UserRepository
     }
 }
 ```
+{% endraw %}
 
 ### 4. Serviço de Email
 
+{% raw %}
 ```php
 class NotificationService
 {
@@ -209,9 +226,11 @@ class NotificationService
     }
 }
 ```
+{% endraw %}
 
 ### 5. Cache (Redis)
 
+{% raw %}
 ```php
 class CacheService
 {
@@ -238,11 +257,13 @@ class CacheService
     }
 }
 ```
+{% endraw %}
 
 ## ⚙️ Configuração
 
 `config/circuit-breaker.php`:
 
+{% raw %}
 ```php
 return [
     'default' => 'swoole-table',
@@ -269,11 +290,13 @@ return [
     ],
 ];
 ```
+{% endraw %}
 
 ### Perfis de Configuração
 
 #### Agressivo (Fail Fast)
 
+{% raw %}
 ```php
 'critical-api' => [
     'failure_threshold' => 2,       // Abre após 2 falhas
@@ -282,9 +305,11 @@ return [
     'half_open_requests' => 1,      // Uma única tentativa
 ],
 ```
+{% endraw %}
 
 #### Tolerante (Retry More)
 
+{% raw %}
 ```php
 'flaky-api' => [
     'failure_threshold' => 10,      // Tolera 10 falhas
@@ -294,9 +319,11 @@ return [
     'success_threshold' => 60,      // Apenas 60% necessário
 ],
 ```
+{% endraw %}
 
 #### Não Crítico (Best Effort)
 
+{% raw %}
 ```php
 'analytics-api' => [
     'failure_threshold' => 20,      // Muito tolerante
@@ -304,6 +331,7 @@ return [
     'recovery_timeout' => 120,      // Espera 2 min
 ],
 ```
+{% endraw %}
 
 ## 📊 Monitoramento
 
@@ -336,6 +364,7 @@ php alpha circuit-breaker:stats payment-api
 
 ### Stats via Código
 
+{% raw %}
 ```php
 // Stats de um serviço
 $stats = CircuitBreaker::getStats('payment-api');
@@ -359,29 +388,36 @@ foreach ($allStats as $service => $stats) {
     echo "{$service}: {$stats['state']} ({$stats['success_rate']}%)\n";
 }
 ```
+{% endraw %}
 
 ## 🔧 Controle Manual
 
 ### Abrir Circuito Manualmente
 
+{% raw %}
 ```php
 // Forçar abertura (ex: durante manutenção)
 CircuitBreaker::breaker()->open('payment-api');
 ```
+{% endraw %}
 
 ### Fechar Circuito Manualmente
 
+{% raw %}
 ```php
 // Forçar fechamento (ex: após correção manual)
 CircuitBreaker::breaker()->close('payment-api');
 ```
+{% endraw %}
 
 ### Reset
 
+{% raw %}
 ```php
 // Reset para CLOSED e limpar contadores
 CircuitBreaker::breaker()->reset('payment-api');
 ```
+{% endraw %}
 
 ### Via CLI
 
@@ -395,6 +431,7 @@ php alpha circuit-breaker:reset payment-api
 
 ### Endpoint de Saúde
 
+{% raw %}
 ```php
 // routes/api.php
 Route::get('/health/circuit-breakers', function() {
@@ -417,9 +454,11 @@ Route::get('/health/circuit-breakers', function() {
     ], $healthy ? 200 : 503);
 });
 ```
+{% endraw %}
 
 ### Alertas
 
+{% raw %}
 ```php
 // Monitorar e alertar
 $stats = CircuitBreaker::getAllStats();
@@ -432,11 +471,13 @@ foreach ($stats as $service => $stat) {
     }
 }
 ```
+{% endraw %}
 
 ## 🚀 Best Practices
 
 ### 1. Sempre Use Fallbacks
 
+{% raw %}
 ```php
 // ❌ Ruim: Sem fallback
 try {
@@ -451,9 +492,11 @@ $result = CircuitBreaker::call('api',
     fallback: fn() => Cache::get('api:last_known_good')
 );
 ```
+{% endraw %}
 
 ### 2. Configure Por Serviço
 
+{% raw %}
 ```php
 // Payment: Crítico, fail fast
 'payment-api' => [
@@ -467,9 +510,11 @@ $result = CircuitBreaker::call('api',
     'recovery_timeout' => 30,
 ],
 ```
+{% endraw %}
 
 ### 3. Monitore Estados
 
+{% raw %}
 ```php
 // Log quando circuito abre
 try {
@@ -481,9 +526,11 @@ try {
     ]);
 }
 ```
+{% endraw %}
 
 ### 4. Teste Comportamento
 
+{% raw %}
 ```php
 // Testar que circuito abre
 for ($i = 0; $i < 5; $i++) {
@@ -494,6 +541,7 @@ for ($i = 0; $i < 5; $i++) {
 
 $this->assertEquals('open', CircuitBreaker::getState('test-service'));
 ```
+{% endraw %}
 
 ## ❓ FAQ
 

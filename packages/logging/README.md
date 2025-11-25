@@ -21,6 +21,7 @@ alpha package:add logging
 
 Edit `config/logging.php`:
 
+{% raw %}
 ```php
 return [
     'default' => env('LOG_CHANNEL', 'daily'),
@@ -41,11 +42,13 @@ return [
     ],
 ];
 ```
+{% endraw %}
 
 ---
 
 ## Usage
 
+{% raw %}
 ```php
 use Alphavel\Logging\Log;
 
@@ -69,6 +72,7 @@ Log::error('User not found', [
 // Use specific channel
 Log::channel('single')->info('Message to single file');
 ```
+{% endraw %}
 
 ---
 

@@ -17,6 +17,7 @@ Alphavel provides Laravel-style helper functions and facades for elegant, expres
 
 Access the application container:
 
+{% raw %}
 ```php
 // Get application instance
 $app = app();
@@ -29,11 +30,13 @@ $db = app('db');
 /** @var Router $router */
 $router = app(Router::class);
 ```
+{% endraw %}
 
 #### `config()`
 
 Access configuration values:
 
+{% raw %}
 ```php
 // Get config value
 $name = config('app.name');
@@ -44,11 +47,13 @@ $env = config('app.env', 'production');
 // Nested values (dot notation)
 $host = config('database.connections.mysql.host');
 ```
+{% endraw %}
 
 #### `env()`
 
 Get environment variables:
 
+{% raw %}
 ```php
 // Get environment variable
 $debug = env('APP_DEBUG', false);
@@ -57,6 +62,7 @@ $debug = env('APP_DEBUG', false);
 $dbHost = env('DB_HOST', 'localhost');
 $apiKey = env('API_KEY');
 ```
+{% endraw %}
 
 ---
 
@@ -66,6 +72,7 @@ $apiKey = env('API_KEY');
 
 Get array value using dot notation:
 
+{% raw %}
 ```php
 $array = [
     'user' => [
@@ -81,11 +88,13 @@ $name = array_get($array, 'user.profile.name');
 $email = array_get($array, 'user.email', 'default@example.com');
 // Result: 'default@example.com'
 ```
+{% endraw %}
 
 #### `array_only()`
 
 Get only specified keys:
 
+{% raw %}
 ```php
 $array = [
     'id' => 1,
@@ -97,11 +106,13 @@ $array = [
 $safe = array_only($array, ['id', 'name', 'email']);
 // Result: ['id' => 1, 'name' => 'John', 'email' => 'john@example.com']
 ```
+{% endraw %}
 
 #### `array_except()`
 
 Remove specified keys:
 
+{% raw %}
 ```php
 $array = [
     'id' => 1,
@@ -113,6 +124,7 @@ $array = [
 $safe = array_except($array, ['password', 'password_confirmation']);
 // Result: ['id' => 1, 'name' => 'John']
 ```
+{% endraw %}
 
 ---
 
@@ -122,6 +134,7 @@ $safe = array_except($array, ['password', 'password_confirmation']);
 
 Get value from array or object using dot notation:
 
+{% raw %}
 ```php
 // Array
 $array = ['user' => ['name' => 'John']];
@@ -134,11 +147,13 @@ $name = data_get($object, 'user.name');
 // With default
 $email = data_get($object, 'user.email', 'default@example.com');
 ```
+{% endraw %}
 
 #### `blank()`
 
 Check if value is empty:
 
+{% raw %}
 ```php
 blank(null);           // true
 blank('');             // true
@@ -148,11 +163,13 @@ blank(0);              // false
 blank(false);          // false
 blank('content');      // false
 ```
+{% endraw %}
 
 #### `filled()`
 
 Check if value is not empty:
 
+{% raw %}
 ```php
 filled('content');     // true
 filled(0);             // true
@@ -161,6 +178,7 @@ filled(null);          // false
 filled('');            // false
 filled([]);            // false
 ```
+{% endraw %}
 
 ---
 
@@ -170,19 +188,23 @@ filled([]);            // false
 
 Check if string contains substring:
 
+{% raw %}
 ```php
 str_contains('Hello World', 'World');  // true
 str_contains('Hello World', 'PHP');    // false
 ```
+{% endraw %}
 
 #### `str_starts_with()`
 
 Check if string starts with prefix:
 
+{% raw %}
 ```php
 str_starts_with('Hello World', 'Hello');  // true
 str_starts_with('Hello World', 'World');  // false
 ```
+{% endraw %}
 
 ---
 
@@ -192,6 +214,7 @@ str_starts_with('Hello World', 'World');  // false
 
 Get current datetime:
 
+{% raw %}
 ```php
 $now = now();
 // Result: '2025-11-21 15:30:45'
@@ -202,11 +225,13 @@ DB::table('users')->insert([
     'created_at' => now()
 ]);
 ```
+{% endraw %}
 
 #### `today()`
 
 Get current date:
 
+{% raw %}
 ```php
 $today = today();
 // Result: '2025-11-21'
@@ -216,6 +241,7 @@ $orders = DB::table('orders')
     ->where('created_at', '>=', today())
     ->get();
 ```
+{% endraw %}
 
 ---
 
@@ -225,6 +251,7 @@ Facades provide a static interface to services registered in the container.
 
 ### How Facades Work
 
+{% raw %}
 ```php
 // Behind the scenes
 Cache::put('key', 'value', 3600);
@@ -232,6 +259,7 @@ Cache::put('key', 'value', 3600);
 // Is equivalent to
 app('cache')->put('key', 'value', 3600);
 ```
+{% endraw %}
 
 **Performance:** Zero overhead - facade resolves to singleton instance (resolved once per request).
 
@@ -241,6 +269,7 @@ app('cache')->put('key', 'value', 3600);
 
 #### Step 1: Create Facade Class
 
+{% raw %}
 ```php
 // app/Facades/Cache.php
 namespace App\Facades;
@@ -255,9 +284,11 @@ class Cache extends Facade
     }
 }
 ```
+{% endraw %}
 
 #### Step 2: Register in Container
 
+{% raw %}
 ```php
 // app/Providers/AppServiceProvider.php
 public function register(): void
@@ -267,9 +298,11 @@ public function register(): void
     });
 }
 ```
+{% endraw %}
 
 #### Step 3: Use Facade
 
+{% raw %}
 ```php
 use App\Facades\Cache;
 
@@ -278,6 +311,7 @@ Cache::put('user.1', $user, 3600);
 $user = Cache::get('user.1');
 Cache::forget('user.1');
 ```
+{% endraw %}
 
 ---
 
@@ -287,6 +321,7 @@ Alphavel packages provide facades out of the box:
 
 #### Database Facade
 
+{% raw %}
 ```php
 use Alphavel\Database\DB;
 
@@ -308,9 +343,11 @@ try {
     DB::rollBack();
 }
 ```
+{% endraw %}
 
 #### Cache Facade
 
+{% raw %}
 ```php
 use Alphavel\Cache\Cache;
 
@@ -329,9 +366,11 @@ $users = Cache::remember('users.all', 3600, function () {
 Cache::tags(['users', 'api'])->put('users.all', $users, 3600);
 Cache::tags(['users'])->flush();
 ```
+{% endraw %}
 
 #### Log Facade
 
+{% raw %}
 ```php
 use Alphavel\Logging\Log;
 
@@ -351,9 +390,11 @@ Log::info('User logged in', [
     'ip' => $request->ip()
 ]);
 ```
+{% endraw %}
 
 #### Event Facade
 
+{% raw %}
 ```php
 use Alphavel\Events\Event;
 
@@ -366,6 +407,7 @@ Event::listen('user.created', function ($data) {
     Mail::send($data['user']);
 });
 ```
+{% endraw %}
 
 ---
 
@@ -373,6 +415,7 @@ Event::listen('user.created', function ($data) {
 
 Complete example creating a custom service with facade:
 
+{% raw %}
 ```php
 // 1. Create service
 // app/Services/PaymentService.php
@@ -420,6 +463,7 @@ if ($result['success']) {
     // Payment successful
 }
 ```
+{% endraw %}
 
 ---
 
@@ -449,6 +493,7 @@ if ($result['success']) {
 
 **Example:**
 
+{% raw %}
 ```php
 // Dependency Injection (recommended for controllers)
 class UserController extends Controller
@@ -477,6 +522,7 @@ class UserHelper
     }
 }
 ```
+{% endraw %}
 
 ---
 
@@ -484,6 +530,7 @@ class UserHelper
 
 ### API Controller with Helpers
 
+{% raw %}
 ```php
 namespace App\Controllers;
 
@@ -522,6 +569,7 @@ class ArticleController extends Controller
     }
 }
 ```
+{% endraw %}
 
 ---
 

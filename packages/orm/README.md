@@ -29,6 +29,7 @@ Auto-discovery enabled. No configuration required.
 
 ### Define Relationships
 
+{% raw %}
 ```php
 use Alphavel\Database\Model;
 use Alphavel\ORM\HasRelationships;
@@ -72,9 +73,11 @@ class Post extends Model
     }
 }
 ```
+{% endraw %}
 
 ### Lazy Loading (Default)
 
+{% raw %}
 ```php
 // No query executed until accessed
 $user = User::find(1);
@@ -85,11 +88,13 @@ $posts = $user->posts;  // SELECT * FROM posts WHERE user_id = 1
 // Cached on subsequent access (zero queries)
 $posts = $user->posts;  // No query
 ```
+{% endraw %}
 
 **Performance**: 0.1-0.5ms per relationship query
 
 ### Eager Loading (N+1 Prevention)
 
+{% raw %}
 ```php
 // Without eager loading (N+1 problem):
 $users = User::all();  // 1 query
@@ -105,11 +110,13 @@ foreach ($users as $user) {
 }
 // Total: 2 queries (1 for users, 1 for all posts)
 ```
+{% endraw %}
 
 **Performance**: O(n+m) matching with hash maps, not O(n*m)
 
 ### Multiple & Nested Relationships
 
+{% raw %}
 ```php
 // Multiple relationships
 $users = User::with(['posts', 'profile'])->get();
@@ -124,11 +131,13 @@ $users = User::with(['posts' => function($query) {
           ->limit(5);
 }])->get();
 ```
+{% endraw %}
 
 ### Relationship Types
 
 #### HasMany (One-to-Many)
 
+{% raw %}
 ```php
 class User extends Model
 {
@@ -146,9 +155,11 @@ class User extends Model
 $user = User::find(1);
 $posts = $user->posts;  // Array of Post objects
 ```
+{% endraw %}
 
 #### HasOne (One-to-One)
 
+{% raw %}
 ```php
 class User extends Model
 {
@@ -164,9 +175,11 @@ class User extends Model
 $user = User::find(1);
 $profile = $user->profile;  // Single Profile object or null
 ```
+{% endraw %}
 
 #### BelongsTo (Inverse One-to-Many)
 
+{% raw %}
 ```php
 class Post extends Model
 {
@@ -184,9 +197,11 @@ class Post extends Model
 $post = Post::find(1);
 $author = $post->author;  // User object or null
 ```
+{% endraw %}
 
 #### BelongsToMany (Many-to-Many)
 
+{% raw %}
 ```php
 class Post extends Model
 {
@@ -213,6 +228,7 @@ foreach ($tags as $tag) {
     echo $tag->pivot->created_at;
 }
 ```
+{% endraw %}
 
 ## Performance Benchmarks
 
@@ -257,6 +273,7 @@ Lazy loading: Zero memory if not accessed
 
 ### Example Hash Map Matching
 
+{% raw %}
 ```php
 // Traditional nested loops (BAD - O(n*m)):
 foreach ($users as $user) {           // n iterations
@@ -281,10 +298,12 @@ foreach ($users as $user) {
 }
 // Total: n + m = 100 + 1000 = 1,100 operations
 ```
+{% endraw %}
 
 ## Foreign Key Conventions
 
 ### HasMany / HasOne
+{% raw %}
 ```php
 // Auto-guessed foreign key: {parent_model}_id
 User -> posts: post.user_id
@@ -293,8 +312,10 @@ Post -> comments: comment.post_id
 // Custom foreign key
 $this->hasMany(Post::class, 'author_id');
 ```
+{% endraw %}
 
 ### BelongsTo
+{% raw %}
 ```php
 // Auto-guessed foreign key: {related_model}_id
 Post -> user: post.user_id
@@ -303,8 +324,10 @@ Comment -> post: comment.post_id
 // Custom foreign key
 $this->belongsTo(User::class, 'author_id');
 ```
+{% endraw %}
 
 ### BelongsToMany
+{% raw %}
 ```php
 // Pivot table: {model1}_{model2} (alphabetical)
 Post + Tag = post_tag
@@ -312,11 +335,13 @@ Post + Tag = post_tag
 // Custom pivot table
 $this->belongsToMany(Tag::class, 'article_tags');
 ```
+{% endraw %}
 
 ## Integration with Query Builder
 
 All relationships return Query Builder instances:
 
+{% raw %}
 ```php
 // Add constraints to relationship query
 $user->posts()->where('published', true)->get();
@@ -330,6 +355,7 @@ $user->posts()->paginate(20);
 // Ordering
 $user->posts()->orderBy('created_at', 'desc')->get();
 ```
+{% endraw %}
 
 ## Testing
 

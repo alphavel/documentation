@@ -102,16 +102,20 @@ Production microservices commonly run with 0.5-1 CPU cores and 512MB-1GB RAM. Te
 ### Code
 
 **Alphavel (Raw Route):**
+{% raw %}
 ```php
 $router->raw('/plaintext', 'Hello, World!');
 ```
+{% endraw %}
 
 **Alphavel (Normal Route):**
+{% raw %}
 ```php
 $router->get('/plaintext', function () {
     return Response::make()->content('Hello, World!');
 });
 ```
+{% endraw %}
 
 **Result:** Alphavel Raw Routes are **6x faster** than normal routes and **173x faster** than Laravel FPM!
 
@@ -206,6 +210,7 @@ These tests simulate **real-world microservice constraints** to evaluate framewo
 
 Alphavel's innovative **Raw Routes** feature allows static responses to bypass the full request lifecycle:
 
+{% raw %}
 ```php
 // Traditional route (all frameworks)
 $router->get('/json', 'Controller@method');  // Instantiates controller, runs middleware
@@ -214,6 +219,7 @@ $router->get('/json', 'Controller@method');  // Instantiates controller, runs mi
 $router->raw('/json', json_encode(['message' => 'Hello']), 'application/json');
 // Direct Swoole response - no framework overhead
 ```
+{% endraw %}
 
 **Performance Impact:**
 - Bypasses routing resolution
@@ -228,6 +234,7 @@ $router->raw('/json', json_encode(['message' => 'Hello']), 'application/json');
 
 Alphavel's database connection pool is optimized for Swoole's coroutine model:
 
+{% raw %}
 ```php
 // config/database.php
 'pool' => [
@@ -236,6 +243,7 @@ Alphavel's database connection pool is optimized for Swoole's coroutine model:
     'timeout' => 5.0,    // Fail-fast for availability
 ]
 ```
+{% endraw %}
 
 **Advantages:**
 - Persistent connections across requests
@@ -251,11 +259,13 @@ Alphavel's database connection pool is optimized for Swoole's coroutine model:
 
 Alphavel pre-allocates Request/Response objects and reuses them:
 
+{% raw %}
 ```php
 // Pre-allocated pool of 1024 request objects
 // 50% less memory allocation
 // Faster garbage collection
 ```
+{% endraw %}
 
 **Impact:**
 - Reduces memory allocation by 50%
@@ -266,6 +276,7 @@ Alphavel pre-allocates Request/Response objects and reuses them:
 
 Service providers only load when needed:
 
+{% raw %}
 ```php
 // Route without database
 $router->get('/ping', fn() => 'pong');
@@ -275,6 +286,7 @@ $router->get('/ping', fn() => 'pong');
 $router->get('/users', [UserController::class, 'index']);
 // DatabaseServiceProvider loads only when DB facade is used
 ```
+{% endraw %}
 
 **Impact:**
 - 40% faster boot time
@@ -302,16 +314,20 @@ $router->get('/users', [UserController::class, 'index']);
 ### Code
 
 **Alphavel (Raw):**
+{% raw %}
 ```php
 $router->raw('/json', ['message' => 'Hello, World!'], 'application/json');
 ```
+{% endraw %}
 
 **Alphavel (Normal):**
+{% raw %}
 ```php
 $router->get('/json', function () {
     return Response::make()->json(['message' => 'Hello, World!']);
 });
 ```
+{% endraw %}
 
 **Result:** Alphavel is **3.75x faster** than Laravel Octane and **18x faster** than Laravel FPM!
 
@@ -339,12 +355,14 @@ SELECT * FROM users WHERE id = ?
 ### Code
 
 **Alphavel:**
+{% raw %}
 ```php
 $router->get('/user/{id}', function ($id) {
     $user = DB::query('SELECT * FROM users WHERE id = ?', [$id]);
     return Response::make()->json(['user' => $user[0] ?? null]);
 });
 ```
+{% endraw %}
 
 **Result:** Connection pooling provides **7x performance boost**! Alphavel is **2.5x faster** than Laravel Octane and **13x faster** than Laravel FPM!
 
@@ -418,6 +436,7 @@ LIMIT 10
 **Test:** Typical REST API with validation, database, cache, and logging
 
 **Endpoint:**
+{% raw %}
 ```php
 POST /api/orders
 {
@@ -426,6 +445,7 @@ POST /api/orders
   "total": 99.99
 }
 ```
+{% endraw %}
 
 **Operations:**
 1. Validate request
@@ -741,6 +761,7 @@ Under 512MB RAM constraints, Alphavel's memory profile shines:
 
 Alphavel's codebase is optimized for PHP 8.2+ JIT compilation:
 
+{% raw %}
 ```php
 // Hot path optimization example
 final class Router {
@@ -750,6 +771,7 @@ final class Router {
     }
 }
 ```
+{% endraw %}
 
 **Techniques:**
 - Minimal dynamic dispatch

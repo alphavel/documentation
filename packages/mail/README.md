@@ -27,6 +27,7 @@ Auto-discovery enabled. Symfony Mailer included.
 
 ## Configuration
 
+{% raw %}
 ```php
 // config/mail.php
 return [
@@ -46,11 +47,13 @@ return [
     ],
 ];
 ```
+{% endraw %}
 
 ## Usage
 
 ### Quick Send (Fluent API)
 
+{% raw %}
 ```php
 use Alphavel\Mail\Facades\Mail;
 
@@ -82,11 +85,13 @@ Mail::to('user@example.com')
     ->subject('Alert')
     ->text('Important notice...');
 ```
+{% endraw %}
 
 **Performance**: 1-10ms sync send (SMTP dependent)
 
 ### Async Sending (Queue Integration)
 
+{% raw %}
 ```php
 // Queue for background sending (< 0.5ms dispatch)
 Mail::to('user@example.com')
@@ -97,11 +102,13 @@ Mail::to('user@example.com')
 Mail::to('user@example.com')
     ->queue('emails.newsletter', ['content' => $content], 'emails');
 ```
+{% endraw %}
 
 **Performance**: < 0.5ms dispatch, actual sending in background worker
 
 ### Mailable Classes (Laravel-like)
 
+{% raw %}
 ```php
 use Alphavel\Mail\Mailable;
 
@@ -131,9 +138,11 @@ Mail::send(new WelcomeEmail($user));
 // Queue mailable
 Mail::queue(new WelcomeEmail($user));
 ```
+{% endraw %}
 
 ### Helper Functions
 
+{% raw %}
 ```php
 // Get mail manager
 $manager = mail();
@@ -143,11 +152,13 @@ mail('user@example.com')
     ->subject('Hello')
     ->send('emails.hello');
 ```
+{% endraw %}
 
 ## View Templates
 
 ### PHP Templates (Simple)
 
+{% raw %}
 ```php
 // views/emails/welcome.php
 <html>
@@ -157,6 +168,7 @@ mail('user@example.com')
 </body>
 </html>
 ```
+{% endraw %}
 
 ### Blade Templates (with View package)
 
@@ -200,6 +212,7 @@ Async with queue:
 
 ### Batch Sending
 
+{% raw %}
 ```php
 // Efficient batch sending with connection pooling
 $manager = mail();
@@ -211,6 +224,7 @@ foreach ($users as $user) {
 }
 // Connection reused: ~10ms per email instead of 50ms
 ```
+{% endraw %}
 
 ## Architecture
 
@@ -250,6 +264,7 @@ Total background time: ~10ms
 
 Production-grade SMTP with TLS/SSL support.
 
+{% raw %}
 ```php
 'driver' => 'smtp',
 'smtp' => [
@@ -260,6 +275,7 @@ Production-grade SMTP with TLS/SSL support.
     'password' => 'app-password',
 ],
 ```
+{% endraw %}
 
 **Performance**: 1-10ms per email (server dependent)
 
@@ -267,9 +283,11 @@ Production-grade SMTP with TLS/SSL support.
 
 Unix sendmail command.
 
+{% raw %}
 ```php
 'driver' => 'sendmail',
 ```
+{% endraw %}
 
 **Performance**: 10-50ms per email
 
@@ -277,9 +295,11 @@ Unix sendmail command.
 
 Logs emails instead of sending (null transport).
 
+{% raw %}
 ```php
 'driver' => 'log',
 ```
+{% endraw %}
 
 **Performance**: < 0.1ms per email
 
@@ -291,6 +311,7 @@ Logs emails instead of sending (null transport).
 
 ### Fake Mailer (Testing)
 
+{% raw %}
 ```php
 // In tests
 Mail::fake();
@@ -301,6 +322,7 @@ Mail::assertSent(WelcomeEmail::class, function ($mail) {
     return $mail->to === 'user@example.com';
 });
 ```
+{% endraw %}
 
 ## Laravel API Compatibility
 
