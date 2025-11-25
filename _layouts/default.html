@@ -32,7 +32,8 @@
       <!-- Sidebar -->
       <aside style="flex: 0 0 260px; position: sticky; top: 20px; height: fit-content;">
         <div style="background: #161b22; padding: 20px; border-radius: 6px; font-size: 14px; border: 1px solid #21262d;">
-          <h3 style="margin-top: 0; margin-bottom: 15px; font-size: 16px;">📚 Documentation</h3>
+          <h3 style="margin-top: 0; margin-bottom: 15px; font-size: 16px;">         <img src="https://github.com/alphavel/.github/raw/main/profile/logo.png" alt="Alphavel Logo" style="height: 18px; width: auto;">
+ Documentation</h3>
           
           <details open>
             <summary><strong>Getting Started</strong></summary>
@@ -233,7 +234,7 @@
   article pre::before,
   article .highlight pre::before,
   article .highlighter-rouge pre::before {
-    content: 'dark';
+    content: 'Code';
     display: block;
     color: #858585;
     font-size: 10px;
@@ -257,6 +258,28 @@
   
   article div.highlight {
     background: transparent !important;
+  }
+  
+  /* Remove language label divs */
+  article div.language-bash,
+  article div.language-php,
+  article div.language-javascript,
+  article div.language-json,
+  article div.language-yaml,
+  article div.language-sql {
+    background: transparent !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  
+  /* Hide syntax highlighter spans that might appear */
+  article pre code span[class^="n"],
+  article pre code span[class^="k"],
+  article pre code span[class^="s"],
+  article pre code span[class^="c"],
+  article pre code span[class^="o"] {
+    color: inherit !important;
+    background: none !important;
   }
   
   article pre code,
@@ -349,52 +372,6 @@
     background: #161b22;
     font-weight: 600;
     border-bottom: 2px solid #58a6ff;
-  }
-  
-  /* Ensure tables are responsive on small screens */
-  @media (max-width: 768px) {
-    article table {
-      display: block;
-      overflow-x: auto;
-      white-space: nowrap;
-    }
-    
-    article table thead,
-    article table tbody,
-    article table tr,
-    article table th,
-    article table td {
-      display: block;
-    }
-    
-    article table tr {
-      margin-bottom: 15px;
-      border: 1px solid #30363d;
-      border-radius: 4px;
-    }
-    
-    article table th {
-      position: absolute;
-      top: -9999px;
-      left: -9999px;
-    }
-    
-    article table td {
-      border: none;
-      position: relative;
-      padding-left: 50%;
-      text-align: left;
-    }
-    
-    article table td:before {
-      position: absolute;
-      left: 6px;
-      width: 45%;
-      padding-right: 10px;
-      white-space: nowrap;
-      font-weight: bold;
-      content: attr(data-label);
-    }
   }
   
   article blockquote {
