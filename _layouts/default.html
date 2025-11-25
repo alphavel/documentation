@@ -210,7 +210,9 @@
   }
   
   /* Code blocks (VS Code Dark+ theme) */
-  article pre {
+  article pre,
+  article .highlight pre,
+  article .highlighter-rouge pre {
     position: relative;
     background: #1e1e1e;
     color: #d4d4d4;
@@ -228,7 +230,9 @@
     line-height: 1.6;
   }
   
-  article pre::before {
+  article pre::before,
+  article .highlight pre::before,
+  article .highlighter-rouge pre::before {
     content: 'dark';
     display: block;
     color: #858585;
@@ -244,8 +248,21 @@
     padding-bottom: 8px;
   }
   
-  article pre code {
-    background: none;
+  /* Remove Jekyll default styles */
+  article .highlight,
+  article .highlighter-rouge {
+    background: transparent !important;
+    margin: 0 !important;
+  }
+  
+  article div.highlight {
+    background: transparent !important;
+  }
+  
+  article pre code,
+  article .highlight pre code,
+  article .highlighter-rouge pre code {
+    background: none !important;
     padding: 0;
     color: #d4d4d4;
     border: none;
