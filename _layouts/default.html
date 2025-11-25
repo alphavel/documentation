@@ -557,7 +557,7 @@
   // Add copy functionality to code blocks
   document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM loaded, applying syntax highlighting...');
-    const codeBlocks = document.querySelectorAll('article pre');
+    const codeBlocks = document.querySelectorAll('article pre, article .highlight pre, article .highlighter-rouge pre');
     console.log('Found ' + codeBlocks.length + ' code blocks');
     
     codeBlocks.forEach(function(block, index) {
