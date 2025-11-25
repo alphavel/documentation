@@ -29,7 +29,7 @@ composer require alphavel/circuit-breaker
 ```
 
 **Requirements:**
-- PHP 8.1+
+- PHP 8.4+
 - Swoole extension 5.0+
 - Alphavel Framework 1.0+
 

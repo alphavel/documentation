@@ -15,7 +15,7 @@ This guide will help you create your first Alphavel application in minutes.
 
 Before starting, ensure you have:
 
-- **PHP 8.1+** installed
+- **PHP 8.4+** installed
 - **Composer** installed
 - **Swoole extension** (or use Docker)
 
