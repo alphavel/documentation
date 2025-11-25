@@ -5,13 +5,13 @@ title: Compatibility
 
 # Alphavel Ecosystem - Compatibility Matrix
 
-**Data da Análise:** 24 de novembro de 2025  
-**Status:** ✅ **TODAS AS DEPENDÊNCIAS COMPATÍVEIS**
+**Analysis Date:** November 24, 2025  
+**Status:** ✅ **ALL DEPENDENCIES COMPATIBLE**
 
-## Versões Atuais
+## Current Versions
 
-| Pacote | Versão Atual | PHP | alphavel/alphavel | Extensões |
-|--------|--------------|-----|-------------------|-----------|
+| Package | Current Version | PHP | alphavel/alphavel | Extensions |
+|---------|----------------|-----|-------------------|------------|
 | **alphavel/alphavel** | v1.1.0 | ^8.4 | - | psr/container ^2.0, psr/log ^3.0 |
 | **alphavel/database** | v2.1.1 | ^8.4 | ^1.0 | ext-pdo, ext-swoole ^5.0 |
 | **alphavel/cache** | v1.1.0 | ^8.4 | ^1.0 | - |
@@ -22,7 +22,7 @@ title: Compatibility
 | **alphavel/alpha** | v1.1.0 | ^8.4 | ^1.0 | - (suggest: alphavel/database) |
 | **alphavel/skeleton** | v1.0.4 | ^8.4 | ^1.0 | - (suggest: ext-swoole, alpha, database, etc.) |
 
-## Matriz de Dependências
+## Dependency Matrix
 
 ### Core Framework (alphavel/alphavel)
 ```json
@@ -32,8 +32,8 @@ title: Compatibility
   "psr/log": "^3.0"
 }
 ```
-✅ **Status:** Independente, sem dependências circulares  
-✅ **PSR:** Usa PSR-11 (Container) e PSR-3 (Logger)
+✅ **Status:** Independent, no circular dependencies  
+✅ **PSR:** Uses PSR-11 (Container) and PSR-3 (Logger)
 
 ### Database Package (alphavel/database)
 ```json
@@ -44,9 +44,9 @@ title: Compatibility
   "alphavel/alphavel": "^1.0"
 }
 ```
-✅ **Status:** Compatível com alphavel v1.0.0 e v1.1.0  
-✅ **Extensões:** PDO nativo, Swoole para performance  
-✅ **Replace:** Substitui alphavel/orm (unificado)
+✅ **Status:** Compatible with alphavel v1.0.0 and v1.1.0  
+✅ **Extensions:** Native PDO, Swoole for performance  
+✅ **Replace:** Replaces alphavel/orm (unified)
 
 ### Cache Package (alphavel/cache)
 ```json
@@ -55,8 +55,8 @@ title: Compatibility
   "alphavel/alphavel": "^1.0"
 }
 ```
-✅ **Status:** Compatível com alphavel v1.0.0 e v1.1.0  
-✅ **Zero dependências extras**
+✅ **Status:** Compatible with alphavel v1.0.0 and v1.1.0  
+✅ **Zero extra dependencies**
 
 ### Events Package (alphavel/events)
 ```json
@@ -65,8 +65,8 @@ title: Compatibility
   "alphavel/alphavel": "^1.0"
 }
 ```
-✅ **Status:** Compatível com alphavel v1.0.0 e v1.1.0  
-✅ **Zero dependências extras**
+✅ **Status:** Compatible with alphavel v1.0.0 and v1.1.0  
+✅ **Zero extra dependencies**
 
 ### Logging Package (alphavel/logging)
 ```json
@@ -76,8 +76,8 @@ title: Compatibility
   "alphavel/alphavel": "^1.0"
 }
 ```
-✅ **Status:** Compatível com alphavel v1.0.0 e v1.1.0  
-✅ **PSR-3:** Logger interface padrão
+✅ **Status:** Compatible with alphavel v1.0.0 and v1.1.0  
+✅ **PSR-3:** Standard logger interface
 
 ### Support Package (alphavel/support)
 ```json
@@ -86,8 +86,8 @@ title: Compatibility
   "alphavel/alphavel": "^1.0"
 }
 ```
-✅ **Status:** Compatível com alphavel v1.0.0 e v1.1.0  
-✅ **Zero dependências extras**
+✅ **Status:** Compatible with alphavel v1.0.0 and v1.1.0  
+✅ **Zero extra dependencies**
 
 ### Validation Package (alphavel/validation)
 ```json
@@ -96,8 +96,8 @@ title: Compatibility
   "alphavel/alphavel": "^1.0"
 }
 ```
-✅ **Status:** Compatível com alphavel v1.0.0 e v1.1.0  
-✅ **Zero dependências extras**
+✅ **Status:** Compatible with alphavel v1.0.0 and v1.1.0  
+✅ **Zero extra dependencies**
 
 ### Alpha CLI (alphavel/alpha)
 ```json
@@ -109,9 +109,9 @@ title: Compatibility
   "alphavel/database": "Required for schema-aware code generation"
 }
 ```
-✅ **Status:** Compatível com alphavel v1.0.0 e v1.1.0  
-✅ **Database opcional:** Evita dependência circular  
-✅ **Auto-detecção:** Funciona com ou sem database
+✅ **Status:** Compatible with alphavel v1.0.0 and v1.1.0  
+✅ **Optional database:** Avoids circular dependency  
+✅ **Auto-detection:** Works with or without database
 
 ### Skeleton (alphavel/skeleton)
 ```json
@@ -128,11 +128,11 @@ title: Compatibility
   "alphavel/logging": "Logging"
 }
 ```
-✅ **Status:** Compatível com alphavel v1.0.0 e v1.1.0  
-✅ **Todos opcionais:** Usuário escolhe features  
-✅ **Zero conflitos:** class_exists() em configs
+✅ **Status:** Compatible with alphavel v1.0.0 and v1.1.0  
+✅ **All optional:** User chooses features  
+✅ **Zero conflicts:** class_exists() in configs
 
-## Grafo de Dependências
+## Dependency Graph
 
 ```
 ┌─────────────────────┐
@@ -157,106 +157,106 @@ title: Compatibility
      (v1.1.0)                              (v1.1.0/v2.1.1)
 ```
 
-## Compatibilidade com Versões Anteriores
+## Backward Compatibility
 
 ### Breaking Changes (v1.0.0 → v1.1.0)
 - **PHP Requirement:** 8.1/8.2 → 8.4
-- **Motivo:** +10-15% performance, melhor JIT
-- **Afetados:** Todos os pacotes core
-- **Migração:** Atualizar PHP para 8.4
+- **Reason:** +10-15% performance, better JIT
+- **Affected:** All core packages
+- **Migration:** Update PHP to 8.4
 
-### Retrocompatibilidade API
-✅ **100% compatível** - Nenhuma mudança de API  
-✅ **Sem breaking changes funcionais**  
-✅ **Apenas atualização de runtime (PHP)**
+### API Backward Compatibility
+✅ **100% compatible** - No API changes  
+✅ **No functional breaking changes**  
+✅ **Only runtime update (PHP)**
 
-## Verificação de Conflitos
+## Conflict Verification
 
-### ❌ Conflitos Encontrados: NENHUM
+### ❌ Conflicts Found: NONE
 
-#### Verificações Realizadas:
-1. ✅ **Versão PHP:** Todas as 9 packages requerem ^8.4
-2. ✅ **alphavel/alphavel:** Todos usam ^1.0 (compatível com 1.0.0 e 1.1.0)
-3. ✅ **PSR Standards:** psr/log ^3.0, psr/container ^2.0 (consistente)
-4. ✅ **Dependências circulares:** ZERO (database e alpha desacoplados)
-5. ✅ **Extensões PHP:** ext-pdo (nativo), ext-swoole ^5.0 (só database)
+#### Verification Performed:
+1. ✅ **PHP Version:** All 9 packages require ^8.4
+2. ✅ **alphavel/alphavel:** All use ^1.0 (compatible with 1.0.0 and 1.1.0)
+3. ✅ **PSR Standards:** psr/log ^3.0, psr/container ^2.0 (consistent)
+4. ✅ **Circular Dependencies:** ZERO (database and alpha decoupled)
+5. ✅ **PHP Extensions:** ext-pdo (native), ext-swoole ^5.0 (database only)
 
-## Instalação Recomendada
+## Recommended Installation
 
-### Instalação Mínima (Framework Only)
+### Minimal Installation (Framework Only)
 ```bash
 composer require alphavel/alphavel:^1.1
 ```
 
-### Instalação com Database
+### Installation with Database
 ```bash
 composer require alphavel/alphavel:^1.1
 composer require alphavel/database:^2.1
 ```
 
-### Instalação Completa
+### Complete Installation
 ```bash
-composer create-project alphavel/skeleton:^1.0 meu-projeto
-cd meu-projeto
-composer require alphavel/database:^2.1  # opcional
-composer require alphavel/cache:^1.1     # opcional
-composer require alphavel/events:^1.1    # opcional
+composer create-project alphavel/skeleton:^1.0 my-project
+cd my-project
+composer require alphavel/database:^2.1  # optional
+composer require alphavel/cache:^1.1     # optional
+composer require alphavel/events:^1.1    # optional
 ```
 
-### Desenvolvimento (com CLI)
+### Development (with CLI)
 ```bash
 composer require --dev alphavel/alpha:^1.1
 ```
 
-## Testes de Compatibilidade Realizados
+## Compatibility Tests Performed
 
 ### 1. Composer Validate ✅
-Todos os composer.json são válidos (warnings apenas sobre version field).
+All composer.json files are valid (warnings only about version field).
 
-### 2. Resolução de Dependências ✅
+### 2. Dependency Resolution ✅
 ```bash
-# Testado em instalação fresh (alphavel_z)
+# Tested on fresh installation (alphavel_z)
 composer create-project alphavel/skeleton
 composer require alphavel/database
-# ✅ Todas as dependências resolvidas sem conflitos
+# ✅ All dependencies resolved without conflicts
 ```
 
 ### 3. Runtime Compatibility ✅
-- PHP 8.4-cli testado no Docker
-- Swoole 5.0+ funcionando
-- Todas as extensões disponíveis
+- PHP 8.4-cli tested on Docker
+- Swoole 5.0+ working
+- All extensions available
 
-## Recomendações
+## Recommendations
 
-### Para Usuários Novos
-1. Use `alphavel/skeleton` v1.0.4 como base
-2. Adicione pacotes conforme necessidade
-3. Database é opcional mas recomendado
+### For New Users
+1. Use `alphavel/skeleton` v1.0.4 as base
+2. Add packages as needed
+3. Database is optional but recommended
 
-### Para Atualização de v1.0.0
-1. Atualizar PHP para 8.4:
+### For Updating from v1.0.0
+1. Update PHP to 8.4:
    ```bash
    sudo apt install php8.4-cli php8.4-swoole
    ```
-2. Atualizar pacotes:
+2. Update packages:
    ```bash
    composer require alphavel/alphavel:^1.1
-   composer require alphavel/database:^2.1  # se usar
-   composer require alphavel/cache:^1.1     # se usar
+   composer require alphavel/database:^2.1  # if using
+   composer require alphavel/cache:^1.1     # if using
    # etc...
    ```
-3. Testar aplicação (zero breaking changes na API)
+3. Test application (zero breaking changes in API)
 
-## Suporte a Versões
+## Version Support
 
-| Versão | PHP | Status | Suporte |
-|--------|-----|--------|---------|
+| Version | PHP | Status | Support |
+|---------|-----|--------|---------|
 | 1.0.x | ^8.1 | ⚠️ Old | Security only |
-| 1.1.x | ^8.4 | ✅ Atual | Full support |
-| 2.x.x | TBD | 🔮 Futuro | Planejado |
+| 1.1.x | ^8.4 | ✅ Current | Full support |
+| 2.x.x | TBD | 🔮 Future | Planned |
 
 ---
 
-**Conclusão:** ✅ Todas as dependências estão 100% compatíveis.  
-**Zero conflitos detectados.**  
-**Ecossistema pronto para produção.**
+**Conclusion:** ✅ All dependencies are 100% compatible.  
+**Zero conflicts detected.**  
+**Ecosystem ready for production.**

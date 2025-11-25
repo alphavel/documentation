@@ -5,16 +5,16 @@ title: Changelog
 
 # Changelog
 
-Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
+All notable changes to this project will be documented in this file.
 
-O formato é baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.0/),
-e este projeto adere ao [Semantic Versioning](https://semver.org/lang/pt-BR/).
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ## [2.0.0] - 2025-11-19
 
-### 🚀 Otimizações de Performance - Ganhos de 40-60%
+### 🚀 Performance Optimizations - 40-60% Gains
 
-Esta versão implementa otimizações críticas baseadas em benchmarks reais, resultando em ganhos de throughput de 14k→16k+ req/s em leitura e até +50% em transações.
+This version implements critical optimizations based on real benchmarks, resulting in throughput gains from 14k→16k+ req/s on reads and up to +50% on transactions.
 
 #### 🗄️ Database Layer
 
@@ -152,22 +152,22 @@ Para aplicar em projetos existentes:
 - README.md: Todas as referências de porta atualizadas para 9999
 - DESENVOLVIMENTO_LOCAL.md: Portas atualizadas
 
-### 🔧 Impacto
+### 🔧 Impact
 
-Esta versão corrige o problema crítico de containers Docker em loop de reinicialização causado pelo arquivo `facades.php` ausente. O framework agora é totalmente modular e não requer facades para funcionar.
+This version fixes the critical issue of Docker containers in restart loop caused by missing `facades.php` file. The framework is now fully modular and does not require facades to function.
 
 ## [1.0.0] - 2025-11-19
 
-### ✨ Lançamento Inicial
+### ✨ Initial Release
 
-Primeira versão estável do Alphavel Framework - framework PHP moderno baseado em Swoole.
+First stable version of Alphavel Framework - modern PHP framework based on Swoole.
 
-### 🎯 Principais Características
+### 🎯 Main Features
 
-- **Setup automático via Composer**: Processo idêntico ao Laravel, sem etapas manuais
-- **Extensão Swoole opcional**: Permite desenvolvimento com Docker sem instalação local
-- **Performance excepcional**: Até 520.000+ requisições por segundo com Swoole
-- **Arquitetura limpa**: Inspirada no Laravel, fácil de aprender e usar
+- **Automatic setup via Composer**: Process identical to Laravel, no manual steps
+- **Optional Swoole extension**: Allows Docker development without local installation
+- **Exceptional performance**: Up to 520,000+ requests per second with Swoole
+- **Clean architecture**: Inspired by Laravel, easy to learn and use
 
 ### ✨ Adicionado
 

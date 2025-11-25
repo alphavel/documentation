@@ -21,33 +21,33 @@ make dev
 docker-compose -f docker-compose.dev.yml up
 ```
 
-**Primeira execução:** Pode levar 2-3 minutos (instalação automática do Swoole)  
-**Próximas execuções:** Instantâneas
+**First run:** May take 2-3 minutes (automatic Swoole installation)  
+**Subsequent runs:** Instant
 
-**Acesse:** http://localhost:9999
-
----
-
-## O Que Acontece Automaticamente?
-
-Quando você executa `make dev`, o container:
-
-1. ✅ Instala dependências do sistema (curl, git, unzip, etc)
-2. ✅ Instala extensões PHP necessárias (zip, etc)
-3. ✅ Instala e ativa a extensão Swoole
-4. ✅ Instala o Composer
-5. ✅ Instala todas as dependências do projeto (`composer install`)
-6. ✅ Cria estrutura de diretórios (storage, bootstrap/cache)
-7. ✅ Define permissões corretas
-8. ✅ Gera arquivo facades.php
-9. ✅ Copia .env.example para .env
-10. ✅ Inicia o servidor Swoole na porta 9999
+**Access:** http://localhost:9999
 
 ---
 
-## Comandos Úteis
+## What Happens Automatically?
 
-### Via Makefile (Recomendado)
+When you run `make dev`, the container:
+
+1. ✅ Installs system dependencies (curl, git, unzip, etc)
+2. ✅ Installs required PHP extensions (zip, etc)
+3. ✅ Installs and activates Swoole extension
+4. ✅ Installs Composer
+5. ✅ Installs all project dependencies (`composer install`)
+6. ✅ Creates directory structure (storage, bootstrap/cache)
+7. ✅ Sets correct permissions
+8. ✅ Generates facades.php file
+9. ✅ Copies .env.example to .env
+10. ✅ Starts Swoole server on port 9999
+
+---
+
+## Useful Commands
+
+### Via Makefile (Recommended)
 
 ```bash
 # Iniciar ambiente de desenvolvimento
@@ -232,21 +232,21 @@ chmod -R 777 storage bootstrap/cache
 php public/index.php
 ```
 
-**Problemas:**
-- ❌ Swoole pode não funcionar no macOS/Windows
-- ❌ Conflitos com outras versões do PHP
-- ❌ Configuração varia por SO
-- ❌ ~10-15 minutos de setup manual
+**Problems:**
+- ❌ Swoole may not work on macOS/Windows
+- ❌ Conflicts with other PHP versions
+- ❌ Configuration varies by OS
+- ❌ ~10-15 minutes of manual setup
 
-### Com docker-compose.dev.yml (Novo)
+### With docker-compose.dev.yml (New)
 
 ```bash
-# 1. Iniciar (tudo automático)
+# 1. Start (everything automatic)
 make dev
 ```
 
-**Benefícios:**
-- ✅ Funciona em qualquer SO (Linux, macOS, Windows)
+**Benefits:**
+- ✅ Works on any OS (Linux, macOS, Windows)
 - ✅ Ambiente isolado e consistente
 - ✅ Sem conflitos com instalações locais
 - ✅ ~2-3 minutos de setup automático
@@ -271,9 +271,9 @@ make dev
 
 ### Para CI/CD
 
-1. Use `docker-compose.yml` (produção) no pipeline
-2. `docker-compose.dev.yml` é apenas para desenvolvimento local
-3. Testes podem rodar em qualquer dos dois ambientes
+1. Use `docker-compose.yml` (production) in the pipeline
+2. `docker-compose.dev.yml` is only for local development
+3. Tests can run in either environment
 
 ---
 
@@ -285,8 +285,8 @@ A: Não! O docker-compose.dev.yml instala tudo dentro do container.
 **Q: As mudanças no código são refletidas automaticamente?**  
 A: Sim! O código está montado via volume, mudanças são instantâneas.
 
-**Q: Posso usar meu IDE favorito?**  
-A: Sim! Edite os arquivos normalmente. O container apenas executa o código.
+**Q: Can I use my favorite IDE?**  
+A: Yes! Edit files normally. The container only executes the code.
 
 **Q: Como depurar o código?**  
 A: Configure Xdebug (instruções separadas) ou use `var_dump()` e veja nos logs.

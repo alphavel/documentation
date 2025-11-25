@@ -99,7 +99,7 @@ serve                  # Start Swoole server
 ide-helper             # Generate IDE helper
 ```
 
-**Limitação:** Comandos `make:*` são básicos, sem schema awareness.
+**Limitation:** `make:*` commands are basic, without schema awareness.
 
 ### Installation
 
@@ -279,10 +279,10 @@ php alpha serve       # Uses Alpha CLI's serve command (if implemented)
 
 ### Command Resolution
 
-Quando você executa `php alpha <command>`, o sistema:
+When you run `php alpha <command>`, the system:
 
-1. **Verifica Alpha CLI primeiro** (se instalado via `alphavel/alpha`)
-2. **Fallback para Core commands** (de `alphavel/alphavel`)
+1. **Checks Alpha CLI first** (if installed via `alphavel/alpha`)
+2. **Falls back to Core commands** (from `alphavel/alphavel`)
 
 **Exemplo:**
 
@@ -311,16 +311,16 @@ $router->raw('/plaintext', 'Hello, World!', 'text/plain');
 
 **Performance:** **520,000+ req/s**
 
-**Condições:**
-- Swoole Server otimizado
+**Conditions:**
+- Optimized Swoole Server
 - Raw route (zero overhead)
-- Response estático (sem lógica)
+- Static response (no logic)
 - Hardware: 12 cores, 32 GB RAM
 - Benchmark: `wrk -t12 -c400`
 
 ### Standard Routes (JSON API)
 
-**Contexto:** Aplicações reais com lógica de negócio
+**Context:** Real applications with business logic
 
 {% raw %}
 ```php
@@ -531,4 +531,4 @@ Use Core only para máxima performance. Use Core + Alpha para máxima produtivid
 
 ---
 
-\* *Números de performance variam conforme hardware, configuração e tipo de aplicação. Valores citados são benchmarks sob condições otimizadas.*
+\* *Performance numbers vary according to hardware, configuration, and application type. Cited values are benchmarks under optimized conditions.*

@@ -5,13 +5,13 @@ title: Modular Architecture
 
 # Modular Architecture
 
-Alphavel é **totalmente modular** por design, focando em performance máxima através da filosofia "instale apenas o que você precisa".
+Alphavel is **fully modular** by design, focusing on maximum performance through the "install only what you need" philosophy.
 
 ---
 
-## 🎯 Filosofia: Zero Bloat
+## 🎯 Philosophy: Zero Bloat
 
-Diferente de frameworks monolíticos, Alphavel tem um **core mínimo** (apenas 5 arquivos essenciais):
+Unlike monolithic frameworks, Alphavel has a **minimal core** (only 5 essential files):
 
 ```
 alphavel/
