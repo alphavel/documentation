@@ -9,14 +9,21 @@
 </head>
 <body>
   <header style="background: #2c3e50; color: white; padding: 20px 0; margin-bottom: 30px;">
-    <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; gap: 20px;">
-      <img src="https://github.com/alphavel/.github/raw/main/profile/logo.png" alt="Alphavel Logo" style="height: 50px; width: auto;">
-      <div>
-        <h1 style="margin: 0; font-size: 28px;">
-          <a href="{{ site.baseurl }}/" style="color: white; text-decoration: none;">⚡ Alphavel Documentation</a>
-        </h1>
-        <p style="margin: 10px 0 0 0; opacity: 0.9;">Ultra-fast PHP framework powered by Swoole - 520k+ req/s</p>
+    <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; justify-content: space-between;">
+      <div style="display: flex; align-items: center; gap: 20px;">
+        <img src="https://github.com/alphavel/.github/raw/main/profile/logo.png" alt="Alphavel Logo" style="height: 65px; width: auto;">
+        <div>
+          <h1 style="margin: 0; font-size: 28px;">
+            <a href="{{ site.baseurl }}/" style="color: white; text-decoration: none;">Alphavel Documentation</a>
+          </h1>
+          <p style="margin: 5px 0 0 0; opacity: 0.9; font-size: 14px;">Ultra-fast PHP framework powered by Swoole - 520k+ req/s</p>
+        </div>
       </div>
+      <nav style="display: flex; gap: 25px; align-items: center;">
+        <a href="https://github.com/alphavel/alphavel" style="color: white; text-decoration: none; font-size: 14px; opacity: 0.9; transition: opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.9'">GitHub</a>
+        <a href="https://packagist.org/packages/alphavel/" style="color: white; text-decoration: none; font-size: 14px; opacity: 0.9; transition: opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.9'">Packagist</a>
+        <a href="{{ site.baseurl }}/core/getting-started.html" style="background: #3498db; color: white; padding: 8px 20px; border-radius: 4px; text-decoration: none; font-size: 14px; font-weight: 500; transition: background 0.2s;" onmouseover="this.style.background='#2980b9'" onmouseout="this.style.background='#3498db'">Get Started</a>
+      </nav>
     </div>
   </header>
 
@@ -228,10 +235,26 @@
     }
     
     header p {
-      font-size: 14px !important;
+      font-size: 12px !important;
     }
     
-    div[style*="flex"] {
+    header > div {
+      flex-direction: column !important;
+      align-items: flex-start !important;
+      gap: 15px !important;
+    }
+    
+    header nav {
+      width: 100%;
+      justify-content: flex-start !important;
+      gap: 15px !important;
+    }
+    
+    header img {
+      height: 50px !important;
+    }
+    
+    div[style*="flex"]:not(header *) {
       flex-direction: column !important;
     }
     
