@@ -28,76 +28,74 @@
   </header>
 
   <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px 40px;">
-    <div style="display: flex; gap: 30px;">
+    <div style="display: flex; gap: 30px; align-items: flex-start;">
       <!-- Sidebar -->
-      <nav style="flex: 0 0 260px; position: sticky; top: 20px; height: fit-content;">
+      <aside style="flex: 0 0 260px; position: sticky; top: 20px; height: fit-content;">
         <div style="background: #f6f8fa; padding: 20px; border-radius: 6px; font-size: 14px;">
           <h3 style="margin-top: 0; margin-bottom: 15px; font-size: 16px;">📚 Documentation</h3>
-      
-      <details open>
-        <summary><strong>Getting Started</strong></summary>
-        <ul>
-          <li><a href="{{ site.baseurl }}/introduction/alphavel-ecosystem.html">Introduction</a></li>
-          <li><a href="{{ site.baseurl }}/core/getting-started.html">Getting Started</a></li>
-          <li><a href="{{ site.baseurl }}/introduction/modular-architecture.html">Architecture</a></li>
-          <li><a href="{{ site.baseurl }}/introduction/benchmarks.html">Benchmarks</a></li>
-        </ul>
-      </details>
-      
-      <details open>
-        <summary><strong>Core Concepts</strong></summary>
-        <ul>
-          <li><a href="{{ site.baseurl }}/core/routing.html">Routing</a></li>
-          <li><a href="{{ site.baseurl }}/core/controllers.html">Controllers</a></li>
-          <li><a href="{{ site.baseurl }}/core/autowiring.html">Dependency Injection</a></li>
-          <li><a href="{{ site.baseurl }}/core/facades-guide.html">Facades & Helpers</a></li>
-          <li><a href="{{ site.baseurl }}/core/cli-commands.html">CLI Commands</a></li>
-        </ul>
-      </details>
-      
-      <details>
-        <summary><strong>Performance</strong></summary>
-        <ul>
-          <li><a href="{{ site.baseurl }}/core/performance.html">Performance Guide</a></li>
-          <li><a href="{{ site.baseurl }}/core/performance-advanced.html">Advanced</a></li>
-          <li><a href="{{ site.baseurl }}/core/raw-routes.html">Raw Routes</a></li>
-        </ul>
-      </details>
-      
-      <details>
-        <summary><strong>Packages</strong></summary>
-        <ul>
-          <li><a href="{{ site.baseurl }}/packages/database/">Database</a></li>
-          <li><a href="{{ site.baseurl }}/packages/cache/">Cache</a></li>
-          <li><a href="{{ site.baseurl }}/packages/validation/">Validation</a></li>
-          <li><a href="{{ site.baseurl }}/packages/events/">Events</a></li>
-          <li><a href="{{ site.baseurl }}/packages/logging/">Logging</a></li>
-          <li><a href="{{ site.baseurl }}/packages/support/">Support</a></li>
-        </ul>
-      </details>
-      
-      <details>
-        <summary><strong>Deployment</strong></summary>
-        <ul>
-          <li><a href="{{ site.baseurl }}/deployment/production.html">Production</a></li>
-          <li><a href="{{ site.baseurl }}/deployment/local-development.html">Local Dev</a></li>
-          <li><a href="{{ site.baseurl }}/deployment/compatibility.html">Compatibility</a></li>
-          <li><a href="{{ site.baseurl }}/deployment/troubleshooting.html">Troubleshooting</a></li>
-        </ul>
-      </details>
-      
-      <details>
-        <summary><strong>Guides</strong></summary>
-        <ul>
-          <li><a href="{{ site.baseurl }}/guides/LARAVEL_MIGRATION_GUIDE.html">Laravel Migration</a></li>
-          <li><a href="{{ site.baseurl }}/guides/circuit-breaker-guide.html">Circuit Breaker</a></li>
-          <li><a href="{{ site.baseurl }}/guides/websocket-guide.html">WebSocket</a></li>
-        </ul>
-      </details>
-    </nav>
-    
+          
+          <details open>
+            <summary><strong>Getting Started</strong></summary>
+            <ul>
+              <li><a href="{{ site.baseurl }}/introduction/alphavel-ecosystem.html">Introduction</a></li>
+              <li><a href="{{ site.baseurl }}/core/getting-started.html">Getting Started</a></li>
+              <li><a href="{{ site.baseurl }}/introduction/modular-architecture.html">Architecture</a></li>
+              <li><a href="{{ site.baseurl }}/introduction/benchmarks.html">Benchmarks</a></li>
+            </ul>
+          </details>
+          
+          <details open>
+                <summary><strong>Core Concepts</strong></summary>
+            <ul>
+              <li><a href="{{ site.baseurl }}/core/routing.html">Routing</a></li>
+              <li><a href="{{ site.baseurl }}/core/controllers.html">Controllers</a></li>
+              <li><a href="{{ site.baseurl }}/core/autowiring.html">Dependency Injection</a></li>
+              <li><a href="{{ site.baseurl }}/core/facades-guide.html">Facades & Helpers</a></li>
+              <li><a href="{{ site.baseurl }}/core/cli-commands.html">CLI Commands</a></li>
+            </ul>
+          </details>
+          
+          <details>
+            <summary><strong>Performance</strong></summary>
+            <ul>
+              <li><a href="{{ site.baseurl }}/core/performance.html">Performance Guide</a></li>
+              <li><a href="{{ site.baseurl }}/core/performance-advanced.html">Advanced</a></li>
+              <li><a href="{{ site.baseurl }}/core/raw-routes.html">Raw Routes</a></li>
+            </ul>
+          </details>
+          
+          <details>
+            <summary><strong>Packages</strong></summary>
+            <ul>
+              <li><a href="{{ site.baseurl }}/packages/database/">Database</a></li>
+              <li><a href="{{ site.baseurl }}/packages/cache/">Cache</a></li>
+              <li><a href="{{ site.baseurl }}/packages/validation/">Validation</a></li>
+              <li><a href="{{ site.baseurl }}/packages/events/">Events</a></li>
+              <li><a href="{{ site.baseurl }}/packages/logging/">Logging</a></li>
+              <li><a href="{{ site.baseurl }}/packages/support/">Support</a></li>
+            </ul>
+          </details>
+          
+          <details>
+            <summary><strong>Deployment</strong></summary>
+            <ul>
+              <li><a href="{{ site.baseurl }}/deployment/production.html">Production</a></li>
+              <li><a href="{{ site.baseurl }}/deployment/local-development.html">Local Dev</a></li>
+              <li><a href="{{ site.baseurl }}/deployment/compatibility.html">Compatibility</a></li>
+              <li><a href="{{ site.baseurl }}/deployment/troubleshooting.html">Troubleshooting</a></li>
+            </ul>
+          </details>
+          
+          <details>
+            <summary><strong>Guides</strong></summary>
+            <ul>
+              <li><a href="{{ site.baseurl }}/guides/LARAVEL_MIGRATION_GUIDE.html">Laravel Migration</a></li>
+              <li><a href="{{ site.baseurl }}/guides/circuit-breaker-guide.html">Circuit Breaker</a></li>
+              <li><a href="{{ site.baseurl }}/guides/websocket-guide.html">WebSocket</a></li>
+            </ul>
+          </details>
         </div>
-      </nav>
+      </aside>
       
       <!-- Main content -->
       <main style="flex: 1; min-width: 0;">
@@ -120,49 +118,43 @@
   </div>
 
 <style>
-  nav {
-    background: #f6f8fa;
-    padding: 20px;
-    border-radius: 6px;
-    font-size: 14px;
-  }
-  
-  nav h3 {
+  /* Sidebar navigation styles */
+  aside h3 {
     margin-top: 0;
     margin-bottom: 15px;
     font-size: 16px;
   }
   
-  nav details {
+  aside details {
     margin-bottom: 10px;
   }
   
-  nav summary {
+  aside summary {
     cursor: pointer;
     padding: 8px 0;
     user-select: none;
   }
   
-  nav summary:hover {
+  aside summary:hover {
     color: #0366d6;
   }
   
-  nav ul {
+  aside ul {
     list-style: none;
     padding-left: 0;
     margin: 5px 0;
   }
   
-  nav ul li {
+  aside ul li {
     padding: 4px 0 4px 20px;
   }
   
-  nav ul li a {
+  aside ul li a {
     text-decoration: none;
     color: #24292e;
   }
   
-  nav ul li a:hover {
+  aside ul li a:hover {
     color: #0366d6;
     text-decoration: underline;
   }
@@ -259,10 +251,10 @@
       flex-direction: column !important;
     }
     
-    nav {
+    aside {
       position: static !important;
       margin-bottom: 20px;
-      flex: 1 !important;
+      flex: 1 1 100% !important;
     }
   }
 </style>
