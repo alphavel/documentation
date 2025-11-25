@@ -55,13 +55,13 @@ $router->patch('/users/{id}', function ($id) {
 Raw routes bypass the entire framework stack for maximum performance:
 
 ```php
-// Plain text (520k+ req/s)
+// Plain text (520k+ req/s) - Default content-type: text/plain
 $router->raw('/ping', 'pong');
 
-// JSON (45k+ req/s)
+// JSON (450k+ req/s) - Arrays are automatically JSON-encoded
 $router->raw('/health', ['status' => 'ok'], 'application/json');
 
-// Custom closure with Swoole access
+// Custom closure with direct Swoole access (no framework overhead)
 $router->raw('/metrics', function($request, $response) {
     $stats = swoole_get_server_stats();
     $response->header('Content-Type', 'text/plain');
@@ -69,7 +69,15 @@ $router->raw('/metrics', function($request, $response) {
 }, 'text/plain');
 ```
 
-**When to use**: Health checks, metrics, static responses
+**Signature:** `raw(string $path, string|array|Closure $handler, string $contentType = 'text/plain', string $method = 'GET')`
+
+**When to use:** 
+- ✅ Health checks (`/health`, `/ping`)
+- ✅ Metrics endpoints (`/metrics`, `/stats`)
+- ✅ Static responses (no processing needed)
+- ❌ Avoid for business logic (no Request/Response objects, no middleware)
+
+**Performance tip for beginners:** Use raw routes ONLY for monitoring endpoints. Regular routes are fast enough for APIs (6,000-10,000 req/s).
 
 [Learn more about Raw Routes →](raw-routes.html)
 
@@ -102,15 +110,18 @@ $router->get('/search/{query?}', function ($query = null) {
 ## Controller Routes
 
 ```php
-// Basic controller route
+// Basic controller route (string format: 'Controller@method')
 $router->get('/users', 'App\Controllers\UserController@index');
 $router->post('/users', 'App\Controllers\UserController@store');
 $router->get('/users/{id}', 'App\Controllers\UserController@show');
 $router->put('/users/{id}', 'App\Controllers\UserController@update');
 $router->delete('/users/{id}', 'App\Controllers\UserController@destroy');
 
-// RESTful resource (shorthand - coming soon)
-$router->resource('/users', 'App\Controllers\UserController');
+// Alternative: Array format [Controller::class, 'method']
+$router->get('/posts', [\App\Controllers\PostController::class, 'index']);
+
+// Use 'make:resource' CLI to generate Model + Controller + Route suggestions
+// php alpha make:resource Product
 ```
 
 ---

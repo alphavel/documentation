@@ -498,34 +498,123 @@ $orders = DB::connection('orders_db')
 
 ---
 
-## Models (Coming Soon)
+## Models (Active Record)
 
-Active Record pattern for database tables:
+Active Record pattern for database tables with automatic dirty tracking:
 
 ```php
+<?php
+
+namespace App\Models;
+
+use Alphavel\Database\Model;
+
 class User extends Model
 {
-    protected $table = 'users';
-    protected $fillable = ['name', 'email'];
+    protected static string $table = 'users';
+    protected static string $primaryKey = 'id';
 }
 
 // Usage
 $user = User::find(1);
 $user->name = 'New Name';
-$user->save();
+$user->save(); // Updates only dirty attributes
 
 $users = User::where('active', 1)->get();
 ```
 
 ---
 
-## Performance Tips
+## ⚡ Performance Guide for Beginners
 
-1. **Use Connection Pooling** - Already enabled by default
-2. **Use Prepared Statements** - Prevents SQL injection and improves performance
-3. **Limit Results** - Use `limit()` to avoid fetching too much data
-4. **Index Your Tables** - Create indexes on frequently queried columns
-5. **Release Connections** - Call `DB::release()` after long operations
+### When to Use Query Builder vs Model
+
+| Scenario | Use | Performance | Example |
+|----------|-----|-------------|---------|
+| **API endpoints** (read-only) | ✅ Query Builder | 6,700 req/s | `DB::table('users')->get()` |
+| **Bulk inserts** (100+ records) | ✅ Raw SQL | 10,000+ req/s | `DB::execute(INSERT ... VALUES)` |
+| **CRUD operations** (single record) | ✅ Model | 363 req/s | `User::find(1)->update()` |
+| **Complex queries** (joins, subqueries) | ✅ Raw SQL | 8,000+ req/s | `DB::query(SELECT ... JOIN)` |
+| **Reports/Analytics** | ✅ Query Builder | 6,000+ req/s | `DB::table()->whereIn()->get()` |
+
+### Real Performance Comparison
+
+```php
+// ❌ SLOWEST: Model with hydration (363 req/s)
+$users = User::all(); // Hydrates objects, tracks changes
+
+// ✅ FAST: Query Builder with arrays (6,700 req/s)
+$users = DB::table('users')->get(); // Returns plain arrays
+
+// ✅ FASTEST: Raw SQL (8,000+ req/s)
+$users = DB::query('SELECT * FROM users'); // Zero overhead
+```
+
+### Critical Performance Tips
+
+**1. Use Query Builder for APIs** (18x faster than Models)
+```php
+// ❌ BAD: Model hydration overhead
+Route::get('/api/users', function() {
+    return User::all(); // 363 req/s
+});
+
+// ✅ GOOD: Query Builder returns arrays
+Route::get('/api/users', function() {
+    return DB::table('users')->get(); // 6,700 req/s
+});
+```
+
+**2. Batch Queries for Multiple Records** (627% faster)
+```php
+// ❌ BAD: N queries in loop
+foreach ([1,2,3,4,5] as $id) {
+    $worlds[] = DB::table('World')->where('id', $id)->first(); // 312 req/s
+}
+
+// ✅ GOOD: Single query with IN clause
+$worlds = DB::findMany('World', [1,2,3,4,5]); // 2,269 req/s
+```
+
+**3. Use Models ONLY for CRUD** (when you need dirty tracking)
+```php
+// ✅ GOOD: Model with save() tracks dirty attributes
+$user = User::find(1);
+$user->name = 'New Name';
+$user->save(); // Updates only changed fields
+```
+
+**4. Release Connections After Fetching Data**
+```php
+// ❌ BAD: Holds connection during processing
+$users = DB::query('SELECT * FROM users');
+foreach ($users as $user) {
+    sleep(1); // Connection held for seconds!
+}
+
+// ✅ GOOD: Release immediately after fetch
+$users = DB::query('SELECT * FROM users');
+DB::release(); // Connection back to pool
+foreach ($users as $user) {
+    sleep(1); // No connection held
+}
+```
+
+**5. Statement Cache is Automatic** (no configuration needed!)
+```php
+// v1.3.3+: Statement cache enabled globally
+// Same query structure = reused prepared statement
+$users = DB::table('users')->where('age', '>', $minAge)->get(); // 6,700 req/s
+// No DB::prepare() needed - automatic!
+```
+
+### Memory vs Performance Trade-offs
+
+- **Query Builder**: Low memory, high speed (6,700 req/s)
+- **Models**: High memory (object overhead), slower (363 req/s)
+- **Raw SQL**: Lowest memory, highest speed (8,000+ req/s)
+
+**Rule of thumb for beginners:** Use Query Builder for everything except single-record CRUD (use Models there).
 
 ---
 

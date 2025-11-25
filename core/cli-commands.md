@@ -29,7 +29,7 @@ alpha [command] [options]
 - `package:add` - Install and configure packages
 - `package:discover` - Discover installed packages
 
-**Optional Package Wizards (New in v1.0):**
+**Optional Package Wizards:**
 - `make:auth` - JWT authentication setup (alphavel/auth)
 - `make:queue` - Async job queue configuration (alphavel/queue)
 - `make:mail` - Email/SMTP configuration (alphavel/mail)
@@ -38,6 +38,11 @@ alpha [command] [options]
 - `make:translation` - i18n configuration (alphavel/i18n)
 - `make:test` - Testing utilities (alphavel/testing)
 - `make:relationship` - ORM relationships (alphavel/orm)
+- `make:rate-limit` - Rate limiting configuration (alphavel/rate-limit)
+
+**Advanced Commands:**
+- `make:resource` - Generate Model + Controller + Routes (all-in-one)
+- `inspect:schema` - Analyze database schema and show structure
 
 **Performance:**
 - `route:cache` - Compile routes for production
@@ -2132,7 +2137,7 @@ Add relationships to models.
 **Usage:**
 
 ```bash
-php php alpha make:relationship
+php alpha make:relationship
 ```
 
 **Relationships:**
@@ -2149,6 +2154,331 @@ php php alpha make:relationship
 - ✅ N+1 prevention tips
 
 **Performance:** < 1ms query with eager loading
+
+---
+
+### `make:rate-limit` - Rate Limiting Configuration
+
+Interactive wizard for configuring rate limiting on routes (requires `alphavel/rate-limit` package).
+
+**Usage:**
+
+```bash
+php alpha make:rate-limit
+```
+
+**What it does:**
+
+1. **Auto-detects** if `alphavel/rate-limit` is installed
+2. **Offers installation** via composer if not present
+3. **Configuration wizard** with 3 options:
+   - Configure global settings (.env)
+   - Add rate limiting to specific routes
+   - Show usage examples
+
+**Example: Global Configuration**
+
+```bash
+$ php alpha make:rate-limit
+
+⚠️  Rate limiting package is not installed.
+Install alphavel/rate-limit now? (yes/no) [yes]: yes
+
+✓ Package installed successfully!
+
+📋 Rate Limiting Configuration Wizard
+
+What would you like to do?
+  [configure] Configure global settings (.env)
+  [route    ] Add rate limiting to routes
+  [example  ] Show usage examples
+> configure
+
+Max entries in Swoole Table [100000]: 100000
+Default rate limit (requests per window) [1000]: 1000
+Default time window (seconds) [60]: 60
+
+Add these to your .env file:
+
+RATE_LIMIT_MAX_ENTRIES=100000
+RATE_LIMIT_DEFAULT_LIMIT=1000
+RATE_LIMIT_DEFAULT_WINDOW=60
+
+✓ Configuration ready!
+```
+
+**Example: Route Configuration**
+
+```bash
+$ php alpha make:rate-limit
+
+What would you like to do?
+> route
+
+Which route file?
+  [routes/api.php]
+  [routes/web.php]
+> routes/api.php
+
+Rate limiting level:
+  [ip      ] IP-based (recommended for public APIs)
+  [user    ] User-based (for authenticated users)
+  [api_key ] API Key-based
+  [endpoint] Endpoint-based (IP + route)
+  [session ] Session-based
+> ip
+
+Maximum requests [100]: 100
+Time window (seconds) [60]: 60
+
+Add this middleware to your routes:
+
+->middleware('rate_limit:100,60,ip')
+
+Example:
+
+$router->post('/api/data', [ApiController::class, 'store'])
+    ->middleware('rate_limit:100,60,ip');
+```
+
+**Generated Examples:**
+
+The command provides 6 ready-to-use examples:
+
+1. Basic IP-based (100 req/min)
+2. User-based for authenticated users (50 req/min)
+3. API Key-based (1000 req/min)
+4. Strict endpoint limiting (5 req/min for heavy operations)
+5. Login protection (5 attempts per 5 minutes)
+6. Group middleware (apply to all routes)
+
+**CLI Commands Available After Setup:**
+
+```bash
+php alpha rate-limit:stats          # Show statistics
+php alpha rate-limit:list           # List active limits
+php alpha rate-limit:list --blocked # List blocked IPs
+php alpha rate-limit:reset <key>    # Reset specific key
+php alpha rate-limit:block <key>    # Block key manually
+```
+
+**Performance:** 0 overhead until package is actually used
+
+---
+
+### `make:resource` - Generate Full Resource (Model + Controller + Routes)
+
+All-in-one command to generate Model, Controller, and route suggestions for a RESTful resource.
+
+**Usage:**
+
+```bash
+php alpha make:resource Product
+```
+
+**What it does:**
+
+1. Creates **Model** (`app/Models/Product.php`) with table
+2. Creates **Controller** (`app/Controllers/ProductController.php`) with CRUD methods
+3. Suggests **RESTful routes** to add to `routes/api.php`
+
+**Example:**
+
+```bash
+$ php alpha make:resource Product
+
+Generating resource: Product
+
+Creating Model...
+✓ Model created: app/Models/Product.php
+
+Creating Controller...
+✓ Controller created: app/Controllers/ProductController.php
+
+✓ Resource generated successfully!
+
+Add these routes to routes/api.php:
+
+// Product Resource
+$router->get('/products', 'ProductController@index');
+$router->get('/products/{id}', 'ProductController@show');
+$router->post('/products', 'ProductController@store');
+$router->put('/products/{id}', 'ProductController@update');
+$router->delete('/products/{id}', 'ProductController@destroy');
+```
+
+**Generated Files:**
+
+**Model** (`app/Models/Product.php`):
+```php
+<?php
+
+namespace App\Models;
+
+use Alphavel\Database\Model;
+
+class Product extends Model
+{
+    protected static string $table = 'products';
+    protected static string $primaryKey = 'id';
+}
+```
+
+**Controller** (`app/Controllers/ProductController.php`):
+```php
+<?php
+
+namespace App\Controllers;
+
+use Alphavel\Framework\Controller;
+use App\Models\Product;
+
+class ProductController extends Controller
+{
+    public function index()
+    {
+        $products = Product::all();
+        return $this->success($products);
+    }
+    
+    public function show($id)
+    {
+        $product = Product::find($id);
+        return $this->success($product);
+    }
+    
+    public function store(Request $request)
+    {
+        $product = Product::create($request->all());
+        return $this->success($product, 201);
+    }
+    
+    public function update($id, Request $request)
+    {
+        $product = Product::find($id);
+        $product->update($request->all());
+        return $this->success($product);
+    }
+    
+    public function destroy($id)
+    {
+        $product = Product::find($id);
+        $product->delete();
+        return $this->success(null, 204);
+    }
+}
+```
+
+**Time saved:** ~5 minutes per resource
+
+**Use case for beginners:** Start new CRUD features quickly with proper structure
+
+---
+
+### `inspect:schema` - Database Schema Inspector
+
+Analyze database schema and show table structure with columns, indexes, foreign keys, and relationships.
+
+**Usage:**
+
+```bash
+# Interactive mode (select table from list)
+php alpha inspect:schema
+
+# Direct table inspection
+php alpha inspect:schema users
+
+# List all tables
+php alpha inspect:schema --list
+
+# Include validation rules
+php alpha inspect:schema users --validation
+
+# Include relationships
+php alpha inspect:schema users --relationships
+```
+
+**Example: Basic Inspection**
+
+```bash
+$ php alpha inspect:schema users
+
+Inspecting table: users
+
+Columns:
+┌──────────────┬──────────────┬──────────┬─────────┬───────────────┐
+│ Name         │ Type         │ Nullable │ Default │ Extra         │
+├──────────────┼──────────────┼──────────┼─────────┼───────────────┤
+│ id           │ int(11)      │ No       │ NULL    │ auto_increment│
+│ name         │ varchar(255) │ No       │ NULL    │ -             │
+│ email        │ varchar(255) │ No       │ NULL    │ -             │
+│ password     │ varchar(255) │ No       │ NULL    │ -             │
+│ created_at   │ timestamp    │ Yes      │ NULL    │ -             │
+│ updated_at   │ timestamp    │ Yes      │ NULL    │ -             │
+└──────────────┴──────────────┴──────────┴─────────┴───────────────┘
+
+Primary Key: id
+
+Indexes:
+┌─────────────────┬──────────┬────────┬───────┐
+│ Name            │ Columns  │ Unique │ Type  │
+├─────────────────┼──────────┼────────┼───────┤
+│ users_email_unq │ email    │ Yes    │ BTREE │
+└─────────────────┴──────────┴────────┴───────┘
+```
+
+**Example: With Validation Rules**
+
+```bash
+$ php alpha inspect:schema users --validation
+
+Validation Rules (Create):
+  name: required|string|max:255
+  email: required|email|unique:users,email|max:255
+  password: required|string|min:8|max:255
+  created_at: date
+  updated_at: date
+
+Validation Rules (Update):
+  name: string|max:255
+  email: email|unique:users,email,{id}|max:255
+  password: string|min:8|max:255
+  created_at: date
+  updated_at: date
+```
+
+**Example: With Relationships**
+
+```bash
+$ php alpha inspect:schema posts --relationships
+
+Relationships:
+
+BelongsTo:
+  user() -> User
+
+HasMany:
+  comments() -> Comment[]
+  tags() -> Tag[]
+```
+
+**Features:**
+
+- ✅ **Column details**: Type, nullable, default, auto_increment
+- ✅ **Primary keys**: Single or composite keys
+- ✅ **Foreign keys**: References, ON UPDATE, ON DELETE actions
+- ✅ **Indexes**: Unique, composite, type (BTREE, HASH)
+- ✅ **Validation generator**: Auto-generate validation rules from schema
+- ✅ **Relationship detector**: Auto-detect hasMany, belongsTo, hasOne
+
+**Use cases:**
+
+- **Beginners**: Understand existing database structure
+- **Debugging**: Check foreign keys and indexes
+- **Documentation**: Generate validation rules from schema
+- **ORM setup**: Detect relationships automatically
+
+**Performance:** < 100ms (database metadata queries)
 
 ---
 

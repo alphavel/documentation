@@ -139,31 +139,55 @@ use Alphavel\Framework\Response;
 
 class UserController extends Controller
 {
+    // Method signature: index(Request $request = null)
+    // Request is auto-injected by container
     public function index()
     {
-        return Response::make()->json([
+        // Helper methods from Controller base class
+        return $this->success([
             'users' => [
                 ['id' => 1, 'name' => 'John'],
                 ['id' => 2, 'name' => 'Jane']
             ]
         ]);
+        
+        // Equivalent to:
+        // return Response::success(['users' => ...], 200);
     }
 
-    public function show(int $id)
+    // Route parameters come AFTER Request (if present)
+    public function show($id)
     {
-        return Response::make()->json([
+        return $this->success([
             'user' => ['id' => $id, 'name' => "User {$id}"]
         ]);
     }
 
+    // Request is auto-injected first, then route parameters
     public function store(Request $request)
     {
+        // Get all input (POST + GET merged)
         $data = $request->all();
         
-        return Response::make()->json([
+        // Get specific fields only
+        $userData = $request->only(['name', 'email']);
+        
+        // Get with default value
+        $name = $request->input('name', 'Guest');
+        
+        // Check if field exists and is not empty
+        if ($request->filled('email')) {
+            // email exists and has value
+        }
+        
+        // Return success with 201 status
+        return $this->success([
             'message' => 'User created',
             'user' => $data
         ], 201);
+        
+        // Or return error
+        // return $this->error('Validation failed', 400, ['email' => 'Invalid']);
     }
 }
 ```
@@ -178,25 +202,160 @@ $router->post('/users', 'App\Controllers\UserController@store');
 
 ---
 
+## Working with Request & Response
+
+### Request Methods (Complete API)
+
+```php
+use Alphavel\Framework\Request;
+
+public function example(Request $request)
+{
+    // === Getting Input ===
+    
+    // Get single input (POST or GET, POST takes priority)
+    $name = $request->input('name', 'default');
+    
+    // Get all input (POST + GET merged)
+    $all = $request->all();
+    
+    // Get only specific fields
+    $data = $request->only(['name', 'email']);
+    
+    // Get all except specific fields
+    $data = $request->except(['password', 'token']);
+    
+    // Check if field exists (even if empty)
+    if ($request->has('email')) { }
+    
+    // Check if field exists AND has value (not empty)
+    if ($request->filled('email')) { }
+    
+    // === Query Parameters (GET) ===
+    
+    // Get query parameter only (ignores POST)
+    $page = $request->query('page', 1);
+    
+    // === Headers ===
+    
+    // Get header (case-insensitive, auto-converts _ to -)
+    $contentType = $request->header('content-type');
+    $auth = $request->header('authorization');
+    
+    // Get Bearer token from Authorization header
+    $token = $request->bearerToken(); // Returns null if not present
+    
+    // === JSON Handling ===
+    
+    // Check if request is JSON
+    if ($request->isJson()) {
+        // Get all JSON data as array
+        $data = $request->json();
+        
+        // Get specific JSON field (supports dot notation)
+        $email = $request->json('user.email', 'default');
+    }
+    
+    // === HTTP Method Checks ===
+    
+    if ($request->isPost()) { }
+    if ($request->isGet()) { }
+    if ($request->isPut()) { }
+    if ($request->isDelete()) { }
+    
+    // Get method name
+    $method = $request->getMethod(); // 'GET', 'POST', etc.
+    
+    // Get URI
+    $uri = $request->getUri(); // '/api/users'
+    
+    return $this->success(['received' => $data]);
+}
+```
+
+### Response Methods (Complete API)
+
+```php
+use Alphavel\Framework\Response;
+
+// === Helper Methods in Controller ===
+
+// Success response (status 200)
+return $this->success(['data' => $value]);
+
+// Success with custom status
+return $this->success(['data' => $value], 201);
+
+// Error response
+return $this->error('Something went wrong', 400);
+
+// Error with validation errors
+return $this->error('Validation failed', 422, [
+    'email' => 'Email is required',
+    'name' => 'Name must be at least 3 characters'
+]);
+
+// === Response Factory Methods ===
+
+// JSON response
+return Response::make()->json(['key' => 'value'], 200);
+
+// Success helper (includes 'status' field)
+return Response::success(['user' => $user], 200);
+// Output: {"status":"success","data":{"user":{...}}}
+
+// Error helper (includes 'status' and 'message')
+return Response::error('Not found', 404);
+// Output: {"status":"error","message":"Not found"}
+
+// Plain text
+return Response::make()
+    ->content('Hello World')
+    ->status(200);
+
+// Redirect
+return Response::make()->redirect('/login', 302);
+
+// Custom headers
+return Response::make()
+    ->json(['data' => 'value'])
+    ->header('X-Custom-Header', 'value')
+    ->status(200);
+```
+
+**⚡ Performance Tip for Beginners:**
+
+- `Response::success()` and `Response::error()` add extra fields (`status`, `message`)
+- For maximum performance, use `Response::make()->json()` directly
+- Difference: ~0.01ms (negligible for most apps)
+
+---
+
 ## Adding Packages
 
 Alphavel uses a modular package system. Add only what you need:
 
 ```bash
-# Database (MySQL/PostgreSQL with connection pooling)
-alpha package:add database
+# Database (MySQL/PostgreSQL with Swoole connection pooling)
+composer require alphavel/database
 
-# Cache (Redis/Memcached)
-alpha package:add cache
+# Cache (Swoole\Table in-memory, no Redis needed)
+composer require alphavel/cache
 
-# Logging (Monolog)
-alpha package:add logging
+# Logging (file-based with rotation)
+composer require alphavel/logging
 
-# Events
-alpha package:add events
+# Events (async event dispatcher)
+composer require alphavel/events
 
-# Validation
-alpha package:add validation
+# Validation (Laravel-style rules)
+composer require alphavel/validation
+```
+
+Or use the interactive wizard:
+
+```bash
+php alpha package:add database
 ```
 
 After adding, packages are auto-discovered and ready to use!
@@ -205,35 +364,99 @@ After adding, packages are auto-discovered and ready to use!
 
 ## Using Database
 
-After `alpha package:add database`:
+After `composer require alphavel/database`:
+
+**1. Configure `.env`:**
+
+```env
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=myapp
+DB_USERNAME=root
+DB_PASSWORD=secret
+
+# Connection Pool (optional, defaults shown)
+DB_POOL_MIN=1
+DB_POOL_MAX=10
+DB_POOL_TIMEOUT=3.0
+```
+
+**2. Use in your controller:**
 
 ```php
 <?php
 
 use Alphavel\Database\DB;
+use Alphavel\Framework\Controller;
 
-// Configure in .env
-DB_HOST=mysql
-DB_DATABASE=myapp
-DB_USERNAME=root
-DB_PASSWORD=secret
-
-// Use in your controller
-public function index()
+class UserController extends Controller
 {
-    $users = DB::query('SELECT * FROM users WHERE active = ?', [1]);
+    // Query Builder (6,700 req/s) - RECOMMENDED for APIs
+    public function index()
+    {
+        $users = DB::table('users')
+            ->where('active', 1)
+            ->orderBy('created_at', 'DESC')
+            ->get();
+        
+        return $this->success(['users' => $users]);
+    }
     
-    return Response::make()->json(['users' => $users]);
-}
-
-// Query Builder
-$user = DB::table('users')
-    ->where('email', 'john@example.com')
-    ->first();
-
-// Transaction
-DB::transaction(function () {
-    DB::execute('INSERT INTO users (name) VALUES (?)', ['John']);
+    // Find by ID
+    public function show($id)
+    {
+        $user = DB::table('users')
+            ->where('id', $id)
+            ->first();
+        
+        if (!$user) {
+            return $this->error('User not found', 404);
+        }
+        
+        return $this->success(['user' => $user]);
+    }
+    
+    // Raw SQL (8,000+ req/s) - For complex queries
+    public function search(Request $request)
+    {
+        $term = $request->input('q', '');
+        
+        $users = DB::query(
+            'SELECT * FROM users WHERE name LIKE ? OR email LIKE ? LIMIT 20',
+            ["%{$term}%", "%{$term}%"]
+        );
+        
+        return $this->success(['users' => $users]);
+    }
+    
+    // Transactions (ACID compliant)
+    public function transfer(Request $request)
+    {
+        $fromId = $request->input('from');
+        $toId = $request->input('to');
+        $amount = $request->input('amount');
+        
+        try {
+            DB::transaction(function () use ($fromId, $toId, $amount) {
+                // Deduct from sender
+                DB::execute(
+                    'UPDATE accounts SET balance = balance - ? WHERE id = ?',
+                    [$amount, $fromId]
+                );
+                
+                // Add to receiver
+                DB::execute(
+                    'UPDATE accounts SET balance = balance + ? WHERE id = ?',
+                    [$amount, $toId]
+                );
+            });
+            
+            return $this->success(['message' => 'Transfer successful']);
+            
+        } catch (\Exception $e) {
+            return $this->error('Transfer failed: ' . $e->getMessage(), 400);
+        }
+    }
     DB::execute('INSERT INTO logs (action) VALUES (?)', ['user_created']);
 });
 ```
