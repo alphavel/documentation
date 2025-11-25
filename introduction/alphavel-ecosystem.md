@@ -39,9 +39,9 @@ O ecossistema Alphavel consiste em **dois projetos complementares** que trabalha
 
 ## 📦 1. Alphavel Core (Framework)
 
-**Repositório:** `alphavel/alphavel`  
+**Repository:** `alphavel/alphavel`  
 **Namespace:** `Alphavel\Framework\`  
-**Propósito:** Runtime framework para aplicações de alta performance
+**Purpose:** Runtime framework for high-performance applications
 
 ### Características
 
@@ -111,9 +111,9 @@ composer require alphavel/alphavel
 
 ## 🛠️ 2. Alpha CLI Tool (Code Generator)
 
-**Repositório:** `alphavel/alpha`  
+**Repository:** `alphavel/alpha`  
 **Namespace:** `Alphavel\Alpha\`  
-**Propósito:** Ferramenta inteligente de geração de código
+**Purpose:** Intelligent code generation tool
 
 ### Características
 
@@ -524,10 +524,10 @@ php alpha inspect:schema users
 ## 💡 Key Takeaway
 
 > **Alphavel Core** é o engine de performance.  
-> **Alpha CLI** é o turbo para produtividade.  
-> Juntos, entregam **velocidade de execução + velocidade de desenvolvimento**.
+> **Alpha CLI** is the productivity turbo.  
+> Together, they deliver **execution speed + development speed**.
 
-Use Core only para máxima performance. Use Core + Alpha para máxima produtividade. A escolha é sua! 🚀
+Use Core only for maximum performance. Use Core + Alpha for maximum productivity. The choice is yours! 🚀
 
 ---
 
