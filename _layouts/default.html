@@ -487,17 +487,27 @@
                .replace(/</g, '&lt;')
                .replace(/>/g, '&gt;');
     
-    // Multi-line comments (must come before single-line)
-    code = code.replace(/(\/\*[\s\S]*?\*\/)/g, '<span style="color: #6a9955; font-style: italic;">$1</span>');
+    // Store strings temporarily
+    const strings = [];
+    code = code.replace(/"([^"\\]|\\.)*"/g, function(match) {
+      strings.push(match);
+      return '___STRING' + (strings.length - 1) + '___';
+    });
+    code = code.replace(/'([^'\\]|\\.)*'/g, function(match) {
+      strings.push(match);
+      return '___STRING' + (strings.length - 1) + '___';
+    });
     
-    // Single-line comments (// and #)
-    code = code.replace(/(\/\/.*$|#[^!].*$)/gm, '<span style="color: #6a9955; font-style: italic;">$1</span>');
-    
-    // Double-quoted strings
-    code = code.replace(/"([^"\\]|\\.)*"/g, '<span style="color: #ce9178">$&</span>');
-    
-    // Single-quoted strings
-    code = code.replace(/'([^'\\]|\\.)*'/g, '<span style="color: #ce9178">$&</span>');
+    // Store comments temporarily
+    const comments = [];
+    code = code.replace(/(\/\*[\s\S]*?\*\/)/g, function(match) {
+      comments.push(match);
+      return '___COMMENT' + (comments.length - 1) + '___';
+    });
+    code = code.replace(/(\/\/.*$|#[^!].*$)/gm, function(match) {
+      comments.push(match);
+      return '___COMMENT' + (comments.length - 1) + '___';
+    });
     
     // PHP/SQL/JS keywords
     code = code.replace(/\b(class|public|protected|private|static|function|return|if|else|elseif|foreach|while|for|do|new|extends|implements|namespace|use|const|var|let|try|catch|throw|finally|abstract|interface|trait|as|array|echo|print|exit|die|require|include|require_once|include_once|isset|empty|unset|clone|instanceof|yield|async|await|case|switch|default|break|continue|goto)\b/g, '<span style="color: #c586c0">$1</span>');
@@ -528,6 +538,16 @@
     
     // Operators and punctuation
     code = code.replace(/(=&gt;|==|!=|&lt;=|&gt;=|&lt;&lt;|&gt;&gt;|\+\+|--|&amp;&amp;|\|\|)/g, '<span style="color: #d4d4d4">$1</span>');
+    
+    // Restore strings with color
+    code = code.replace(/___STRING(\d+)___/g, function(match, index) {
+      return '<span style="color: #ce9178">' + strings[index] + '</span>';
+    });
+    
+    // Restore comments with color
+    code = code.replace(/___COMMENT(\d+)___/g, function(match, index) {
+      return '<span style="color: #6a9955; font-style: italic;">' + comments[index] + '</span>';
+    });
     
     return code;
   }
