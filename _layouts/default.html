@@ -480,7 +480,9 @@
 </style>
 
 <script>
-  // Simple syntax highlighting for code blocks (VS Code Dark+ colors)
+  // Syntax highlighting v2.0 - VS Code Dark+ theme
+  console.log('Syntax highlighting script loaded');
+  
   function highlightCode(code) {
     // Escape HTML entities (but keep quotes for now)
     code = code.replace(/&/g, '&amp;')
@@ -554,17 +556,22 @@
 
   // Add copy functionality to code blocks
   document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM loaded, applying syntax highlighting...');
     const codeBlocks = document.querySelectorAll('article pre');
+    console.log('Found ' + codeBlocks.length + ' code blocks');
     
-    codeBlocks.forEach(function(block) {
+    codeBlocks.forEach(function(block, index) {
       const codeElement = block.querySelector('code');
       if (codeElement) {
         // Get plain text (removes any existing HTML highlighting)
         const originalText = codeElement.textContent;
+        console.log('Highlighting block ' + index + ': ' + originalText.substring(0, 50) + '...');
         
         // Clear existing content and apply our highlighting
         codeElement.innerHTML = '';
-        codeElement.innerHTML = highlightCode(originalText);
+        const highlighted = highlightCode(originalText);
+        codeElement.innerHTML = highlighted;
+        console.log('Applied highlighting to block ' + index);
         
         // Store original text for copying
         block.setAttribute('data-original-text', originalText);
