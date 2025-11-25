@@ -177,47 +177,64 @@
     margin-bottom: 12px;
   }
   
+  /* Inline code (subtle dark theme for readability) */
   article code {
-    background: #f6f8fa;
-    padding: 3px 6px;
-    border-radius: 3px;
+    background: #2d2d2d;
+    color: #e3e3e3;
+    padding: 2px 7px;
+    border-radius: 4px;
     font-size: 90%;
-    font-family: 'Courier New', Courier, monospace;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    border: 1px solid #404040;
+    font-weight: 500;
   }
   
+  /* Code blocks (VS Code Dark+ theme) */
   article pre {
     position: relative;
     background: #1e1e1e;
     color: #d4d4d4;
     padding: 20px;
-    border-radius: 8px;
+    padding-top: 16px;
+    border-radius: 6px;
     overflow-x: auto;
     margin: 20px 0;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    border: 1px solid #2d2d2d;
+    font-size: 14px;
+    line-height: 1.6;
   }
   
   article pre::before {
     content: '$ terminal';
     display: block;
-    color: #6a9955;
-    font-size: 12px;
-    margin-bottom: 10px;
+    color: #858585;
+    font-size: 10px;
+    margin-bottom: 14px;
+    margin-top: 2px;
     opacity: 0.7;
-    font-family: 'Courier New', Courier, monospace;
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-weight: 500;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    border-bottom: 1px solid #2d2d2d;
+    padding-bottom: 8px;
   }
   
   article pre code {
     background: none;
     padding: 0;
     color: #d4d4d4;
-    font-family: 'Courier New', Courier, monospace;
+    border: none;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
     font-size: 14px;
-    line-height: 1.6;
+    line-height: 1.7;
   }
   
-  /* Syntax highlighting colors */
+  /* VS Code Dark+ Syntax Highlighting */
   article pre code .comment {
     color: #6a9955;
+    font-style: italic;
   }
   
   article pre code .keyword {
@@ -234,6 +251,22 @@
   
   article pre code .variable {
     color: #9cdcfe;
+  }
+  
+  article pre code .number {
+    color: #b5cea8;
+  }
+  
+  article pre code .operator {
+    color: #d4d4d4;
+  }
+  
+  article pre code .class {
+    color: #4ec9b0;
+  }
+  
+  article pre code .constant {
+    color: #4fc1ff;
   }
   
   article table {
@@ -300,11 +333,64 @@
 </style>
 
 <script>
+  // Simple syntax highlighting for code blocks (VS Code Dark+ colors)
+  function highlightCode(code) {
+    // Escape HTML to prevent double-encoding
+    const tempDiv = document.createElement('div');
+    tempDiv.textContent = code;
+    code = tempDiv.innerHTML;
+    
+    // Multi-line comments (must come before single-line)
+    code = code.replace(/(\/\*[\s\S]*?\*\/)/g, '<span style="color: #6a9955; font-style: italic;">$1</span>');
+    
+    // Single-line comments (// and #)
+    code = code.replace(/(\/\/.*$|#[^!].*$)/gm, '<span style="color: #6a9955; font-style: italic;">$1</span>');
+    
+    // Strings (must come before other replacements to avoid conflicts)
+    code = code.replace(/(&quot;(?:[^&quot;\\]|\\.)*&quot;|'(?:[^'\\]|\\.)*')/g, '<span style="color: #ce9178">$1</span>');
+    
+    // PHP/SQL/JS keywords
+    code = code.replace(/\b(class|public|protected|private|static|function|return|if|else|elseif|foreach|while|for|do|new|extends|implements|namespace|use|const|var|let|try|catch|throw|finally|abstract|interface|trait|as|array|echo|print|exit|die|require|include|require_once|include_once|isset|empty|unset|clone|instanceof|yield|async|await|case|switch|default|break|continue|goto)\b/g, '<span style="color: #c586c0">$1</span>');
+    
+    // SQL keywords
+    code = code.replace(/\b(SELECT|FROM|WHERE|JOIN|LEFT|RIGHT|INNER|OUTER|CROSS|ON|AND|OR|NOT|ORDER BY|GROUP BY|HAVING|LIMIT|OFFSET|INSERT|INTO|VALUES|UPDATE|SET|DELETE|CREATE|TABLE|ALTER|DROP|INDEX|PRIMARY|KEY|FOREIGN|REFERENCES|COUNT|SUM|AVG|MAX|MIN|AS|DESC|ASC|DISTINCT|UNION|ALL|EXISTS|IN|BETWEEN|LIKE|IS|NULL)\b/g, '<span style="color: #569cd6">$1</span>');
+    
+    // PHP/JS types and constants
+    code = code.replace(/\b(string|int|bool|boolean|float|double|array|object|resource|mixed|void|null|true|false|TRUE|FALSE|NULL|self|parent|static|this|Number|String|Boolean|Object|Array|Function|Symbol|undefined)\b/g, '<span style="color: #4ec9b0">$1</span>');
+    
+    // Numbers
+    code = code.replace(/\b(\d+\.?\d*)\b/g, '<span style="color: #b5cea8">$1</span>');
+    
+    // PHP variables
+    code = code.replace(/(\$[a-zA-Z_]\w*)/g, '<span style="color: #9cdcfe">$1</span>');
+    
+    // Functions/methods (word followed by opening parenthesis)
+    code = code.replace(/\b([a-zA-Z_]\w*)\s*(?=\()/g, '<span style="color: #dcdcaa">$1</span>');
+    
+    // Class names (PascalCase words not after -> or ::)
+    code = code.replace(/(?<!-&gt;|::)\b([A-Z][a-zA-Z0-9_]*)\b/g, '<span style="color: #4ec9b0">$1</span>');
+    
+    // Constants (UPPER_CASE words)
+    code = code.replace(/\b([A-Z_][A-Z0-9_]{2,})\b/g, '<span style="color: #4fc1ff">$1</span>');
+    
+    return code;
+  }
+
   // Add copy functionality to code blocks
   document.addEventListener('DOMContentLoaded', function() {
     const codeBlocks = document.querySelectorAll('article pre');
     
     codeBlocks.forEach(function(block) {
+      const codeElement = block.querySelector('code');
+      if (codeElement) {
+        // Apply syntax highlighting
+        const originalText = codeElement.textContent;
+        codeElement.innerHTML = highlightCode(codeElement.innerHTML);
+        
+        // Store original text for copying
+        block.setAttribute('data-original-text', originalText);
+      }
+      
       // Create copy button
       const copyBtn = document.createElement('button');
       copyBtn.className = 'copy-btn';
@@ -313,7 +399,7 @@
         position: absolute;
         top: 10px;
         right: 10px;
-        background: #3498db;
+        background: #0066cc;
         color: white;
         border: none;
         padding: 6px 12px;
@@ -321,8 +407,10 @@
         font-size: 12px;
         cursor: pointer;
         font-family: system-ui, -apple-system, sans-serif;
-        transition: background 0.2s;
+        transition: all 0.2s;
         display: none;
+        z-index: 10;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
       `;
       
       block.style.position = 'relative';
@@ -340,20 +428,23 @@
       // Copy functionality
       copyBtn.addEventListener('click', function(e) {
         e.preventDefault();
-        const code = block.querySelector('code');
-        const text = code.textContent;
+        const text = block.getAttribute('data-original-text') || block.querySelector('code').textContent;
         
         navigator.clipboard.writeText(text).then(function() {
           copyBtn.innerHTML = '✓ Copied!';
-          copyBtn.style.background = '#27ae60';
+          copyBtn.style.background = '#28a745';
           
           setTimeout(function() {
             copyBtn.innerHTML = '📋 Copy';
-            copyBtn.style.background = '#3498db';
+            copyBtn.style.background = '#0066cc';
           }, 2000);
         }).catch(function() {
           copyBtn.innerHTML = '✗ Failed';
-          copyBtn.style.background = '#e74c3c';
+          copyBtn.style.background = '#dc3545';
+          setTimeout(function() {
+            copyBtn.innerHTML = '📋 Copy';
+            copyBtn.style.background = '#0066cc';
+          }, 2000);
         });
       });
     });
