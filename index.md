@@ -3,15 +3,11 @@ layout: default
 title: Home
 ---
 
-<div style="text-align: center; padding: 40px 0; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 10px; margin-bottom: 40px;">
-  <h1 style="margin: 0; font-size: 48px; color: white;">⚡ Alphavel Framework</h1>
-  <p style="font-size: 24px; margin: 20px 0; opacity: 0.95;">Ultra-fast PHP framework powered by Swoole</p>
-  <p style="font-size: 32px; font-weight: bold; margin: 10px 0;">520,000+ req/s</p>
-  <div style="margin-top: 30px;">
-    <a href="core/getting-started.html" style="display: inline-block; background: white; color: #667eea; padding: 12px 30px; border-radius: 6px; text-decoration: none; font-weight: bold; margin: 0 10px;">Get Started →</a>
-    <a href="https://github.com/alphavel/alphavel" style="display: inline-block; background: rgba(255,255,255,0.2); color: white; padding: 12px 30px; border-radius: 6px; text-decoration: none; font-weight: bold; margin: 0 10px;">View on GitHub ⭐</a>
-  </div>
-</div>
+# Welcome to Alphavel Documentation
+
+**Alphavel** is an ultra-fast PHP framework powered by Swoole, capable of handling **520,000+ requests/second**. Built with a modular architecture, it gives you the power to add only what you need.
+
+---
 
 ## 🚀 Quick Navigation
 
