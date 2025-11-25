@@ -68,12 +68,12 @@
           <details>
             <summary><strong>Packages</strong></summary>
             <ul>
-              <li><a href="{{ site.baseurl }}/packages/database/">Database</a></li>
-              <li><a href="{{ site.baseurl }}/packages/cache/">Cache</a></li>
-              <li><a href="{{ site.baseurl }}/packages/validation/">Validation</a></li>
-              <li><a href="{{ site.baseurl }}/packages/events/">Events</a></li>
-              <li><a href="{{ site.baseurl }}/packages/logging/">Logging</a></li>
-              <li><a href="{{ site.baseurl }}/packages/support/">Support</a></li>
+              <li><a href="{{ site.baseurl }}/packages/database/README.html">Database</a></li>
+              <li><a href="{{ site.baseurl }}/packages/cache/README.html">Cache</a></li>
+              <li><a href="{{ site.baseurl }}/packages/validation/README.html">Validation</a></li>
+              <li><a href="{{ site.baseurl }}/packages/events/README.html">Events</a></li>
+              <li><a href="{{ site.baseurl }}/packages/logging/README.html">Logging</a></li>
+              <li><a href="{{ site.baseurl }}/packages/support/README.html">Support</a></li>
             </ul>
           </details>
           
@@ -612,6 +612,28 @@
             copyBtn.style.background = '#0066cc';
           }, 2000);
         });
+      });
+    });
+  });
+
+  // Persist accordion state using localStorage
+  document.addEventListener('DOMContentLoaded', function() {
+    const details = document.querySelectorAll('aside details');
+    
+    // Restore state from localStorage
+    details.forEach(function(detail, index) {
+      const key = 'accordion_' + index;
+      const isOpen = localStorage.getItem(key);
+      
+      if (isOpen === 'true') {
+        detail.setAttribute('open', '');
+      } else if (isOpen === 'false') {
+        detail.removeAttribute('open');
+      }
+      
+      // Save state when toggled
+      detail.addEventListener('toggle', function() {
+        localStorage.setItem(key, detail.hasAttribute('open'));
       });
     });
   });
