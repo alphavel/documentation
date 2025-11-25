@@ -532,8 +532,11 @@
     codeBlocks.forEach(function(block) {
       const codeElement = block.querySelector('code');
       if (codeElement) {
-        // Apply syntax highlighting - use textContent to get plain text
+        // Get plain text (removes any existing HTML highlighting)
         const originalText = codeElement.textContent;
+        
+        // Clear existing content and apply our highlighting
+        codeElement.innerHTML = '';
         codeElement.innerHTML = highlightCode(originalText);
         
         // Store original text for copying
