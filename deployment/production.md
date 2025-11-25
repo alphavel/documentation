@@ -4,16 +4,59 @@ Complete guide to deploying Alphavel in production environments.
 
 ---
 
+## 🚀 Good News: Already Optimized! (v1.0.6+)
+
+**Alphavel v1.0.6+ comes with production optimizations enabled by default!**
+
+You get **22k req/s out of the box** without manual tuning:
+
+✅ **BASE mode** (29% faster than PROCESS)  
+✅ **CPU × 2 workers** (optimal parallelism)  
+✅ **Infinite max_request** (no restart overhead)  
+✅ **APCu autoloader** (cached class locations)  
+✅ **Aggressive OPcache warm-up** (hot cache from start)  
+
+**No configuration needed** - just deploy and go!
+
+### Performance Comparison
+
+```bash
+# v1.0.5 (manual tuning required)
+Baseline: 17k req/s
+
+# v1.0.6 (proactive optimizations)
+Out of the box: 22k req/s (+29%)
+```
+
+### Customization (If Needed)
+
+All defaults can be overridden via environment variables:
+
+```bash
+# Switch to PROCESS mode (for WebSockets)
+SERVER_MODE=process
+
+# Custom worker count
+SERVER_WORKERS=16
+
+# Enable worker restarts (if memory leaks)
+SERVER_MAX_REQUEST=10000
+```
+
+**👉 For most HTTP/REST APIs, the defaults are perfect!**
+
+---
+
 ## Quick Deployment Checklist
 
 Before going to production:
 
-- [ ] Enable route caching (`alpha route:cache`)
+- [x] ~~Configure Swoole workers~~ **Already optimized (CPU × 2)**
+- [x] ~~Enable OPcache~~ **Already enabled in Dockerfile**
+- [x] ~~Setup connection pooling~~ **Auto-configured**
+- [ ] Enable route caching (`php alpha route:cache`)
 - [ ] Set `APP_ENV=production` in `.env`
 - [ ] Set `APP_DEBUG=false` in `.env`
-- [ ] Enable OPcache in `php.ini`
-- [ ] Configure Swoole workers (2x CPU cores)
-- [ ] Setup database connection pooling
 - [ ] Configure Redis/Memcached for caching
 - [ ] Setup logging and monitoring
 - [ ] Configure SSL/TLS certificates
