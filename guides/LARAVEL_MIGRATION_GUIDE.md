@@ -779,7 +779,7 @@ $users = User::with('posts')->get();
 
 ## 📚 Additional Resources
 
-- [Alphavel Documentation](https://alphavel.dev/docs)
+- [Alphavel Documentation](https://alphavel.github.io/documentation)
 - [API Reference](https://alphavel.dev/api)
 - [Performance Benchmarks](https://alphavel.dev/benchmarks)
 - [Migration Examples](https://github.com/alphavel/examples)
