@@ -446,12 +446,13 @@ opcache.max_accelerated_files=20000
 ; Performance
 opcache.validate_timestamps=0  ; Production only!
 opcache.revalidate_freq=0
-opcache.save_comments=0
+opcache.save_comments=1
 opcache.fast_shutdown=1
 
 ; JIT (PHP 8+)
-opcache.jit=tracing
-opcache.jit_buffer_size=128M
+; Disabled for I/O bound applications (APIs) for stability and performance
+opcache.jit=disable
+; opcache.jit_buffer_size=128M
 ```
 
 ### 2. Swoole Configuration (config/swoole.php)

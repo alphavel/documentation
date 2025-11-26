@@ -31,6 +31,7 @@ title: SUMMARY
 
 ## Core Concepts
 * [Application Lifecycle](core/lifecycle.html)
+* [Performance Architecture](core/performance-architecture.html)
 * [Service Container](core/container.html)
 * [Service Providers](core/service-providers.html)
 * [Package System](core/packages.html)
